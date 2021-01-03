@@ -7,16 +7,13 @@
 <script>
 
 import SearchBox from "@/components/SearchBox";
-import loginMixin from "@/mixins/loginMixin";
+import spotifyApiMixin from "@/mixins/spotifyApiMixin";
 
 export default {
-  mixins: [loginMixin],
+  mixins: [spotifyApiMixin],
   name: 'App',
   components: {
     SearchBox
-  },
-  mounted() {
-    this.login()
   }
 }
 </script>

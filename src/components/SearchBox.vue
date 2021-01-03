@@ -6,7 +6,11 @@
 
 <script>
 
+import spotifyApiMixin from "@/mixins/spotifyApiMixin";
+
 export default {
+  mixins: [spotifyApiMixin],
+
   name: "SearchBox",
   data() {
     return {
@@ -20,7 +24,8 @@ export default {
   },
   methods: {
     search: function (value) {
-      console.log(value)
+      this.getData('search', value, 'track,album,artist,playlist,show,episode')
+      //Тип задаем сами в будущем
     }
   },
 }
