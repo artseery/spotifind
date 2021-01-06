@@ -32,7 +32,7 @@ let spotifyApiMixin = {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
             }).then(response => {
-                    this.writeDataToStorage(response.data)
+                    this.writeSearchResultToStorage(response.data)
                 },
             ).catch(error => {
                 console.log(error.response.status)
@@ -42,7 +42,7 @@ let spotifyApiMixin = {
                 }
             })
         },
-        writeDataToStorage: function (data) {
+        writeSearchResultToStorage: function (data) {
             this.$store.dispatch('updateResults', data).then(() => {
                 console.log(data)
             })
