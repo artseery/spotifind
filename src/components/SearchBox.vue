@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       fieldData: '',
-      type: 'track,album,artist,playlist,show,episode'
+      type: 'track' //для разных видов поиска можно менять
     }
   },
   watch: {
@@ -26,7 +26,7 @@ export default {
   methods: {
     search: function (value) {
       if (value) {
-        this.getData('search' + '?q=' + value + '&type=' + this.type)
+        this.getSearchData(value,  this.type)
         //Тип задаем сами в будущем
       }
       else {

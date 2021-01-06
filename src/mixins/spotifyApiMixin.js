@@ -1,6 +1,8 @@
 import axios from "axios";
 import authToken from "@/authorizationToken";
 
+let spotifyUrl = 'https://api.spotify.com/v1/'
+
 let spotifyApiMixin = {
     methods: {
         login: async function () {
@@ -21,11 +23,11 @@ let spotifyApiMixin = {
             }
             return JSON.parse(token)
         }, // Разделить на 2 функции (получение токена и запись)
-        getData: async function (url) {
+        getSearchData: async function (query, type) {
             let token = await this.login()
             axios({
                 method: 'GET',
-                url: 'https://api.spotify.com/v1/' + url,
+                url: spotifyUrl + 'search?q=' + query + '&type=' + type,
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
@@ -36,7 +38,7 @@ let spotifyApiMixin = {
                 console.log(error.response.status)
                 if (error.response.status === 401) {
                     window.localStorage.clear()
-                    this.getData(url)
+                    this.getSearchData(query, type)
                 }
             })
         },
