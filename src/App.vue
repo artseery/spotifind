@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <search-box></search-box>
+    <div class="page-wrapper">
+      <search-box class="search-box"></search-box>
+      <track-list></track-list>
+    </div>
   </div>
 </template>
 
@@ -8,11 +11,13 @@
 
 import SearchBox from "@/components/SearchBox";
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
+import TrackList from "@/components/TrackList";
 
 export default {
   mixins: [spotifyApiMixin],
   name: 'App',
   components: {
+    TrackList,
     SearchBox
   }
 }
@@ -25,4 +30,11 @@ export default {
 html, body, #app
   margin: 0
   padding: 0
+  width: 100%
+  #app
+    display: flex
+    flex-direction: row
+    justify-content: center
+    .search-box
+      width: 690px
 </style>

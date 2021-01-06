@@ -20,16 +20,23 @@ let spotifyApiMixin = {
             }
             return JSON.parse(token)
         },
-        getData: async function (url, query, type) {
+        getData: async function (url) {
             let token = await this.login()
             axios({
                 method: 'GET',
-                url: 'https://api.spotify.com/v1/' + url + '?q=' + query + '&type=' + type,
+                url: 'https://api.spotify.com/v1/' + url,
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
             }).then(response => {
-                console.log(response)
+                    console.log(response)
+                },
+            ).catch(error => {
+                console.log(error.response.status)
+                if (error.response.status === 401) {
+                    window.localStorage.clear()
+                    this.getData(url)
+                }
             })
 
         }
