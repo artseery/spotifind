@@ -1,4 +1,5 @@
 import axios from "axios";
+import authToken from "@/authorizationToken";
 
 let spotifyApiMixin = {
     methods: {
@@ -9,7 +10,7 @@ let spotifyApiMixin = {
                     method: 'POST',
                     url: 'https://accounts.spotify.com/api/token',
                     headers: {
-                        'Authorization': 'Basic ZjRhYmMyN2VjY2Q4NDEyNDllYTZhZDA0ZmJjNzI0MjU6MDY5YmE5YjQ3ZGU0NGU3NjliNjM4MDgzMGM3YzIwZGM=',
+                        'Authorization': authToken,
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
                     data: 'grant_type=client_credentials'
