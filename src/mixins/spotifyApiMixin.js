@@ -34,7 +34,7 @@ let spotifyApiMixin = {
             }).then(response => {
                     this.writeSearchResultToStorage(response.data)
                 },
-            ).catch(error => {
+            ).catch(error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
                 if (error.response.status === 401) {
                     window.localStorage.clear()
@@ -45,6 +45,27 @@ let spotifyApiMixin = {
         writeSearchResultToStorage: function (data) {
             this.$store.dispatch('updateResults', data).then(() => {
                 console.log(data)
+            })
+        },
+
+        getRecommendationsData: async function (seed_tracks) { // В дальнейшем кол-во фильтров расширится
+            let token = await this.login()
+            axios({
+                method: 'GET',
+                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks,
+                headers: {
+                    'Authorization': token.token_type + ' ' + token.access_token
+                }
+            }).then(response => {
+                console.log('recommendations:')
+                    console.log(response)
+                },
+            ).catch(error => { // Сделать общий обработчик ошибок на все функции работы с API
+                console.log(error.response.status)
+                if (error.response.status === 401) {
+                    window.localStorage.clear()
+                    this.getRecommendationsData(seed_tracks)
+                }
             })
         }
     }
