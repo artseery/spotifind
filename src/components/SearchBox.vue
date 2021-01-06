@@ -29,6 +29,9 @@ export default {
         this.getData('search' + '?q=' + value + '&type=' + this.type)
         //Тип задаем сами в будущем
       }
+      else {
+        this.$store.dispatch('updateResults', null)
+      }
     }
   },
 }
@@ -37,6 +40,7 @@ export default {
 <style scoped lang="sass">
 .search-wrapper
   width: 100%
+  padding: 10px 0
   .search-input
     height: 50px
     width: 100%

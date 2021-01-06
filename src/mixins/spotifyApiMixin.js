@@ -19,7 +19,7 @@ let spotifyApiMixin = {
                 })
             }
             return JSON.parse(token)
-        },
+        }, // Разделить на 2 функции (получение токена и запись)
         getData: async function (url) {
             let token = await this.login()
             axios({
@@ -29,7 +29,7 @@ let spotifyApiMixin = {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
             }).then(response => {
-                    console.log(response)
+                    this.writeDataToStorage(response.data)
                 },
             ).catch(error => {
                 console.log(error.response.status)
@@ -38,7 +38,11 @@ let spotifyApiMixin = {
                     this.getData(url)
                 }
             })
-
+        },
+        writeDataToStorage: function (data) {
+            this.$store.dispatch('updateResults', data).then(() => {
+                console.log(data)
+            })
         }
     }
 }

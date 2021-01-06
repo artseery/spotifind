@@ -26,15 +26,17 @@ export default {
 <style lang="sass">
 *
   box-sizing: border-box
-
+html
+  overflow-y: scroll //Временный фикс скачков из-за скролл бара
 html, body, #app
   margin: 0
   padding: 0
   width: 100%
-  #app
+  #app, .page-wrapper
     display: flex
-    flex-direction: row
+    flex-direction: column
     justify-content: center
+    align-items: center
     .search-box
-      width: 690px
+      width: 800px
 </style>

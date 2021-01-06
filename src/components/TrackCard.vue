@@ -1,6 +1,6 @@
 <template>
-  <div class="trackCard-wrapper">
-    <span>Раз, два, три, четыре, пять</span>
+  <div>
+    <slot></slot>
   </div>
 </template>
 
@@ -10,6 +10,7 @@ name: "TrackCard"
 }
 </script>
 
-<style scoped>
-
+<style lang="sass" scoped>
+  .trackCard-wrapper
+    border: 1px solid lightgrey
 </style>
