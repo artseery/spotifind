@@ -8,7 +8,7 @@ let spotifyApiMixin = {
         login: async function () {
             let token = window.localStorage.getItem('token')
             if (token === 'undefined' || token === null) {
-                axios({
+                await axios({
                     method: 'POST',
                     url: 'https://accounts.spotify.com/api/token',
                     headers: {
