@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="page-wrapper">
-      <search-component></search-component>
+      <router-view/>
     </div>
   </div>
 </template>
@@ -9,14 +9,10 @@
 <script>
 
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
-import SearchComponent from "@/components/SearchComponent";
 
 export default {
   mixins: [spotifyApiMixin],
   name: 'App',
-  components: {
-    SearchComponent,
-  }
 }
 </script>
 

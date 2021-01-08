@@ -6,7 +6,7 @@ let token = JSON.parse(window.localStorage.getItem('token'))
 
 let spotifyApiMixin = {
     methods: {
-        getToken: async function() {
+        getToken: async function () {
             await axios({
                 method: 'POST',
                 url: 'https://accounts.spotify.com/api/token',
@@ -21,6 +21,7 @@ let spotifyApiMixin = {
             })
         },
         writeToken: async function () {
+            console.log(token)
             if (token === 'undefined' || token === null || token === undefined) {
                 await this.getToken()
             }
@@ -51,16 +52,17 @@ let spotifyApiMixin = {
         },
 
         getRecommendationsData: async function (seed_tracks) { // В дальнейшем кол-во фильтров расширится
+            let recommendations = null
             await this.writeToken()
-            axios({
+            await axios({
                 method: 'GET',
                 url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks,
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
             }).then(response => {
-                console.log('recommendations:')
                     console.log(response)
+                    recommendations = response.data
                 },
             ).catch(error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
@@ -69,6 +71,7 @@ let spotifyApiMixin = {
                     this.getRecommendationsData(seed_tracks)
                 }
             })
+            return recommendations
         }
     }
 }

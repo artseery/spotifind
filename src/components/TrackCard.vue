@@ -1,21 +1,23 @@
 <template>
-  <div class="trackCard" @click="getRecommendations">
-    <div class="trackCard-artists">
-      <div class="track-image-wrapper">
-        <img class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
-      </div>
-      <div class="track-info">
-        <div class="track-name-wrapper">
-          <span class="track-name">{{ track.name }}</span>
+  <div class="trackCard">
+    <router-link :to="{ name: 'recommendations', params: { trackId: track.id } }">
+      <div class="trackCard-artists">
+        <div class="track-image-wrapper">
+          <img class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
         </div>
-        <div class="track-artist-wrapper">
+        <div class="track-info">
+          <div class="track-name-wrapper">
+            <span class="track-name">{{ track.name }}</span>
+          </div>
+          <div class="track-artist-wrapper">
             <span class="track-artist" v-for="(artist, i) in track.artists" :key="artist.id">
               <!--eslint-disable-next-line-->
                {{ artist.name }}{{ i < track.artists.length - 1 ? ', ' : '' }}
             </span>
+          </div>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -28,11 +30,6 @@ export default {
   props: {
     track: Object
   },
-  methods: {
-    getRecommendations: function () {
-      this.getRecommendationsData(this.track.id)
-    }
-  }
 }
 </script>
 
@@ -57,6 +54,7 @@ export default {
 
     .track-info
       height: 50px
+
       .track-artist-wrapper, .track-name-wrapper
         white-space: nowrap
         overflow: hidden
