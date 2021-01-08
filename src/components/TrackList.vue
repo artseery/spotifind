@@ -1,7 +1,7 @@
 <template>
   <div class="trackList-wrapper">
-    <div class="trackList" v-if="$store.state.foundResults">
-      <track-card v-for="track in $store.state.foundResults.tracks.items" :key="track.id" class="trackCard" :track="track">
+    <div class="trackList">
+      <track-card v-for="track in tracks" :key="track.id" class="trackCard" :track="track">
       </track-card>
     </div>
   </div>
@@ -11,6 +11,7 @@
 import TrackCard from "@/components/TrackCard";
 
 export default {
+  props: ['tracks'],
   name: "TrackList",
   components: {TrackCard}
 }

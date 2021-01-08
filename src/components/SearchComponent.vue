@@ -1,7 +1,7 @@
 <template>
   <div class="search-wrapper">
     <search-box class="search-box"></search-box>
-    <track-list></track-list>
+    <track-list v-if="$store.state.foundResults" :tracks="$store.state.foundResults.tracks.items"></track-list>
   </div>
 </template>
 
