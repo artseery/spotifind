@@ -1,24 +1,21 @@
 <template>
   <div id="app">
     <div class="page-wrapper">
-      <search-box class="search-box"></search-box>
-      <track-list></track-list>
+      <search-component></search-component>
     </div>
   </div>
 </template>
 
 <script>
 
-import SearchBox from "@/components/SearchBox";
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
-import TrackList from "@/components/TrackList";
+import SearchComponent from "@/components/SearchComponent";
 
 export default {
   mixins: [spotifyApiMixin],
   name: 'App',
   components: {
-    TrackList,
-    SearchBox
+    SearchComponent,
   }
 }
 </script>
@@ -32,11 +29,4 @@ html, body, #app
   margin: 0
   padding: 0
   width: 100%
-  #app, .page-wrapper
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    .search-box
-      width: 800px
 </style>
