@@ -2,29 +2,31 @@ import axios from "axios";
 import authToken from "@/authorizationToken";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
+let token = JSON.parse(window.localStorage.getItem('token'))
 
 let spotifyApiMixin = {
     methods: {
-        login: async function () {
-            let token = window.localStorage.getItem('token')
-            if (token === 'undefined' || token === null) {
-                await axios({
-                    method: 'POST',
-                    url: 'https://accounts.spotify.com/api/token',
-                    headers: {
-                        'Authorization': authToken,
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    data: 'grant_type=client_credentials'
-                }).then(response => {
-                    window.localStorage.setItem('token', JSON.stringify(response.data))
-                    token = window.localStorage.getItem('token')
-                })
+        getToken: async function() {
+            await axios({
+                method: 'POST',
+                url: 'https://accounts.spotify.com/api/token',
+                headers: {
+                    'Authorization': authToken,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: 'grant_type=client_credentials'
+            }).then(response => {
+                window.localStorage.setItem('token', JSON.stringify(response.data))
+                token = window.localStorage.getItem('token')
+            })
+        },
+        writeToken: async function () {
+            if (token === 'undefined' || token === null || token === undefined) {
+                await this.getToken()
             }
-            return JSON.parse(token)
-        }, // Разделить на 2 функции (получение токена и запись)
+        },
         getSearchData: async function (query, type) {
-            let token = await this.login()
+            await this.writeToken()
             axios({
                 method: 'GET',
                 url: spotifyUrl + 'search?q=' + query + '&type=' + type,
@@ -49,7 +51,7 @@ let spotifyApiMixin = {
         },
 
         getRecommendationsData: async function (seed_tracks) { // В дальнейшем кол-во фильтров расширится
-            let token = await this.login()
+            await this.writeToken()
             axios({
                 method: 'GET',
                 url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks,
