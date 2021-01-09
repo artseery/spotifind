@@ -17,11 +17,10 @@ let spotifyApiMixin = {
                 data: 'grant_type=client_credentials'
             }).then(response => {
                 window.localStorage.setItem('token', JSON.stringify(response.data))
-                token = window.localStorage.getItem('token')
+                token = JSON.parse(window.localStorage.getItem('token'))
             })
         },
         writeToken: async function () {
-            console.log(token)
             if (token === 'undefined' || token === null || token === undefined) {
                 await this.getToken()
             }
