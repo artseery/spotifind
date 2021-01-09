@@ -36,11 +36,12 @@ let spotifyApiMixin = {
             }).then(response => {
                     this.writeSearchResultToStorage(response.data)
                 },
-            ).catch(error => { // Сделать общий обработчик ошибок на все функции работы с API
+            ).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
                 if (error.response.status === 401) {
                     window.localStorage.clear()
-                    this.getSearchData(query, type)
+                    await this.getToken()
+                    await this.getSearchData(query, type)
                 }
             })
         },
@@ -51,7 +52,7 @@ let spotifyApiMixin = {
         },
 
         getRecommendationsData: async function (seed_tracks) { // В дальнейшем кол-во фильтров расширится
-            let recommendations = null
+            let recommendations
             await this.writeToken()
             await axios({
                 method: 'GET',
@@ -63,11 +64,12 @@ let spotifyApiMixin = {
                     console.log(response)
                     recommendations = response.data
                 },
-            ).catch(error => { // Сделать общий обработчик ошибок на все функции работы с API
+            ).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
                 if (error.response.status === 401) {
                     window.localStorage.clear()
-                    this.getRecommendationsData(seed_tracks)
+                    await this.getToken()
+                    await this.getRecommendationsData(seed_tracks)
                 }
             })
             return recommendations
