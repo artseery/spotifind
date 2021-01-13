@@ -26,7 +26,7 @@ export default {
       for (const [key, value] of Object.entries(this.$store.state.filters)) {
         await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
       }
-      this.recommendations = await this.getRecommendationsData(this.trackId)
+      this.recommendations = await this.getRecommendationsData(this.trackId, this.$store.state.filters)
       //Переделать логику, данные поиска и редомендаций должны быть в одной переменной, что бы можно было работать и с поиском и с реками
       console.log('recs:', this.recommendations)
     }

@@ -51,12 +51,16 @@ let spotifyApiMixin = {
             })
         },
 
-        getRecommendationsData: async function (seed_tracks, filters = '') { // В дальнейшем кол-во фильтров расширится
+        getRecommendationsData: async function (seed_tracks, newFilters = null) { // В дальнейшем кол-во фильтров расширится
             let recommendations
+            let filtersUrl = ''
+            for (const [key, value] of Object.entries(newFilters)) {
+                filtersUrl += '&target_' + key + '=' + value
+            }
             await this.writeToken()
             await axios({
                 method: 'GET',
-                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filters,
+                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl,
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
