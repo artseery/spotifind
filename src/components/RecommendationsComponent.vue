@@ -22,8 +22,12 @@ export default {
     getRecomendations: async function () {
       let features = await this.getAudioFeatures(this.trackId)
       features.popularity = 100
-      await this.$store.dispatch('setDefaultMainFilterValues', features)
-      this.recommendations = await this.getRecommendationsData(this.trackId) //Переделать логику, данные поиска и редомендаций должны быть в одной переменной, что бы можно было работать и с поиском и с реками
+      // eslint-disable-next-line no-unused-vars
+      for (const [key, value] of Object.entries(this.$store.state.filters)) {
+        await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
+      }
+      this.recommendations = await this.getRecommendationsData(this.trackId)
+      //Переделать логику, данные поиска и редомендаций должны быть в одной переменной, что бы можно было работать и с поиском и с реками
       console.log('recs:', this.recommendations)
     }
   },

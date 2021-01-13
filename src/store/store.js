@@ -49,7 +49,7 @@ const store = new Vuex.Store({
         setDefaultMainFilterValues({ commit }, defaultValues) {
             commit('setDefaultMainFilterValues', defaultValues)
         },
-        setFilterValuesByKey({ commit }, {key, value}) {
+        setFilterValuesByKey({ commit }, [key, value]) {
             commit('setFilterValuesByKey', {key, value})
         }
     }

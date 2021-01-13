@@ -51,12 +51,12 @@ let spotifyApiMixin = {
             })
         },
 
-        getRecommendationsData: async function (seed_tracks) { // В дальнейшем кол-во фильтров расширится
+        getRecommendationsData: async function (seed_tracks, filters = '') { // В дальнейшем кол-во фильтров расширится
             let recommendations
             await this.writeToken()
             await axios({
                 method: 'GET',
-                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks,
+                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filters,
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
