@@ -73,6 +73,29 @@ let spotifyApiMixin = {
                 }
             })
             return recommendations
+        },
+
+        getAudioFeatures: async function (seed_tracks) {
+            let features = null
+            await this.writeToken()
+            await axios({
+                method: 'GET',
+                url: spotifyUrl + 'audio-features/' + seed_tracks,
+                headers: {
+                    'Authorization': token.token_type + ' ' + token.access_token
+                }
+            }).then(response => {
+                    features = response.data
+                },
+            ).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
+                console.log(error.response.status)
+                if (error.response.status === 401) {
+                    window.localStorage.clear()
+                    await this.getToken()
+                    await this.getAudioFeatures(seed_tracks)
+                }
+            })
+            return features
         }
     }
 }

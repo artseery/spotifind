@@ -1,6 +1,6 @@
 <template>
   <div class="trackCard">
-    <router-link :to="{ name: 'recommendations', params: { trackId: track.id } }">
+    <router-link :to="{ name: 'recommendations', params: { trackId: track.id} }">
       <div class="trackCard-artists">
         <div class="track-image-wrapper">
           <img class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>

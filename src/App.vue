@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="page-wrapper">
+      {{ $store.state.filters }}
       <router-view/>
     </div>
   </div>
