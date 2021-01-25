@@ -1,16 +1,18 @@
 <template>
   <div class="recommendations-wrapper">
     <track-list v-if="recommendations" :tracks="recommendations.tracks"></track-list>
+    <filters-block class="filters-block" @updateRecommendations="updateRecommendations"></filters-block>
   </div>
 </template>
 
 <script>
 import TrackList from "@/components/TrackList";
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
+import FiltersBlock from "@/components/FiltersBlock";
 
 export default {
   name: "RecommendationsComponent",
-  components: {TrackList},
+  components: {FiltersBlock, TrackList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
   data() {
@@ -29,6 +31,9 @@ export default {
       this.recommendations = await this.getRecommendationsData(this.trackId, this.$store.state.filters)
       //Переделать логику, данные поиска и редомендаций должны быть в одной переменной, что бы можно было работать и с поиском и с реками
       console.log('recs:', this.recommendations)
+    },
+    updateRecommendations: function (newRecommendations) {
+      this.recommendations = newRecommendations
     }
   },
   created: function () {
@@ -45,11 +50,15 @@ export default {
 <style lang="sass" scoped>
 .recommendations-wrapper
   display: flex
-  flex-direction: column
+  flex-direction: row
   justify-content: center
-  align-items: center
+  //align-items: center
   width: 100%
 
   .search-box
     width: 800px
+  .filters-block
+    position: fixed
+    right: 20px
+    width: 240px
 </style>
