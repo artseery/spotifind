@@ -15,6 +15,11 @@
                {{ artist.name }}{{ i < track.artists.length - 1 ? ', ' : '' }}
             </span>
           </div>
+          <div class="track-uri-wrapper">
+            <div class="track-uri">
+              <a :href="track.uri" @click="openInApp(track.uri, $event)">Открыть в приложении</a>
+            </div>
+          </div>
         </div>
       </div>
     </router-link>
@@ -30,6 +35,11 @@ export default {
   props: {
     track: Object
   },
+  methods: {
+    openInApp: function (uri, event) {
+      event.stopPropagation()
+    }
+  }
 }
 </script>
 

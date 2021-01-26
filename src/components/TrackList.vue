@@ -27,7 +27,7 @@ export default {
   .trackList
     display: grid
     grid-template-columns: repeat(3, 220px)
-    grid-auto-rows: 270px
+    grid-auto-rows: 280px
     grid-gap: 10px
 
 
