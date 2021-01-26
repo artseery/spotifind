@@ -3,8 +3,8 @@
     <div class="filters">
       <div v-for="(value, key) in $store.state.filters" :key="key">{{ key }}
         <div class="range-wrapper">
-          <input id="size" type="range" min="0.0" max="1.0" step="0.01" :value="value" @change="filterValueChange(key, value, $event)"/>
-          <span>{{ value }}</span>
+          <input id="size" type="range" min="0.0" :max="key==='tempo' ? 300 : 1.0" step="0.01" :value="value" @change="filterValueChange(key, value, $event)"/>
+          <input class="filter-input" :value="value" @change="filterValueChange(key, value, $event)">
         </div>
       </div>
     </div>
@@ -34,4 +34,8 @@ export default {
   flex-direction: row
   justify-content: flex-start
   align-items: flex-start
+.filter-input
+  border: none
+  &:focus
+    outline: none
 </style>
