@@ -29,7 +29,11 @@ let spotifyApiMixin = {
             await this.writeToken()
             axios({
                 method: 'GET',
-                url: spotifyUrl + 'search?q=' + query + '&type=' + type,
+                url: spotifyUrl + 'search',
+                params: {
+                    q: query,
+                    type: type
+                },
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
