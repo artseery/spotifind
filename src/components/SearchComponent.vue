@@ -1,7 +1,7 @@
 <template>
   <div class="search-wrapper">
-    <search-box class="search-box"></search-box>
-    <track-list v-if="$store.state.foundResults" :tracks="$store.state.foundResults.tracks.items"></track-list>
+    <search-box class="search-box"/>
+    <track-list v-if="$store.state.foundResults" :tracks="$store.state.foundResults.tracks.items"/>
   </div>
 </template>
 
@@ -17,11 +17,11 @@ name: "SearchComponent",
 
 <style lang="sass" scoped>
 .search-wrapper
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  width: 100%
+  width: 690px
+  max-height: 100vh
+  padding: 10px 10px 0 10px
+  border-right: 2px solid #474747
+  min-height: 100%
   .search-box
-    width: 800px
+    width: 100%
 </style>

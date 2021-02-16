@@ -13,22 +13,20 @@ import TrackCard from "@/components/TrackCard";
 export default {
   props: ['tracks'],
   name: "TrackList",
-  components: {TrackCard}
+  components: {TrackCard},
 }
 </script>
 
 <style lang="sass" scoped>
 .trackList-wrapper
-  width: 690px
-  display: flex
-  flex-direction: row
-  justify-content: center
-
+  width: 100%
+  max-height: calc(100vh - 60px)
+  overflow: auto
+  -ms-overflow-style: none
+  scrollbar-width: none
+  &::-webkit-scrollbar
+    width: 0
+    background: transparent
   .trackList
-    display: grid
-    grid-template-columns: repeat(3, 220px)
-    grid-auto-rows: 280px
-    grid-gap: 10px
-
-
+    display: block
 </style>

@@ -25,7 +25,8 @@ const store = new Vuex.Store({
             // loudness: null, // Громкость композиции (в децибеллах от -60 до 0)
 
             // Добавить target на return-е
-        }
+        },
+        activeTrack: null
     },
     mutations: {
         updateResults(state, data) {
@@ -37,6 +38,9 @@ const store = new Vuex.Store({
         changeFilterValuesByKey(state, { key, value }) {
             state.filters[key] = value
             // запрос на серв
+        },
+        chooseActiveTrack(state, track_id) {
+            state.activeTrack = track_id
         }
     },
     actions: {
@@ -56,6 +60,9 @@ const store = new Vuex.Store({
                 commit('changeFilterValuesByKey', { key, value })
                 resolve()
             })
+        },
+        chooseActiveTrack({ commit }, track_id) {
+            commit('chooseActiveTrack', track_id)
         }
     }
 })

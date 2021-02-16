@@ -1,8 +1,8 @@
 import RecommendationsComponent from "@/components/RecommendationsComponent";
-import SearchComponent from "@/components/SearchComponent";
+import SearchRecommendationsComponent from "@/components/SearchRecommendationsComponent";
 
 const routes = [
-    { path: '', component: SearchComponent},
+    { path: '', component: SearchRecommendationsComponent},
     { path: '/recommendations/:trackId', component: RecommendationsComponent, props: true, name: 'recommendations'},
 ]
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="search-wrapper">
+  <div class="search-input-wrapper">
     <input class="search-input" v-model="fieldData"/>
   </div>
 </template>
@@ -38,13 +38,22 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.search-wrapper
+@import "../variables.sass"
+
+.search-input-wrapper
   width: 100%
-  padding: 10px 0
+  margin-bottom: 20px
   .search-input
     height: 50px
     width: 100%
-    padding: 10px
-    border: 1px solid #b0b0b0
+    padding: 10px 20px
+    border: 2px solid $background-color-accessory
     border-radius: 50px
+    background-color: $background-color-main
+    color: white
+    transition: all .2s ease
+    font-weight: 800
+    font-size: 0.9em
+    &:focus
+      border-color: $spotify-color
 </style>
