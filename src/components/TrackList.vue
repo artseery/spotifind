@@ -20,7 +20,7 @@ export default {
 <style lang="sass" scoped>
 .trackList-wrapper
   width: 100%
-  max-height: calc(100vh - 60px)
+  max-height: calc(100vh - 80px)
   overflow: auto
   -ms-overflow-style: none
   scrollbar-width: none

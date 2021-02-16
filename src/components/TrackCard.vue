@@ -65,6 +65,8 @@ export default {
 
   &:first-child
     border-top: 1px solid $background-color-accessory
+  &:last-child
+    margin-bottom: 20px
 
   & a
     text-decoration: none
