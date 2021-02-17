@@ -53,7 +53,6 @@ export default {
 .recommendations-wrapper
   width: 100%
   max-height: 100vh
-  padding: $padding-page-default
 
   .search-box
     width: 800px

@@ -74,7 +74,7 @@ export default {
     border-top: 1px solid $background-color-accessory
 
   &:last-child
-    margin-bottom: 20px
+    //margin-bottom: 20px
 
   & a
     text-decoration: none
