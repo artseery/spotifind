@@ -1,18 +1,18 @@
 <template>
   <div class="recommendations-wrapper">
-    <track-list v-if="recommendations" :tracks="recommendations.tracks"></track-list>
-    <filters-block class="filters-block" @updateRecommendations="updateRecommendations"></filters-block>
+    <recommendation-list v-if="recommendations" :tracks="recommendations.tracks"></recommendation-list>
+<!--    <filters-block class="filters-block" @updateRecommendations="updateRecommendations"></filters-block>-->
   </div>
 </template>
 
 <script>
-import TrackList from "@/components/TrackList";
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
-import FiltersBlock from "@/components/FiltersBlock";
+import RecommendationList from "@/components/RecommendationsList";
+// import FiltersBlock from "@/components/FiltersBlock";
 
 export default {
   name: "RecommendationsComponent",
-  components: {FiltersBlock, TrackList},
+  components: {RecommendationList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
   data() {
@@ -22,13 +22,13 @@ export default {
   },
   methods: {
     getRecomendations: async function () {
-      let features = await this.getAudioFeatures(this.trackId)
+      let features = await this.getAudioFeatures(this.$store.state.activeTrack)
       features.popularity = 100
       // eslint-disable-next-line no-unused-vars
       for (const [key, value] of Object.entries(this.$store.state.filters)) {
         await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
       }
-      this.recommendations = await this.getRecommendationsData(this.trackId, this.$store.state.filters)
+      this.recommendations = await this.getRecommendationsData(this.$store.state.activeTrack, this.$store.state.filters)
       //Переделать логику, данные поиска и редомендаций должны быть в одной переменной, что бы можно было работать и с поиском и с реками
       console.log('recs:', this.recommendations)
     },
@@ -40,7 +40,7 @@ export default {
     this.getRecomendations()
   },
   watch: {
-    trackId: function () {
+    '$store.state.activeTrack': function () {
       this.getRecomendations()
     }
   }
@@ -48,12 +48,12 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../variables"
+
 .recommendations-wrapper
-  display: flex
-  flex-direction: row
-  justify-content: center
-  //align-items: center
   width: 100%
+  max-height: 100vh
+  padding: $padding-page-default
 
   .search-box
     width: 800px

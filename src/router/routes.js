@@ -1,4 +1,4 @@
-import RecommendationsComponent from "@/components/RecommendationsComponent";
+import RecommendationsComponent from "@/components/RecommendationComponent";
 import SearchRecommendationsComponent from "@/components/SearchRecommendationsComponent";
 
 const routes = [

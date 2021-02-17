@@ -1,8 +1,7 @@
 <template>
   <div class="trackList-wrapper">
     <div class="trackList">
-      <track-card v-for="track in tracks" :key="track.id" :track="track">
-      </track-card>
+      <track-card v-for="track in tracks" :key="track.id" :track="track" :form="'rec'"/>
     </div>
   </div>
 </template>

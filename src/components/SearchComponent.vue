@@ -16,10 +16,13 @@ name: "SearchComponent",
 </script>
 
 <style lang="sass" scoped>
+@import "../variables"
+
 .search-wrapper
+  flex-shrink: 0
   width: 690px
   max-height: 100vh
-  padding: 10px 10px 0 10px
+  padding: $padding-page-default
   border-right: 2px solid #474747
   min-height: 100%
   .search-box

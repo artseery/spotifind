@@ -1,5 +1,6 @@
 <template>
-  <div class="trackCard" @click="$store.dispatch('chooseActiveTrack', track.id)" :class="{ active: $store.state.activeTrack === track.id }">
+  <div class="trackCard" @click="form === 'rec' ? $store.dispatch('chooseActiveTrack', track.id) : openInApp(track.uri)"
+       :class="{ active: $store.state.activeTrack === track.id, sqr: form === 'sqr', rec: form === 'rec' }">
     <div class="trackCard-inner">
       <div class="track-image-wrapper">
         <img class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
@@ -14,10 +15,12 @@
                {{ artist.name }}{{ i < track.artists.length - 1 ? ', ' : '' }}
             </span>
         </div>
-        <div class="track-uri-wrapper">
+        <div class="track-uri-wrapper" v-if="form === 'rec'">
           <div class="track-uri">
-            <a :href="track.uri" @click="openInApp(track.uri, $event)">
-              <img class="spotify-logo" :src="$store.state.activeTrack === track.id ? spotify_logo_black : spotify_logo_default" alt="Open in app"/>
+            <a :href="track.uri" @click="stopPropagation($event)">
+              <img class="spotify-logo"
+                   :src="$store.state.activeTrack === track.id ? spotify_logo_black : spotify_logo_default"
+                   alt="Open in app"/>
             </a>
           </div>
         </div>
@@ -35,7 +38,8 @@ export default {
   name: "TrackCard",
   mixins: [spotifyApiMixin],
   props: {
-    track: Object
+    track: Object,
+    form: String
   },
   data() {
     return {
@@ -44,27 +48,31 @@ export default {
     }
   },
   methods: {
-    openInApp: function (uri, event) {
+    stopPropagation: function (event) {
       event.stopPropagation()
     },
+    openInApp: function (track_uri) {
+      location.href = track_uri
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
 @import "../variables"
-
-.trackCard
+.rec
   height: 140px
   display: flex
   flex-direction: row
   align-items: center
   border-bottom: 1px solid $background-color-accessory
   background-color: inherit
-  transition: all .2s ease //Мб лого споти добавить анимацию
+  transition: all .2s ease
+  //Мб лого споти добавить анимацию
 
   &:first-child
     border-top: 1px solid $background-color-accessory
+
   &:last-child
     margin-bottom: 20px
 
@@ -141,5 +149,57 @@ export default {
 
   &.active
     background: $spotify-color
+
+//квадрат
+.sqr
+  width: 200px
+
+  & a
+    text-decoration: none
+
+  .trackCard-inner
+
+    .track-image-wrapper
+      width: 200px
+      height: 200px
+
+      .track-image
+        height: 100%
+        width: auto
+
+    .track-artist-wrapper, .track-name-wrapper
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+
+    .track-info
+      margin-top: 10px
+      width: 100%
+      height: 100%
+
+
+      .track-name-wrapper
+        margin-bottom: 6px
+
+        .track-name
+          font-weight: 800
+          font-size: 1.1em
+          color: $font-color-main
+
+      .track-artist-wrapper
+        margin-bottom: 4px
+
+        .track-artist
+          color: $font-color-accessory
+
+      .track-uri-wrapper
+
+        .track-uri
+          .spotify-logo
+            height: $track-card-spotify-logo-size
+            width: $track-card-spotify-logo-size
+
+  .track-image
+    width: 100%
 
 </style>

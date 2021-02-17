@@ -7,7 +7,7 @@
 
 <script>
 import SearchComponent from "@/components/SearchComponent";
-import RecommendationsComponent from "@/components/RecommendationsComponent";
+import RecommendationsComponent from "@/components/RecommendationComponent";
 
 export default {
   name: "SearchRecommendationsComponent",
@@ -19,5 +19,7 @@ export default {
 .search-recommendations-wrapper
   width: 100%
   height: 100%
+  display: flex
+  flex-direction: row
 
 </style>
