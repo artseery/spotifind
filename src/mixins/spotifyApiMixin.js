@@ -61,6 +61,7 @@ let spotifyApiMixin = {
             for (const [key, value] of Object.entries(newFilters)) {
                 filtersUrl += '&target_' + key + '=' + value
             }
+            this.$store.dispatch('changeLoadingState', { component: 'recs', isLoading: true})
             await this.writeToken()
             await axios({
                 method: 'GET',
@@ -79,6 +80,8 @@ let spotifyApiMixin = {
                     await this.getToken()
                     await this.getRecommendationsData(seed_tracks)
                 }
+            }).then(() => {
+                this.$store.dispatch('changeLoadingState', { component: 'recs', isLoading: false })
             })
             return recommendations
         },

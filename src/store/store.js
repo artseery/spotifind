@@ -26,7 +26,11 @@ const store = new Vuex.Store({
 
             // Добавить target на return-е
         },
-        activeTrack: null
+        activeTrack: null,
+        loading: {
+            search: false,
+            recs: false
+        }
     },
     mutations: {
         updateResults(state, data) {
@@ -41,6 +45,9 @@ const store = new Vuex.Store({
         },
         chooseActiveTrack(state, track_id) {
             state.activeTrack = track_id
+        },
+        changeLoadingState(state, { component, isLoading }) {
+            state.loading[component] = isLoading
         }
     },
     actions: {
@@ -63,6 +70,9 @@ const store = new Vuex.Store({
         },
         chooseActiveTrack({ commit }, track_id) {
             commit('chooseActiveTrack', track_id)
+        },
+        changeLoadingState({ commit }, payload) {
+            commit('changeLoadingState', payload)
         }
     }
 })

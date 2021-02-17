@@ -93,6 +93,7 @@ export default {
       display: flex
       flex-direction: row
       justify-content: center
+      flex-shrink: 0
 
       .track-image
         height: 100%
@@ -162,6 +163,7 @@ export default {
     .track-image-wrapper
       width: 200px
       height: 200px
+      flex-shrink: 0
 
       .track-image
         height: 100%
