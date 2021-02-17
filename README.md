@@ -2,4 +2,4 @@
 
 ## Web app for flexible search of similar music compositions
 
-![] (gif_main.gif)
+![](gif_main.gif)
