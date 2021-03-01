@@ -1,6 +1,6 @@
 <template>
   <div class="search-input-wrapper">
-    <input class="search-input" v-model="fieldData"/>
+    <input placeholder="Search" class="search-input" v-model="fieldData"/>
   </div>
 </template>
 
@@ -20,6 +20,7 @@ export default {
   },
   watch: {
     fieldData: function (value) {
+      this.$store.dispatch('chooseActiveTrack', null)
       this.search(value)
     }
   },
@@ -49,11 +50,12 @@ export default {
     padding: 10px 20px
     border: 2px solid $background-color-accessory
     border-radius: 50px
-    background-color: $background-color-main
+    background-color: $background-color-accessory
     color: white
     transition: all .2s ease
     font-weight: 800
     font-size: 0.9em
     &:focus
       border-color: $spotify-color
+      background-color: $background-color-main
 </style>

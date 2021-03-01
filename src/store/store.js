@@ -30,7 +30,8 @@ const store = new Vuex.Store({
         loading: {
             search: false,
             recs: false
-        }
+        },
+        recommendations: null
     },
     mutations: {
         updateResults(state, data) {
@@ -48,6 +49,9 @@ const store = new Vuex.Store({
         },
         changeLoadingState(state, { component, isLoading }) {
             state.loading[component] = isLoading
+        },
+        updateRecomendations(state, recomendations) {
+            state.recommendations = recomendations
         }
     },
     actions: {
@@ -73,6 +77,9 @@ const store = new Vuex.Store({
         },
         changeLoadingState({ commit }, payload) {
             commit('changeLoadingState', payload)
+        },
+        updateRecomendations({ commit }, recomendations) {
+            commit('updateRecomendations', recomendations)
         }
     }
 })

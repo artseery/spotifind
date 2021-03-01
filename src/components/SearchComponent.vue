@@ -23,7 +23,7 @@ name: "SearchComponent",
   width: 690px
   max-height: 100vh
   padding: $padding-page-default
-  border-right: 2px solid #474747
+  border-right: 2px solid $background-color-accessory
   min-height: 100%
   .search-box
     width: 100%

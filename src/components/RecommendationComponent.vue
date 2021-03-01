@@ -1,8 +1,8 @@
 <template>
   <div class="recommendations-wrapper">
     <transition name="fade-slide" mode="out-in">
-      <recommendation-list v-if="recommendations  && !$store.state.loading.recs"
-                           :tracks="recommendations.tracks"/>
+      <recommendation-list v-if="$store.state.recommendations  && !$store.state.loading.recs"
+                           :tracks="$store.state.recommendations.tracks"/>
     </transition>
     <transition name="fade" mode="out-in">
       <loading-component v-if="$store.state.loading.recs"/>
@@ -22,11 +22,6 @@ export default {
   components: {LoadingComponent, RecommendationList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
-  data() {
-    return {
-      recommendations: null
-    }
-  },
   methods: {
     getRecomendations: async function () {
       let features = await this.getAudioFeatures(this.$store.state.activeTrack)
@@ -35,13 +30,8 @@ export default {
       for (const [key, value] of Object.entries(this.$store.state.filters)) {
         await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
       }
-      this.recommendations = await this.getRecommendationsData(this.$store.state.activeTrack, this.$store.state.filters)
-      //Переделать логику, данные поиска и редомендаций должны быть в одной переменной, что бы можно было работать и с поиском и с реками
-      console.log('recs:', this.recommendations)
+      await this.$store.dispatch('updateRecomendations', await this.getRecommendationsData(this.$store.state.activeTrack, this.$store.state.filters))
     },
-    updateRecommendations: function (newRecommendations) {
-      this.recommendations = newRecommendations
-    }
   },
   created: function () {
     this.getRecomendations()
@@ -82,6 +72,7 @@ export default {
 
 .fade-enter, .fade-leave-to
   opacity: 0
+
 .fade-enter-to, .fade-leave
   transition-delay: .1s
 
