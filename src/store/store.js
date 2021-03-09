@@ -31,7 +31,8 @@ const store = new Vuex.Store({
             search: false,
             recs: false
         },
-        recommendations: null
+        recommendations: null,
+        searchInputFocused: false
     },
     mutations: {
         updateResults(state, data) {
@@ -52,6 +53,9 @@ const store = new Vuex.Store({
         },
         updateRecomendations(state, recomendations) {
             state.recommendations = recomendations
+        },
+        searchInputFocus(state, condition) {
+            state.searchInputFocused = condition
         }
     },
     actions: {
@@ -80,8 +84,11 @@ const store = new Vuex.Store({
         },
         updateRecomendations({ commit }, recomendations) {
             commit('updateRecomendations', recomendations)
+        },
+        searchInputFocus({ commit }, condition) {
+            commit('searchInputFocus', condition)
         }
     }
 })
-
+    // Разобъем на модули в будущем
 export default store

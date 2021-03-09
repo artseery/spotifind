@@ -1,12 +1,15 @@
 <template>
   <div class="recommendations-wrapper">
-    <transition name="fade-slide" mode="out-in">
-      <recommendation-list v-if="$store.state.recommendations  && !$store.state.loading.recs"
-                           :tracks="$store.state.recommendations.tracks"/>
-    </transition>
-    <transition name="fade" mode="out-in">
-      <loading-component v-if="$store.state.loading.recs"/>
-    </transition>
+    <filters-block v-if="$store.state.recommendations"/>
+    <div class="recommendations-list-wrapper">
+      <transition name="fade-slide" mode="out-in">
+        <recommendation-list :tracks="$store.state.recommendations.tracks"
+                             v-if="$store.state.recommendations  && !$store.state.loading.recs"/>
+      </transition>
+      <transition name="fade" mode="out-in">
+        <loading-component v-if="$store.state.loading.recs"/>
+      </transition>
+    </div>
     <!--    <filters-block class="filters-block" @updateRecommendations="updateRecommendations"></filters-block>-->
   </div>
 </template>
@@ -15,11 +18,12 @@
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
 import RecommendationList from "@/components/RecommendationsList";
 import LoadingComponent from "@/components/LoadingComponent";
+import FiltersBlock from "@/components/FiltersBlock";
 // import FiltersBlock from "@/components/FiltersBlock";
 
 export default {
   name: "RecommendationsComponent",
-  components: {LoadingComponent, RecommendationList},
+  components: {FiltersBlock, LoadingComponent, RecommendationList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
   methods: {
@@ -48,17 +52,20 @@ export default {
 @import "../variables"
 
 .recommendations-wrapper
+  display: flex
   position: relative
-  width: 100%
-  max-height: 100vh
+  width: $content-width
+  height: 100%
+  -ms-overflow-style: none
+  scrollbar-width: none
+  overflow: auto
+
+  .recommendations-list-wrapper
+    width: 100%
+    position: relative
 
   .search-box
     width: 800px
-
-  .filters-block
-    position: fixed
-    right: 20px
-    width: 240px
 
 .fade-slide-enter-active, .fade-slide-leave-active
   transition: all .2s ease

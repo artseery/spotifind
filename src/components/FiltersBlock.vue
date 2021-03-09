@@ -39,84 +39,89 @@ export default {
 
 <style lang="sass" scoped>
 @import "../variables"
-
-.filters
-  display: grid
-  grid-template-columns: min-content min-content
-  grid-column-gap: 10px
-  grid-row-gap: 10px
-  font-weight: 600
-.filters-inputs
-  display: flex
-  flex-direction: column
-  align-items: center
-
-.range-wrapper
-  display: flex
-  flex-direction: row
-  justify-content: flex-start
-  align-items: flex-start
-
-.filter
-  border: none
-
-  &.input
-    background: $background-color-accessory
-    border-radius: 20px
-    padding: 2px 5px
-    position: relative
-    width: 50px
-    color: white
-    font-family: inherit
+.filters-wrapper
+  height: auto
+  padding-top: $padding-page-default
+  .filters
+    display: grid
+    grid-template-columns: min-content min-content
+    grid-column-gap: 10px
+    grid-row-gap: 10px
     font-weight: 600
+    background: black
+    padding: 20px
+    font-size: 0.8em
+  .filters-inputs
+    display: flex
+    flex-direction: column
+    align-items: center
 
-  &:focus
-    outline: none
+  .range-wrapper
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: flex-start
 
-input[type=range]
-  background: transparent
-  width: 200px
-  height: 20px
+  .filter
+    border: none
 
-input[type=range]::-webkit-slider-runnable-track
-   width: 100%
-   height: 4px
-   cursor: pointer
-   background: $spotify-color
-   border-radius: 2px
-   border: none
+    &.input
+      background: $background-color-accessory
+      border-radius: 20px
+      padding: 2px 5px
+      position: relative
+      width: 50px
+      color: white
+      font-family: inherit
+      font-weight: 600
 
-input[type=range]::-webkit-slider-thumb
-  -webkit-appearance: none
-  border: none
-  height: 12px
-  width: 12px
-  border-radius: 7px
-  background: white
-  cursor: pointer
-  transition: all .2s ease
-  margin-top: -7px
+    &:focus
+      outline: none
+
+  input[type=range]
+    background: transparent
+    width: 120px
+    height: 10px
+
+  input[type=range]::-webkit-slider-runnable-track
+     width: 100%
+     height: 4px
+     cursor: pointer
+     background: $spotify-color
+     border-radius: 2px
+     border: none
+
+  input[type=range]::-webkit-slider-thumb
+    -webkit-appearance: none
+    border: none
+    height: 12px
+    width: 12px
+    border-radius: 7px
+    background: white
+    cursor: pointer
+    transition: all .2s ease
+    margin-top: -7px
 
 
-input[type=range]::-moz-range-track
-   width: 100%
-   height: 4px
-   cursor: pointer
-   background: $spotify-color
-   border-radius: 2px
-   border: none
+  input[type=range]::-moz-range-track
+     width: 100%
+     height: 4px
+     cursor: pointer
+     background: $spotify-color
+     border-radius: 2px
+     border: none
 
-input[type=range]::-moz-range-thumb
-   border: none
-   height: 12px
-   width: 12px
-   border-radius: 7px
-   background: white
-   cursor: pointer
-   transition: all .2s ease
+  input[type=range]::-moz-range-thumb
+     border: none
+     height: 12px
+     width: 12px
+     border-radius: 7px
+     background: white
+     cursor: pointer
+     transition: all .2s ease
 
-input[type=range]:active::-moz-range-thumb
-   background: white
+  input[type=range]:active::-moz-range-thumb
+     background: white
 
 
 </style>

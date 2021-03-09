@@ -1,21 +1,19 @@
 <template>
   <div class="track-list-wrapper">
     <div class="track-list">
-      <track-card :class="{ active: $store.state.activeTrack === track.id }" v-for="track in computedTracks"
+      <track-card class="track-list-card" :class="{ active: $store.state.activeTrack === track.id }" v-for="track in tracks"
                   :key="track.id" :track="track" :form="'rec'"/>
-      <filters-block class="filters-block" v-if="$store.state.activeTrack"></filters-block>
     </div>
   </div>
 </template>
 
 <script>
 import TrackCard from "@/components/TrackCard";
-import FiltersBlock from "@/components/FiltersBlock";
 
 export default {
   props: ['tracks'],
   name: "TrackList",
-  components: {FiltersBlock, TrackCard},
+  components: { TrackCard},
   computed: {
     activeTrack: function () {
       const activeTrackArray = this.tracks.filter(track => track.id === this.$store.state.activeTrack)
@@ -27,13 +25,6 @@ export default {
       } else {
         return this.tracks
       }
-    },
-    computedTransition: function () {
-      if (this.$store.state.activeTrack) {
-        return 'element'
-      } else {
-        return 'list'
-      }
     }
   }
 }
@@ -43,22 +34,20 @@ export default {
 @import "../variables"
 
 .track-list-wrapper
-  width: 100%
   min-height: 140px
-  position: relative
+  box-shadow: 0 0 4px 0 $spotify-color
 
   .track-list
     display: block
-    max-height: calc(100vh - 80px)
-    overflow: auto
-    -ms-overflow-style: none
-    scrollbar-width: none
+    height: 100%
     border-top: 1px solid $background-color-accessory
-
+    &:first-child
+      border-top: none
 
     &::-webkit-scrollbar
       width: 0
       background: transparent
+
 .filters-block
   margin-top: 20px
 

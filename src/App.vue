@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <div class="page-wrapper">
-      <router-view/>
+      <nav-panel></nav-panel>
+      <div class="content-wrapper">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -9,8 +12,10 @@
 <script>
 
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
+import NavPanel from "@/components/NavPanel";
 
 export default {
+  components: {NavPanel},
   mixins: [spotifyApiMixin],
   name: 'App',
 }
@@ -21,8 +26,10 @@ export default {
 
 *
   box-sizing: border-box !important
+
 html
-  overflow-y: scroll //Временный фикс скачков из-за скролл бара
+  overflow-y: scroll
+//Временный фикс скачков из-за скролл бара
 html, body, #app
   margin: 0
   padding: 0
@@ -32,8 +39,10 @@ html, body, #app
 
 input:focus
   outline: none
+
 button:focus
   outline: none
+
 ::-moz-focus-inner
   border: none
 
@@ -41,8 +50,16 @@ button:focus
   background-color: $background-color-main
   color: white
   font-family: "Roboto", sans-serif
+
   .page-wrapper
     height: 100%
+    .content-wrapper
+      position: relative
+      display: flex
+      flex-direction: row
+      justify-content: center
+      align-items: center
+      height: calc(100% - 80px)
 
 input
   font-family: inherit

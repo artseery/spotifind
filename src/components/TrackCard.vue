@@ -1,13 +1,13 @@
 <template>
   <div class="track-card-wrapper"
-       @click="form === 'rec' ? $store.dispatch('chooseActiveTrack', track.id) : openInApp(track.uri)"
+       @mousedown="(form === 'rec') ? $store.dispatch('chooseActiveTrack', track.id) : openInApp(track.uri)"
        :class="{ sqr: form === 'sqr', rec: form === 'rec' }"
   > <!--Дать уже норм названия классам-->
     <div class="track-card" :class="{ active: $store.state.activeTrack === track.id }">
       <div class="track-card-inner">
         <div class="track-image-wrapper">
-          <img class="track-image" :src="track.album.images[1].url" alt="Обложка композиции" v-if="form === 'rec'"/>
-          <card-hover :image-src="track.album.images[1].url" v-if="form === 'sqr'"/>
+          <img v-if="form === 'rec'" class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
+          <card-hover v-if="form === 'sqr'" :image-src="track.album.images[1].url" />
         </div>
         <div class="track-info">
           <div class="track-name-wrapper">
@@ -21,9 +21,9 @@
           </div>
           <div class="track-uri-wrapper" v-if="form === 'rec'">
             <div class="track-uri">
-              <a :href="track.uri" @click="stopPropagation($event)">
+              <a @mousedown="openInSpotify($event, track.uri)">
                 <img class="spotify-logo"
-                     :src="$store.state.activeTrack === track.id ? spotify_logo_white : spotify_logo_default"
+                     :src="($store.state.activeTrack === track.id) ? spotify_logo_white : spotify_logo_default"
                      alt="Open in app"/>
               </a>
             </div>
@@ -57,8 +57,9 @@ export default {
     }
   },
   methods: {
-    stopPropagation: function (event) {
+    openInSpotify: function (event, uri) {
       event.stopPropagation()
+      window.open(uri, "_self")
     },
     openInApp: function (track_uri) {
       location.href = track_uri
@@ -71,8 +72,13 @@ export default {
 @import "../variables"
 
 .rec
-  height: 140px
+  height: calc(#{$track-card-height} + 1px)
   transition: background-color .2s ease
+  border-bottom: 1px solid $background-color-accessory
+  user-select: none
+  &:last-child
+    border-bottom: none
+    height: $track-card-height
   &:hover
     background-color: $background-color-accessory
 
@@ -81,7 +87,6 @@ export default {
       display: flex
       flex-direction: row
       align-items: center
-      border-bottom: 1px solid $background-color-accessory
       background-color: inherit
 
       //Мб лого споти добавить анимацию
@@ -95,23 +100,24 @@ export default {
 
       .track-card-inner
         width: 100%
-        height: 100px
+        height: 100%
         align-items: center
         display: flex
         flex-direction: row
-        margin: 0 20px
 
         .track-image-wrapper
-          width: 100px
-          height: 100px
+          height: 100%
+          width: $track-card-height
           display: flex
           flex-direction: row
+          align-items: center
           justify-content: center
           flex-shrink: 0
 
           .track-image
-            max-height: 100%
+            height: $track-card-height / 1.2
             width: auto
+            border-radius: 100%
 
         .track-artist-wrapper, .track-name-wrapper
           white-space: nowrap
@@ -123,8 +129,9 @@ export default {
           width: 100%
           height: 100%
           grid-template-columns: 1fr $track-card-spotify-logo-size
-          grid-auto-rows: 50px auto
-          margin-left: 20px
+          grid-auto-rows: 50% 50%
+          grid-column-gap: 50px
+          padding: 0 20px
 
           .track-name-wrapper
             display: flex
@@ -136,8 +143,11 @@ export default {
             .track-name
               align-self: end
               font-weight: 800
-              font-size: 1.1em
+              font-size: 1em
               color: $font-color-main
+              text-overflow: ellipsis
+              white-space: nowrap
+              overflow: hidden
 
           .track-artist-wrapper
             grid-column-start: 1
@@ -146,13 +156,15 @@ export default {
             grid-row-end: 3
 
             .track-artist
+              font-size: 0.9em
               color: $font-color-accessory
 
           .track-uri-wrapper
+            margin: auto
             grid-column-start: 2
             grid-column-end: 3
             grid-row-start: 1
-            grid-row-end: 2
+            grid-row-end: 3
 
             .track-uri
               .spotify-logo

@@ -22,6 +22,7 @@ $load-icon-size: 26px
   100%
     transform: rotate(360deg)
 .load-wrapper
+  z-index: 100
   width: 100%
   height: 100%
   position: absolute

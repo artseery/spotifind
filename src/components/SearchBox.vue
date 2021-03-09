@@ -1,6 +1,8 @@
 <template>
   <div class="search-input-wrapper">
-    <input placeholder="Search" class="search-input" v-model="fieldData"/>
+    <input @focus="$store.dispatch('searchInputFocus', true)"
+           @blur="$store.dispatch('searchInputFocus', false)"
+           placeholder="Search" class="search-input" v-model="fieldData"/>
   </div>
 </template>
 
@@ -43,9 +45,8 @@ export default {
 
 .search-input-wrapper
   width: 100%
-  margin-bottom: 20px
   .search-input
-    height: 50px
+    height: 40px
     width: 100%
     padding: 10px 20px
     border: 2px solid $background-color-accessory

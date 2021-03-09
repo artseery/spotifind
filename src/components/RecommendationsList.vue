@@ -21,11 +21,8 @@ export default {
 
 .recommendations-list-wrapper
   width: 100%
-  height: 100vh
+  height: 100%
   flex-direction: row
-  -ms-overflow-style: none
-  scrollbar-width: none
-  overflow: auto
   &::-webkit-scrollbar
     width: 0
     background: transparent
@@ -35,7 +32,7 @@ export default {
     grid-template-columns: repeat(auto-fill, 200px)
     grid-gap: 30px
     justify-content: center
-    padding: $padding-page-default
+    padding-top: $padding-page-default
 
 
 </style>
