@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import SpotifyAuth from "@/store/SpotifyAuth";
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+    modules: {
+        SpotifyAuth: SpotifyAuth
+    },
     state: {
         foundResults: null,
         filters: {
@@ -38,17 +42,17 @@ const store = new Vuex.Store({
         updateResults(state, data) {
             state.foundResults = data
         },
-        setFilterValuesByKey(state, { key, value }) {
+        setFilterValuesByKey(state, {key, value}) {
             state.filters[key] = value
         },
-        changeFilterValuesByKey(state, { key, value }) {
+        changeFilterValuesByKey(state, {key, value}) {
             state.filters[key] = value
             // запрос на серв
         },
         chooseActiveTrack(state, track_id) {
             state.activeTrack = track_id
         },
-        changeLoadingState(state, { component, isLoading }) {
+        changeLoadingState(state, {component, isLoading}) {
             state.loading[component] = isLoading
         },
         updateRecomendations(state, recomendations) {
@@ -56,39 +60,39 @@ const store = new Vuex.Store({
         },
         searchInputFocus(state, condition) {
             state.searchInputFocused = condition
-        }
+        },
     },
     actions: {
-        updateResults({ commit }, data) {
+        updateResults({commit}, data) {
             // eslint-disable-next-line no-unused-vars
             return new Promise((resolve, reject) => {
                 commit('updateResults', data)
                 resolve()
             })
         },
-        setFilterValuesByKey({ commit }, [key, value]) {
-            commit('setFilterValuesByKey', { key, value })
+        setFilterValuesByKey({commit}, [key, value]) {
+            commit('setFilterValuesByKey', {key, value})
         },
-        changeFilterValuesByKey({ commit }, [key, value]) {
+        changeFilterValuesByKey({commit}, [key, value]) {
             // eslint-disable-next-line no-unused-vars
             return new Promise((resolve, reject) => {
-                commit('changeFilterValuesByKey', { key, value })
+                commit('changeFilterValuesByKey', {key, value})
                 resolve()
             })
         },
-        chooseActiveTrack({ commit }, track_id) {
+        chooseActiveTrack({commit}, track_id) {
             commit('chooseActiveTrack', track_id)
         },
-        changeLoadingState({ commit }, payload) {
+        changeLoadingState({commit}, payload) {
             commit('changeLoadingState', payload)
         },
-        updateRecomendations({ commit }, recomendations) {
+        updateRecomendations({commit}, recomendations) {
             commit('updateRecomendations', recomendations)
         },
-        searchInputFocus({ commit }, condition) {
+        searchInputFocus({commit}, condition) {
             commit('searchInputFocus', condition)
         }
     }
 })
-    // Разобъем на модули в будущем
+// Разобъем на модули в будущем
 export default store

@@ -5,6 +5,10 @@
         <img class="spotifind-logo" src="../assets/SpotifindLogoV3White.png"/>
       </div>
       <div class="nav-content">
+        {{$store.state.SpotifyAuth.auth_code}}
+        <div @click="$store.dispatch('SpotifyAuth/authorize')">
+          Auth
+        </div>
         <search-component></search-component>
       </div>
     </div>
@@ -41,5 +45,9 @@ name: "NavPanel",
       height: 40px
       .spotifind-logo
         height: 100%
+    .nav-content
+      display: flex
+      flex-direction: row
+      align-items: center
 
 </style>
