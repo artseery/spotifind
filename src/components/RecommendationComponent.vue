@@ -38,7 +38,7 @@ export default {
     },
   },
   created: function () {
-    this.getRecomendations()
+    //this.getRecomendations()
   },
   watch: {
     '$store.state.activeTrack': function () {
