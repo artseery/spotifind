@@ -17,16 +17,7 @@ import NavPanel from "@/components/NavPanel";
 export default {
   components: {NavPanel},
   mixins: [spotifyApiMixin],
-  name: 'App',
-  mounted: function () {
-    let splitHash = window.location.hash.split(/[# & =]/gm).slice(1)
-    let testObj = {}
-    splitHash.forEach((item, key) => {
-      if (key < 5 && !(key % 2)) {
-        testObj[item] = splitHash[key + 1]
-      }
-    })
-  }
+  name: 'App'
 }
 </script>
 
