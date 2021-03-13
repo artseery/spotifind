@@ -18,7 +18,8 @@ const SpotifyAuth = {
             commit('setAccessToken', access_data)
         },
         redirectToSpotifyAuth() {
-            window.location = spotify_url + `authorize?client_id=${client_id}&response_type=token&redirect_uri=http://localhost:8080`
+            window.location = spotify_url +
+                `authorize?client_id=${client_id}&response_type=token&redirect_uri=http://localhost:8080`
         }
     }
 }
