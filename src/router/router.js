@@ -7,7 +7,7 @@ const router = new VueRouter({
     mode: 'history'
 })
 
-router.beforeEach((to) => {
+router.beforeEach((to, from, next) => {
     let local_access_data = window.localStorage.getItem('access_data')
     if (Object.keys(store.state.SpotifyAuth.access_data).length === 0 && !local_access_data) {
         let splitHash = to.hash.split(/[# & =]/gm).slice(1)
@@ -23,6 +23,7 @@ router.beforeEach((to) => {
     if (local_access_data && Object.keys(store.state.SpotifyAuth.access_data).length === 0) {
         store.dispatch('SpotifyAuth/authorize', JSON.parse(local_access_data))
     }
+    next()
 })
 
 export default router

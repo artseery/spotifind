@@ -10,7 +10,6 @@
         <loading-component v-if="$store.state.loading.recs"/>
       </transition>
     </div>
-    <!--    <filters-block class="filters-block" @updateRecommendations="updateRecommendations"></filters-block>-->
   </div>
 </template>
 
@@ -42,6 +41,7 @@ export default {
   },
   watch: {
     '$store.state.activeTrack': function () {
+      console.log('the fuck')
       this.getRecomendations()
     }
   }
