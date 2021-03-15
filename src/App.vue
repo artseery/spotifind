@@ -17,7 +17,10 @@ import NavPanel from "@/components/NavPanel";
 export default {
   components: {NavPanel},
   mixins: [spotifyApiMixin],
-  name: 'App'
+  name: 'App',
+  mounted() {
+    this.getCurrentPlayback()
+  }
 }
 </script>
 

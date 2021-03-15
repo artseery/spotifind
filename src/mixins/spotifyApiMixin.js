@@ -1,10 +1,17 @@
 import axios from "axios";
 import { auth_token } from "@/authorizationToken";
+import { api } from "@/api";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 let token = JSON.parse(window.localStorage.getItem('token'))
 
+
 let spotifyApiMixin = {
+    data() {
+        return {
+            access_data: this.$store.state.SpotifyAuth.access_data
+        }
+    },
     methods: {
         getToken: async function () {
             await axios({
@@ -107,6 +114,17 @@ let spotifyApiMixin = {
                 }
             })
             return features
+        },
+        getCurrentPlayback: function () {
+            api({
+                method: 'GET',
+                url: spotifyUrl +'me/player/',
+                headers: {
+                    'Authorization': this.access_data.token_type + ' ' + this.access_data.access_token
+                }
+            }).then(
+                response => console.log(response)
+            )
         }
     }
 }
