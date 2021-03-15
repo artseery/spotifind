@@ -9,6 +9,7 @@
           Auth
         </div>
         <div v-else>Authorized</div>
+        <!-- Сделать нормальный вход -->
         <search-component></search-component>
       </div>
     </div>

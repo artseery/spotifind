@@ -31,7 +31,7 @@ router.beforeEach((to, from, next) => {
         store.dispatch('SpotifyAuth/authorize', access_data)
         window.localStorage.setItem('access_data', JSON.stringify(access_data))
 
-    }
+    } // Разбить по частям, внести исправления
     next()
 })
 

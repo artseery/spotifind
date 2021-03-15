@@ -11,7 +11,7 @@ let api = axios.create({
 function setupInterceptors() {
     api.interceptors.response.use((response) => response, (error) => {
         if (error.response.status === 401) {
-            store.dispatch('SpotifyAuth/redirectToSpotifyAuth')
+            store.dispatch('SpotifyAuth/redirectToSpotifyAuth') // не 401 ошибка, а именно no token
         }
     })
 }

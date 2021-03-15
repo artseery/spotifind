@@ -19,7 +19,7 @@ export default {
   mixins: [spotifyApiMixin],
   name: 'App',
   mounted() {
-    this.getCurrentPlayback()
+    this.getCurrentPlayback() // тест для получения текущих треков
   }
 }
 </script>
