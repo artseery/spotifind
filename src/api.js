@@ -16,4 +16,4 @@ function setupInterceptors() {
     })
 }
 
-export { api, setupInterceptors }
+export { api, setupInterceptors, spotifyUrl }

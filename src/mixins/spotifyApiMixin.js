@@ -125,6 +125,40 @@ let spotifyApiMixin = {
             }).then(
                 response => console.log(response)
             )
+        },
+        createNewPlaylist: function () {
+            return api({
+                method: 'POST',
+                url: spotifyUrl + `users/${this.$store.state.SpotifyAuth.user_data.id}/playlists`,
+                headers: {
+                    'Authorization': this.access_data.token_type + ' ' + this.access_data.access_token,
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    name: `Spotifind playlist for ${this.$store.state.activeTrack.name}`,
+                    public: true
+                }
+            })
+        },
+        addRecommendedTracksToPlaylist: function (playlist_id) {
+            let uris = this.$store.state.recommendations.tracks.map(item => {
+                return item.uri
+            })
+            api({
+                method: 'POST',
+                url: spotifyUrl + `playlists/${playlist_id}/tracks`,
+                headers: {
+                    'Authorization': this.access_data.token_type + ' ' + this.access_data.access_token,
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    uris: uris
+                }
+            })
+        },
+        createRecsPlaylist: async function () {
+            let newPlaylistData = await this.createNewPlaylist()
+            await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
         }
     }
 }

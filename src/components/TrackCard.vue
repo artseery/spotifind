@@ -1,9 +1,9 @@
 <template>
   <div class="track-card-wrapper"
-       @mousedown="(form === 'rec') ? $store.dispatch('chooseActiveTrack', track.id) : openInApp(track.uri)"
+       @mousedown="(form === 'rec') ? $store.dispatch('chooseActiveTrack', track) : openInApp(track.uri)"
        :class="{ sqr: form === 'sqr', rec: form === 'rec' }"
   > <!--Дать уже норм названия классам-->
-    <div class="track-card" :class="{ active: $store.state.activeTrack === track.id }">
+    <div class="track-card" :class="{ active: $store.state.activeTrack.id === track.id }">
       <div class="track-card-inner">
         <div class="track-image-wrapper">
           <img v-if="form === 'rec'" class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
@@ -23,7 +23,7 @@
             <div class="track-uri">
               <a @mousedown="openInSpotify($event, track.uri)">
                 <img class="spotify-logo"
-                     :src="($store.state.activeTrack === track.id) ? spotify_logo_white : spotify_logo_default"
+                     :src="($store.state.activeTrack.id === track.id) ? spotify_logo_white : spotify_logo_default"
                      alt="Open in app"/>
               </a>
             </div>

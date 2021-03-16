@@ -18,9 +18,6 @@ export default {
   components: {NavPanel},
   mixins: [spotifyApiMixin],
   name: 'App',
-  mounted() {
-    this.getCurrentPlayback() // тест для получения текущих треков
-  }
 }
 </script>
 

@@ -22,17 +22,15 @@ export default {
   },
   watch: {
     fieldData: function (value) {
-      this.$store.dispatch('chooseActiveTrack', null)
       this.search(value)
     }
   },
   methods: {
     search: function (value) {
       if (value) {
-        this.getSearchData(value,  this.type)
+        this.getSearchData(value, this.type)
         //Тип задаем сами в будущем
-      }
-      else {
+      } else {
         this.$store.dispatch('updateResults', null)
       }
     }
@@ -45,6 +43,7 @@ export default {
 
 .search-input-wrapper
   width: 100%
+
   .search-input
     height: 40px
     width: 100%
@@ -56,6 +55,7 @@ export default {
     transition: all .2s ease
     font-weight: 800
     font-size: 0.9em
+
     &:focus
       border-color: $spotify-color
       background-color: $background-color-main

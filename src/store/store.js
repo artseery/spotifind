@@ -30,7 +30,8 @@ const store = new Vuex.Store({
 
             // Добавить target на return-е
         },
-        activeTrack: null,
+        activeTrack: {
+        },
         loading: {
             search: false,
             recs: false
@@ -49,8 +50,8 @@ const store = new Vuex.Store({
             state.filters[key] = value
             // запрос на серв
         },
-        chooseActiveTrack(state, track_id) {
-            state.activeTrack = track_id
+        chooseActiveTrack(state, track) {
+            state.activeTrack = track
         },
         changeLoadingState(state, {component, isLoading}) {
             state.loading[component] = isLoading

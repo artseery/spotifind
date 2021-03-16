@@ -16,15 +16,8 @@ export default {
   components: { TrackCard},
   computed: {
     activeTrack: function () {
-      const activeTrackArray = this.tracks.filter(track => track.id === this.$store.state.activeTrack)
+      const activeTrackArray = this.tracks.filter(track => track.id === this.$store.state.activeTrack.id)
       return activeTrackArray[0]
-    },
-    computedTracks: function () {
-      if (this.$store.state.activeTrack) {
-        return this.tracks.filter(track => track.id === this.$store.state.activeTrack)
-      } else {
-        return this.tracks
-      }
     }
   }
 }

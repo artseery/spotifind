@@ -14,6 +14,7 @@
         </div>
       </template>
     </div>
+    <div style="{color: white}" @click="createRecsPlaylist">Add playlist</div>
   </div>
 </template>
 
@@ -30,7 +31,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     filterValueChange: async function (key, value, event) {
       await this.$store.dispatch('changeFilterValuesByKey', [key, event.target.value])
-      let recommendations = await this.getRecommendationsData(this.$store.state.activeTrack, this.$store.state.filters)
+      let recommendations = await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters)
       await this.$store.dispatch('updateRecomendations', recommendations)
     },
   }
