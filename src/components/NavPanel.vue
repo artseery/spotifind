@@ -30,7 +30,7 @@ name: "NavPanel",
 .nav-wrapper
   height: 80px
   width: 100%
-  background: black
+  background: $background-color-dark
   display: flex
   flex-direction: row
   justify-content: center
