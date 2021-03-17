@@ -24,14 +24,14 @@ router.beforeEach((to, from, next) => {
             next()
             return false
         }
-        if (local_access_data && Object.keys(store.state.SpotifyAuth.access_data).length === 0) {
-            store.dispatch('SpotifyAuth/authorize', JSON.parse(local_access_data))
-        }
-        if (local_access_data.access_token !== access_data.access_token) {
-            store.dispatch('SpotifyAuth/authorize', access_data)
-            window.localStorage.setItem('access_data', JSON.stringify(access_data))
-        }
     } // Разбить по частям, внести исправления
+    if (local_access_data && Object.keys(store.state.SpotifyAuth.access_data).length === 0) {
+        store.dispatch('SpotifyAuth/authorize', JSON.parse(local_access_data))
+    }
+    if (local_access_data.access_token !== access_data.access_token) {
+        store.dispatch('SpotifyAuth/authorize', access_data)
+        window.localStorage.setItem('access_data', JSON.stringify(access_data))
+    }
     next()
 })
 
