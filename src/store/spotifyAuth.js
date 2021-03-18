@@ -27,9 +27,9 @@ const spotifyAuth = {
         }
     },
     actions: {
-        async authorize({commit}, access_data) {
-            await commit('setAccessToken', access_data)
-            await commit('setUserData')
+        authorize({commit}, access_data) {
+            commit('setAccessToken', access_data)
+            commit('setUserData')
         },
         redirectToSpotifyAuth() {
             let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private'
