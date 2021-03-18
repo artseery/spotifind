@@ -1,6 +1,8 @@
 import {client_id} from "@/authorizationToken";
 import {api} from "@/api";
 import {spotifyUrl} from "@/api";
+import store from "@/store/store";
+import { recommendationsKeeper } from "@/pageStateKeeper";
 
 let spotify_url = 'https://accounts.spotify.com/'
 
@@ -34,6 +36,8 @@ const spotifyAuth = {
         redirectToSpotifyAuth() {
             let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private'
             let encodedScopes = encodeURIComponent(scopes)
+            // Добавить If для случая пересылки именно с компонента рекомендаций
+            recommendationsKeeper(store)
             window.location = spotify_url +
                 `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=http://localhost:8080`
         }

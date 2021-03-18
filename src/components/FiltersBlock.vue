@@ -37,7 +37,7 @@ export default {
     filterValueChange: async function (key, value, event) {
       await this.$store.dispatch('changeFilterValuesByKey', [key, event.target.value])
       let recommendations = await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters)
-      await this.$store.dispatch('updateRecomendations', recommendations)
+      await this.$store.dispatch('updateRecommendations', recommendations)
     },
   }
 }

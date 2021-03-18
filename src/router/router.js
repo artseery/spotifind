@@ -28,9 +28,11 @@ router.beforeEach((to, from, next) => {
     if (local_access_data && Object.keys(store.state.spotifyAuth.access_data).length === 0) {
         store.dispatch('spotifyAuth/authorize', JSON.parse(local_access_data))
     }
-    if (local_access_data.access_token !== access_data.access_token) {
-        store.dispatch('spotifyAuth/authorize', access_data)
-        window.localStorage.setItem('access_data', JSON.stringify(access_data))
+    if(local_access_data) {
+        if (local_access_data.access_token !== access_data.access_token) {
+            store.dispatch('spotifyAuth/authorize', access_data)
+            window.localStorage.setItem('access_data', JSON.stringify(access_data))
+        }
     }
     next()
 })

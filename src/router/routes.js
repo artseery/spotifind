@@ -1,8 +1,12 @@
 import RecommendationsComponent from "@/components/RecommendationComponent";
 
 const routes = [
-    { path: '', component: RecommendationsComponent},
-    { path: '/recommendations/:trackId', component: RecommendationsComponent, props: true, name: 'recommendations'},
+    { path: '', redirect: { name: 'recommendations' }},
+    {
+        path: '/recommendations',
+        component: RecommendationsComponent,
+        name: 'recommendations'
+    }
 ]
 
 export default routes

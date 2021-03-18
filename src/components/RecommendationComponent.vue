@@ -25,25 +25,16 @@ export default {
   components: {FiltersBlock, LoadingComponent, RecommendationList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
-  methods: {
-    getRecomendations: async function () {
-      let features = await this.getAudioFeatures(this.$store.state.activeTrack.id)
-      features.popularity = 100
-      // eslint-disable-next-line no-unused-vars
-      for (const [key, value] of Object.entries(this.$store.state.filters)) {
-        await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
-      }
-      await this.$store.dispatch('updateRecomendations', await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters))
-    },
-  },
-  created: function () {
-    //this.getRecomendations()
-  },
-  watch: {
-    '$store.state.activeTrack': function (newVal, oldVal) {
-      console.log(newVal, oldVal)
-      this.getRecomendations()
-    }
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+     if (window.localStorage.recommendations_data) {
+       let data = JSON.parse(window.localStorage.getItem('recommendations_data'))
+       vm.$store.dispatch('setRecommendationsDataFromStore', data).then(() => {
+         window.localStorage.removeItem('recommendations_data')
+         console.log('cleared')
+       })
+     }
+    })
   }
 }
 </script>

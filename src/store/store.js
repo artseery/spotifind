@@ -46,9 +46,11 @@ const store = new Vuex.Store({
         setFilterValuesByKey(state, {key, value}) {
             state.filters[key] = value
         },
+        setFilterValues(state, filters) {
+            state.filters = filters
+        },
         changeFilterValuesByKey(state, {key, value}) {
-            state.filters[key] = value
-            // запрос на серв
+            state.filters[key] = parseFloat(value)
         },
         chooseActiveTrack(state, track) {
             state.activeTrack = track
@@ -56,8 +58,8 @@ const store = new Vuex.Store({
         changeLoadingState(state, {component, isLoading}) {
             state.loading[component] = isLoading
         },
-        updateRecomendations(state, recomendations) {
-            state.recommendations = recomendations
+        updateRecommendations(state, recommendations) {
+            state.recommendations = recommendations
         },
         searchInputFocus(state, condition) {
             state.searchInputFocused = condition
@@ -81,17 +83,22 @@ const store = new Vuex.Store({
                 resolve()
             })
         },
-        chooseActiveTrack({commit}, track_id) {
-            commit('chooseActiveTrack', track_id)
+        chooseActiveTrack({commit}, track) {
+            commit('chooseActiveTrack', track)
         },
         changeLoadingState({commit}, payload) {
             commit('changeLoadingState', payload)
         },
-        updateRecomendations({commit}, recomendations) {
-            commit('updateRecomendations', recomendations)
+        updateRecommendations({commit}, recommendations) {
+            commit('updateRecommendations', recommendations)
         },
         searchInputFocus({commit}, condition) {
             commit('searchInputFocus', condition)
+        },
+        setRecommendationsDataFromStore({ commit }, data) {
+            commit('setFilterValues', data.filters)
+            commit('chooseActiveTrack', data.active_track)
+            commit('updateRecommendations', data.recommendations)
         }
     }
 })

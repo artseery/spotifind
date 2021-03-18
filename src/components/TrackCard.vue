@@ -1,6 +1,6 @@
 <template>
   <div class="track-card-wrapper"
-       @mousedown="(form === 'rec') ? $store.dispatch('chooseActiveTrack', track) : openInApp(track.uri)"
+       @mousedown="(form === 'rec') ? chooseActiveTrack(track) : openInApp(track.uri)"
        :class="{ sqr: form === 'sqr', rec: form === 'rec' }"
   > <!--Дать уже норм названия классам-->
     <div class="track-card" :class="{ active: $store.state.activeTrack.id === track.id }">
@@ -63,6 +63,19 @@ export default {
     },
     openInApp: function (track_uri) {
       location.href = track_uri
+    },
+    getRecommendations: async function () {
+      let features = await this.getAudioFeatures(this.$store.state.activeTrack.id)
+      features.popularity = 100
+      // eslint-disable-next-line no-unused-vars
+      for (const [key, value] of Object.entries(this.$store.state.filters)) {
+        await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
+      }
+      await this.$store.dispatch('updateRecommendations', await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters))
+    },
+    chooseActiveTrack: function (track) {
+      this.$store.dispatch('chooseActiveTrack', track)
+      this.getRecommendations()
     }
   }
 }

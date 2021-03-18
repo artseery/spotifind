@@ -8,10 +8,12 @@ import { setupInterceptors } from "@/api";
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 
-setupInterceptors()
 
-new Vue({
+
+let vm = new Vue({
   render: h => h(App),
   router,
   store
 }).$mount('#app')
+
+setupInterceptors(vm)
