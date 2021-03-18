@@ -50,7 +50,7 @@ let spotifyApiMixin = {
             ).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
                 if (error.response.status === 401) {
-                    window.localStorage.clear()
+                    window.localStorage.removeItem('token')
                     await this.getToken()
                     await this.getSearchData(query, type)
                 }
@@ -83,7 +83,7 @@ let spotifyApiMixin = {
             ).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
                 if (error.response.status === 401) {
-                    window.localStorage.clear()
+                    window.localStorage.removeItem('token')
                     await this.getToken()
                     await this.getRecommendationsData(seed_tracks)
                 }
@@ -108,7 +108,7 @@ let spotifyApiMixin = {
             ).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
                 if (error.response.status === 401) {
-                    window.localStorage.clear()
+                    window.localStorage.removeItem('token')
                     await this.getToken()
                     await this.getAudioFeatures(seed_tracks)
                 }
