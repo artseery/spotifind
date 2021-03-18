@@ -5,7 +5,7 @@
         <img class="spotifind-logo" src="../assets/SpotifindLogoV3White.png"/>
       </div>
       <div class="nav-content">
-        <div v-if="!$store.state.SpotifyAuth.access_data.access_token" @click="$store.dispatch('SpotifyAuth/redirectToSpotifyAuth')">
+        <div v-if="!$store.state.spotifyAuth.access_data.access_token" @click="$store.dispatch('spotifyAuth/redirectToSpotifyAuth')">
           Auth
         </div>
         <div v-else>Authorized</div>

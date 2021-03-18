@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import SpotifyAuth from "@/store/SpotifyAuth";
+import spotifyAuth from "@/store/spotifyAuth";
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     modules: {
-        SpotifyAuth: SpotifyAuth
+        spotifyAuth: spotifyAuth
     },
     state: {
         foundResults: null,

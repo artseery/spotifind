@@ -4,7 +4,7 @@ import {spotifyUrl} from "@/api";
 
 let spotify_url = 'https://accounts.spotify.com/'
 
-const SpotifyAuth = {
+const spotifyAuth = {
     namespaced: true,
     state: {
         access_data: {},
@@ -40,5 +40,5 @@ const SpotifyAuth = {
     }
 }
 
-export default SpotifyAuth
+export default spotifyAuth
 

@@ -15,7 +15,7 @@
           </div>
         </template>
       </div>
-      <div v-if="$store.state.SpotifyAuth.access_data.access_token"
+      <div v-if="$store.state.spotifyAuth.access_data.access_token"
            class="button_add_playlist-wrapper" @click="createRecsPlaylist">
         <button class="button_add_playlist">Add playlist</button> <!--Переписать кнопку в отдельный компонент-->
       </div>

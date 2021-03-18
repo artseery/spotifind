@@ -9,7 +9,7 @@ let token = JSON.parse(window.localStorage.getItem('token'))
 let spotifyApiMixin = {
     data() {
         return {
-            access_data: this.$store.state.SpotifyAuth.access_data
+            access_data: this.$store.state.spotifyAuth.access_data
         }
     },
     methods: {
@@ -129,7 +129,7 @@ let spotifyApiMixin = {
         createNewPlaylist: function () {
             return api({
                 method: 'POST',
-                url: spotifyUrl + `users/${this.$store.state.SpotifyAuth.user_data.id}/playlists`,
+                url: spotifyUrl + `users/${this.$store.state.spotifyAuth.user_data.id}/playlists`,
                 headers: {
                     'Authorization': this.access_data.token_type + ' ' + this.access_data.access_token,
                     'Content-Type': 'application/json'
