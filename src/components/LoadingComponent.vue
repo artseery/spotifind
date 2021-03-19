@@ -40,7 +40,7 @@ $load-icon-size: 26px
       height: 100%
       border-radius: 15px
     .load-circle
-      border: 4px solid #2eec7b
+      border: 4px solid $spotify-color-light
     .load-circle-part
       position: absolute
       animation: spin .8s linear infinite
@@ -50,6 +50,6 @@ $load-icon-size: 26px
       border-style: solid
       border-right-color: $spotify-color
       border-left-color: transparent
-      border-bottom-color: transparent
+      border-bottom-color: $spotify-color
       border-top-color: transparent
 </style>

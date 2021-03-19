@@ -97,7 +97,7 @@ let spotifyApiMixin = {
         getAudioFeatures: async function (seed_tracks) {
             let features = null
             await this.writeToken()
-            await axios({
+            return await axios({
                 method: 'GET',
                 url: spotifyUrl + 'audio-features/' + seed_tracks,
                 headers: {
@@ -105,6 +105,7 @@ let spotifyApiMixin = {
                 }
             }).then(response => {
                     features = response.data
+                    return features
                 },
             ).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
                 console.log(error.response.status)
@@ -114,7 +115,6 @@ let spotifyApiMixin = {
                     await this.getAudioFeatures(seed_tracks)
                 }
             })
-            return features
         },
         getCurrentPlayback: function () {
             api({

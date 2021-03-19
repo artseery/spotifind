@@ -63,12 +63,12 @@ export default {
 @import "../variables"
 .filters-wrapper
   height: auto
-  padding-top: $padding-page-default
+  padding: $padding-page-default $padding-page-default 0 0
 
   .filters
     font-weight: 600
     background: $background-color-dark
-    padding: 20px
+    padding: 16px
     font-size: 0.8em
     color: $font-color-accessory
 
