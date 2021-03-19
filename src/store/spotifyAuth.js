@@ -39,7 +39,7 @@ const spotifyAuth = {
             // Добавить If для случая пересылки именно с компонента рекомендаций
             recommendationsKeeper(store)
             window.location = spotify_url +
-                `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=http://localhost:8080`
+                `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=${window.location.protocol}//${window.location.host}`
         }
     }
 }
