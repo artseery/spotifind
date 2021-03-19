@@ -59,6 +59,9 @@ button:focus
       flex-direction: row
       justify-content: center
       align-items: center
+      -ms-overflow-style: none
+      scrollbar-width: none
+      overflow: auto
       height: calc(100% - 80px)
 
 input

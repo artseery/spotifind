@@ -65,11 +65,8 @@ export default {
       location.href = track_uri
     },
     getRecommendations: async function () {
-      let features = await this.getAudioFeatures(this.$store.state.activeTrack.id)
-      features.popularity = 100
-      // eslint-disable-next-line no-unused-vars
       for (const [key, value] of Object.entries(this.$store.state.filters)) {
-        await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
+        await this.$store.dispatch('setFilterValuesByKey', [key, value])
       }
       await this.$store.dispatch('updateRecommendations', await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters))
     },

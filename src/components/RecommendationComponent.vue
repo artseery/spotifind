@@ -47,9 +47,6 @@ export default {
   position: relative
   width: $content-width
   height: 100%
-  -ms-overflow-style: none
-  scrollbar-width: none
-  overflow: auto
 
   .recommendations-list-wrapper
     width: 100%
