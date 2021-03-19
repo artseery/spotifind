@@ -10,7 +10,10 @@ let api = axios.create({
 })
 
 function setupInterceptors(vm) {
-    api.interceptors.response.use((response) => response, (error) => {
+    api.interceptors.response.use((response) => {
+        console.log('api:', response)
+        return response
+    }, (error) => {
         if (error.response.status === 401) {
             if(vm.$route.name === 'recommendations') {
                 recommendationsKeeper(vm.$store)

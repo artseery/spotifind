@@ -11,15 +11,39 @@ const store = new Vuex.Store({
     state: {
         foundResults: null,
         filters: {
-            acousticness: null, // Акустическая ли композиция (от 0.0 до 1.0)
-            danceability: null, // Танцевальная ли композиция (от 0.0 до 1.0)
+            acousticness: {
+                value: null,
+                enabled: false
+            }, // Акустическая ли композиция (от 0.0 до 1.0)
+            danceability: {
+                value: null,
+                enabled: false
+            }, // Танцевальная ли композиция (от 0.0 до 1.0)
             // duration_ms: null, // Продолжительность (миллисекунды)
-            energy: null, // Энергичность трека (от 0.0 до 1.0)
-            instrumentalness: null, // Инструментальная ли музыка (от 0.0 до 1.0 (0.5 и выше точно инструменталы))
-            liveness: null, // Является ли запись "лайвом" (от 0.0 до 1.0 (0.8 и выше значит, что это лайв))
-            speechiness: null, // Как много речи в композациях (от 0.0 до 1.0 (менее 0.33 - композиция без слов, от 0.33 до 0.66 - и речетатив и музыка, 0.66 и более - речетатив))
-            tempo: null, // Темп копозиции (BPM)
-            valence: null, // Валентность трека (от 0.0 до 1.0 (Означает "музыкальный позитивизм" композиции, чем выше, тем композиция более позитивная))
+            energy: {
+                value: null,
+                enabled: false
+            }, // Энергичность трека (от 0.0 до 1.0)
+            instrumentalness: {
+                value: null,
+                enabled: false
+            }, // Инструментальная ли музыка (от 0.0 до 1.0 (0.5 и выше точно инструменталы))
+            liveness: {
+                value: null,
+                enabled: false
+            }, // Является ли запись "лайвом" (от 0.0 до 1.0 (0.8 и выше значит, что это лайв))
+            speechiness: {
+                value: null,
+                enabled: false
+            }, // Как много речи в композациях (от 0.0 до 1.0 (менее 0.33 - композиция без слов, от 0.33 до 0.66 - и речетатив и музыка, 0.66 и более - речетатив))
+            tempo: {
+                value: null,
+                enabled: false
+            }, // Темп копозиции (BPM)
+            valence: {
+                value: null,
+                enabled: false
+            }, // Валентность трека (от 0.0 до 1.0 (Означает "музыкальный позитивизм" композиции, чем выше, тем композиция более позитивная))
             // popularity: null, // Популярность трека (от 0 до 100 (100 - наиболее популярный))
 
             // No access by user
@@ -44,13 +68,13 @@ const store = new Vuex.Store({
             state.foundResults = data
         },
         setFilterValuesByKey(state, {key, value}) {
-            state.filters[key] = value
+            state.filters[key].value = parseFloat(value)
         },
         setFilterValues(state, filters) {
             state.filters = filters
         },
-        changeFilterValuesByKey(state, {key, value}) {
-            state.filters[key] = parseFloat(value)
+        changeFilterState(state, [key, status]) {
+            state.filters[key].enabled = status
         },
         chooseActiveTrack(state, track) {
             state.activeTrack = track
@@ -76,12 +100,8 @@ const store = new Vuex.Store({
         setFilterValuesByKey({commit}, [key, value]) {
             commit('setFilterValuesByKey', {key, value})
         },
-        changeFilterValuesByKey({commit}, [key, value]) {
-            // eslint-disable-next-line no-unused-vars
-            return new Promise((resolve, reject) => {
-                commit('changeFilterValuesByKey', {key, value})
-                resolve()
-            })
+        changeFilterState({ commit }, [key, value]) {
+            commit('changeFilterState', [key, value])
         },
         chooseActiveTrack({commit}, track) {
             commit('chooseActiveTrack', track)

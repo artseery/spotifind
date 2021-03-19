@@ -65,8 +65,9 @@ let spotifyApiMixin = {
         getRecommendationsData: async function (seed_tracks, newFilters = null) { // В дальнейшем кол-во фильтров расширится
             let recommendations
             let filtersUrl = ''
-            for (const [key, value] of Object.entries(newFilters)) {
-                filtersUrl += '&target_' + key + '=' + value
+            for (const [key, item] of Object.entries(newFilters)) {
+                if(item.enabled)
+                    filtersUrl += '&target_' + key + '=' + item.value
             }
             this.$store.dispatch('changeLoadingState', { component: 'recs', isLoading: true})
             await this.writeToken()

@@ -2,22 +2,30 @@
   <div class="filters-wrapper">
     <div class="filters">
       <div class="filters-grid">
-        <template v-for="(value, key) in $store.state.filters">
-          <span :key="'name'+key">{{ key }}</span>
+        <template v-for="(item, key) in $store.state.filters">
+          <span @click="changeFilterState(item, key)" :key="'name'+key" class="filter-name"
+                :class="{ 'disabled': !item.enabled }">
+            {{ key }}
+          </span>
           <div class="filters-inputs" :key="key">
             <div>
               <input class="filter range" id="size" type="range" min="0.0" :max="key==='tempo' ? 300 : 1.0"
-                     step="0.01" :value="value"
-                     @change="filterValueChange(key, value, $event)"/>
+                     step="0.01" :value="item.value"
+                     @change="filterValueChange(key, item.value, $event)"
+                     :class="{ 'disabled': !item.enabled }" :disabled="!item.enabled"/>
             </div>
-            <input class="filter input" :value="Number(parseFloat(value).toFixed(2))"
-                   @change="filterValueChange(key, value, $event)">
+            <input class="filter input" :value="Number(parseFloat(item.value).toFixed(2))"
+                   @change="filterValueChange(key, item.value, $event)" :disabled="!item.enabled"
+                   :class="{ 'disabled': !item.enabled }"
+            >
           </div>
         </template>
       </div>
       <div v-if="$store.state.spotifyAuth.access_data.access_token"
-           class="button_add_playlist-wrapper" @click="createRecsPlaylist">
-        <button class="button_add_playlist">Add playlist</button> <!--Переписать кнопку в отдельный компонент-->
+           class="button_add_playlist-wrapper">
+        <button class="button_add_playlist" @click="createRecsPlaylist">Add playlist</button>
+        <!--Переписать кнопку в отдельный компонент-->
+        <!--Добавить список жанров-->
       </div>
     </div>
   </div>
@@ -35,10 +43,18 @@ export default {
   methods: {
     // eslint-disable-next-line no-unused-vars
     filterValueChange: async function (key, value, event) {
-      await this.$store.dispatch('changeFilterValuesByKey', [key, event.target.value])
-      let recommendations = await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters)
-      await this.$store.dispatch('updateRecommendations', recommendations)
+      await this.$store.dispatch('setFilterValuesByKey', [key, event.target.value])
+      await this.updateRecommendations()
     },
+    changeFilterState: function (item, key) {
+      let newState = !item.enabled
+      this.$store.dispatch('changeFilterState', [key, newState])
+      this.updateRecommendations()
+    },
+    updateRecommendations: async function () {
+      let recommendations = await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters)
+      this.$store.dispatch('updateRecommendations', recommendations)
+    }
   }
 }
 </script>
@@ -55,11 +71,31 @@ export default {
     padding: 20px
     font-size: 0.8em
     color: $font-color-accessory
+
   .filters-grid
     display: grid
+    align-items: center
     grid-template-columns: min-content min-content
     grid-column-gap: 10px
     grid-row-gap: 10px
+
+  .filter-name
+    user-select: none
+    height: 30px
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    background-color: $spotify-color
+    transition: all .2s ease
+    color: white
+    border-radius: 30px
+    padding: 0 10px
+    border: 2px solid $spotify-color
+
+    &.disabled
+      background-color: transparent
+      color: $font-color-accessory
 
   .filters-inputs
     display: flex
@@ -76,20 +112,33 @@ export default {
     border: none
 
     &.input
-      background: $background-color-main
+      background: $background-color-accessory
       border-radius: 20px
       padding: 2px 5px
       position: relative
       width: 50px
-      color: $font-color-accessory
+      color: $font-color-main
       font-family: inherit
       font-weight: 600
+      transition: all .2s ease
+      &.disabled
+        background-color: $background-color-main
+        color: $font-color-accessory
+
+    &.range
+      &.disabled
+        &::-webkit-slider-runnable-track, &::-moz-range-track
+          background: $background-color-main
+        &::-webkit-slider-thumb, &::-moz-range-thumb
+          background: $background-color-accessory
+
 
     &:focus
       outline: none
 
   .button_add_playlist-wrapper
     margin-top: 20px
+
     .button_add_playlist
       background-color: $spotify-color
       font-weight: 600
@@ -111,12 +160,15 @@ export default {
     height: 10px
 
   input[type=range]::-webkit-slider-runnable-track
+    transition: all .2s ease
     width: 100%
     height: 4px
     cursor: pointer
     background: $spotify-color
     border-radius: 2px
     border: none
+    &.disabled
+      background: black
 
   input[type=range]::-webkit-slider-thumb
     -webkit-appearance: none
@@ -131,6 +183,7 @@ export default {
 
 
   input[type=range]::-moz-range-track
+    transition: all .2s ease
     width: 100%
     height: 4px
     cursor: pointer
