@@ -73,7 +73,7 @@ let spotifyApiMixin = {
             await this.writeToken()
             await axios({
                 method: 'GET',
-                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl,
+                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl +'&limit=50',
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
