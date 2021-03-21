@@ -1,5 +1,6 @@
 <template>
   <div class="filters-wrapper">
+    <track-card :form="'rec'" :track="$store.state.activeTrack"/>
     <div class="filters">
       <div class="filters-grid">
         <template v-for="(item, key) in $store.state.filters">
@@ -33,9 +34,11 @@
 
 <script>
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
+import TrackCard from "@/components/TrackCard";
 
 export default {
   name: "FiltersBlock",
+  components: {TrackCard},
   mixins: [spotifyApiMixin],
   props: {
     track_id: String
