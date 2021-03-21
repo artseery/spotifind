@@ -5,12 +5,15 @@
         <img class="spotifind-logo" src="../assets/SpotifindLogoV3White.png"/>
       </div>
       <div class="nav-content">
-        <div v-if="!$store.state.spotifyAuth.access_data.access_token" @click="$store.dispatch('spotifyAuth/redirectToSpotifyAuth')">
-          Auth
+        <search-component class="item"></search-component>
+        <div class="auth item">
+          <div v-if="!$store.state.spotifyAuth.access_data.access_token" @click="$store.dispatch('spotifyAuth/redirectToSpotifyAuth')" class="auth-nologon">
+            <img class="auth-nologon icon" src="../assets/login-icon.png"/>
+          </div>
+          <div v-else class="auth-logon">
+            <img class="auth-logon icon" v-if="$store.state.spotifyAuth.user_data && $store.state.spotifyAuth.user_data.images" :src="$store.state.spotifyAuth.user_data.images[0].url"/>
+          </div>
         </div>
-        <div v-else>Authorized</div>
-        <!-- Сделать нормальный вход -->
-        <search-component></search-component>
       </div>
     </div>
   </div>
@@ -28,7 +31,7 @@ name: "NavPanel",
 @import "../variables"
 
 .nav-wrapper
-  height: 80px
+  height: $nav-panel-height
   width: 100%
   background: $background-color-dark
   display: flex
@@ -50,5 +53,17 @@ name: "NavPanel",
       display: flex
       flex-direction: row
       align-items: center
+      height: 40px
+      position: relative
+      .auth
+        height: 100%
+        .icon
+          border-radius: 100%
+          height: 100%
+        .auth-nologon, .auth-logon
+          cursor: pointer
+          height: 100%
+      .item
+        margin: 0 4px
 
 </style>
