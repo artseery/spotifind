@@ -136,7 +136,7 @@ let spotifyApiMixin = {
                     'Content-Type': 'application/json'
                 },
                 data: {
-                    name: `Spotifind playlist for ${this.$store.state.activeTrack.name}`,
+                    name: `${this.$store.state.activeTrack.name} playlist by Spotifind`,
                     public: true
                 }
             })
