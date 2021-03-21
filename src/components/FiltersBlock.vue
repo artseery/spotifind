@@ -1,6 +1,6 @@
 <template>
   <div class="filters-wrapper">
-    <track-card :form="'rec'" :track="$store.state.activeTrack"/>
+    <track-card class="filter-active-card" :form="'rec'" :track="$store.state.activeTrack"/>
     <div class="filters">
       <div class="filters-grid">
         <template v-for="(item, key) in $store.state.filters">
@@ -67,6 +67,8 @@ export default {
 .filters-wrapper
   height: auto
   padding: $padding-page-default $padding-page-default 0 0
+  .filter-active-card
+    border-bottom: none
 
   .filters
     font-weight: 600
