@@ -68,8 +68,6 @@ export default {
   height: auto
   max-width: 300px
   padding: $padding-page-default $padding-page-default 0 0
-  .filter-active-card
-    border-bottom: none
 
   .filters
     font-weight: 600

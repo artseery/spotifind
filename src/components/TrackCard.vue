@@ -245,6 +245,7 @@ export default {
 
 .filter_panel
   background-color: $background-color-dark
+  border-bottom: 2px solid $spotify-color
   &:hover
     background-color: $background-color-dark
   .track-info
