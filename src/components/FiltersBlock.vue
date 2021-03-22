@@ -1,6 +1,6 @@
 <template>
   <div class="filters-wrapper">
-    <track-card class="filter-active-card" :form="'rec'" :track="$store.state.activeTrack"/>
+    <track-card class="filter-active-card" :filter_panel="true" :form="'rec'" :track="$store.state.activeTrack"/>
     <div class="filters">
       <div class="filters-grid">
         <template v-for="(item, key) in $store.state.filters">
@@ -66,6 +66,7 @@ export default {
 @import "../variables"
 .filters-wrapper
   height: auto
+  max-width: 300px
   padding: $padding-page-default $padding-page-default 0 0
   .filter-active-card
     border-bottom: none
@@ -97,6 +98,7 @@ export default {
     border-radius: 30px
     padding: 0 10px
     border: 2px solid $spotify-color
+    cursor: pointer
 
     &.disabled
       background-color: transparent

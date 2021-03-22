@@ -56,6 +56,7 @@ name: "NavPanel",
       height: 40px
       position: relative
       .auth
+        width: 40px
         height: 100%
         .icon
           border-radius: 100%

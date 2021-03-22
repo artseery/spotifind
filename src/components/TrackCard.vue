@@ -1,9 +1,9 @@
 <template>
   <div class="track-card-wrapper"
-       @mousedown="(form === 'rec') ? chooseActiveTrack(track) : openInApp(track.uri)"
-       :class="{ sqr: form === 'sqr', rec: form === 'rec' }"
+       @mousedown="(form === 'rec')&&!filter_panel ? chooseActiveTrack(track) : openInApp(track.uri)"
+       :class="{ sqr: form === 'sqr', rec: form === 'rec', filter_panel: filter_panel }"
   > <!--Дать уже норм названия классам-->
-    <div class="track-card" :class="{ active: $store.state.activeTrack.id === track.id }">
+    <div class="track-card" :class="{ active: ($store.state.activeTrack.id === track.id && !filter_panel)}">
       <div class="track-card-inner">
         <div class="track-image-wrapper">
           <img v-if="form === 'rec'" class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
@@ -23,7 +23,7 @@
             <div class="track-uri">
               <a @mousedown="openInSpotify($event, track.uri)">
                 <img class="spotify-logo"
-                     :src="($store.state.activeTrack.id === track.id) ? spotify_logo_white : spotify_logo_default"
+                     :src="(($store.state.activeTrack.id === track.id) && !filter_panel) ? spotify_logo_white : spotify_logo_default"
                      alt="Open in app"/>
               </a>
             </div>
@@ -47,7 +47,8 @@ export default {
   mixins: [spotifyApiMixin],
   props: {
     track: Object,
-    form: String
+    form: String,
+    filter_panel: Boolean
   },
   data() {
     return {
@@ -78,6 +79,7 @@ export default {
     }
   }
 }
+// TODO Переписать этот компонент с нормальными входными параметрами или разделить
 </script>
 
 <style lang="sass" scoped>
@@ -88,6 +90,7 @@ export default {
   transition: background-color .2s ease
   border-bottom: 1px solid $background-color-accessory
   user-select: none
+  width: 100%
   &:last-child
     border-bottom: none
     height: $track-card-height
@@ -240,4 +243,15 @@ export default {
   .track-image
     width: 100%
 
+.filter_panel
+  background-color: $background-color-dark
+  &:hover
+    background-color: $background-color-dark
+  .track-info
+    padding: 0 10px 0 0 !important
+    grid-column-gap: 10px !important
+    .track-name
+      font-size: 0.9em !important
+    .track-artist
+      font-size: 0.8em !important
 </style>
