@@ -1,9 +1,10 @@
 import axios from "axios";
-import { auth_token } from "@/authorizationToken";
+import { client_secret } from "@/authorizationToken";
 import { api } from "@/api";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 let token = JSON.parse(window.localStorage.getItem('token'))
+let authorization_token = token.token_type + ' ' + token.access_token
 
 
 let spotifyApiMixin = {
@@ -18,7 +19,7 @@ let spotifyApiMixin = {
                 method: 'POST',
                 url: 'https://accounts.spotify.com/api/token',
                 headers: {
-                    'Authorization': auth_token,
+                    'Authorization': client_secret,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 data: 'grant_type=client_credentials'
@@ -69,11 +70,16 @@ let spotifyApiMixin = {
                 if(item.enabled)
                     filtersUrl += '&target_' + key + '=' + item.value
             }
+            let genres = this.$store.state.selected_genres
+            let genres_url = ''
+            if (genres) {
+                genres_url = `&seed_genres=${genres.join(',')}`
+            }
             this.$store.dispatch('changeLoadingState', { component: 'recs', isLoading: true})
             await this.writeToken()
             await axios({
                 method: 'GET',
-                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl +'&limit=50',
+                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl +'&limit=50' + genres_url,
                 headers: {
                     'Authorization': token.token_type + ' ' + token.access_token
                 }
@@ -160,6 +166,24 @@ let spotifyApiMixin = {
         createRecsPlaylist: async function () {
             let newPlaylistData = await this.createNewPlaylist()
             await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
+        },
+        getAvailableGenres: function () {
+            axios({
+                method: 'GET',
+                url: spotifyUrl + `recommendations/available-genre-seeds`,
+                headers: {
+                    'Authorization': authorization_token
+                }
+            }).then(response => {
+                this.$store.dispatch('setGenres', response.data.genres)
+            }).catch(async error => { // Сделать общий обработчик ошибок на все функции работы с API
+                console.log(error.response.status)
+                if (error.response.status === 401) {
+                    window.localStorage.removeItem('token')
+                    await this.getToken()
+                    this.getAvailableGenres()
+                }
+            })
         }
     }
 }

@@ -22,11 +22,12 @@
           </div>
         </template>
       </div>
+      <multiselect placeholder="Pick genres" :value="$store.state.selected_genres" :options="$store.state.genres" @input="selectGenres" :max="3" :multiple="true" :taggable="true">
+      </multiselect>
       <div v-if="$store.state.spotifyAuth.access_data.access_token"
            class="button_add_playlist-wrapper">
         <button class="button_add_playlist" @click="createRecsPlaylist">Add playlist</button>
         <!--Переписать кнопку в отдельный компонент-->
-        <!--Добавить список жанров-->
       </div>
     </div>
   </div>
@@ -35,13 +36,14 @@
 <script>
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
 import TrackCard from "@/components/TrackCard";
+import Multiselect from 'vue-multiselect'
 
 export default {
   name: "FiltersBlock",
-  components: {TrackCard},
+  components: {TrackCard, Multiselect},
   mixins: [spotifyApiMixin],
   props: {
-    track_id: String
+    track_id: String,
   },
   methods: {
     // eslint-disable-next-line no-unused-vars
@@ -57,13 +59,18 @@ export default {
     updateRecommendations: async function () {
       let recommendations = await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters)
       this.$store.dispatch('updateRecommendations', recommendations)
-    }
+    },
+    selectGenres: function (genres) {
+      this.$store.dispatch('selectGenres', genres)
+      this.updateRecommendations()
+    },
   }
 }
 </script>
 
 <style lang="sass" scoped>
 @import "../variables"
+@import "~vue-multiselect/dist/vue-multiselect.min.css"
 .filters-wrapper
   height: auto
   max-width: 300px

@@ -64,7 +64,9 @@ const store = new Vuex.Store({
             recs: false
         },
         recommendations: null,
-        searchInputFocused: false
+        searchInputFocused: false,
+        genres: [],
+        selected_genres: null
     },
     mutations: {
         updateResults(state, data) {
@@ -91,6 +93,12 @@ const store = new Vuex.Store({
         searchInputFocus(state, condition) {
             state.searchInputFocused = condition
         },
+        setGenres(state, genres) {
+            state.genres = genres
+        },
+        selectGenres(state, genres) {
+            state.selected_genres = genres
+        }
     },
     actions: {
         updateResults({commit}, data) {
@@ -122,6 +130,12 @@ const store = new Vuex.Store({
             commit('setFilterValues', data.filters)
             commit('chooseActiveTrack', data.active_track)
             commit('updateRecommendations', data.recommendations)
+        },
+        setGenres({ commit }, genres) {
+            commit('setGenres', genres)
+        },
+        selectGenres({ commit }, genres) {
+            commit('selectGenres', genres)
         }
     }
 })

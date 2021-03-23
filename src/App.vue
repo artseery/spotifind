@@ -18,6 +18,9 @@ export default {
   components: {NavPanel},
   mixins: [spotifyApiMixin],
   name: 'App',
+  created() {
+    this.getAvailableGenres()
+  }
 }
 </script>
 
