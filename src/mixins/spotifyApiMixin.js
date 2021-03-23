@@ -4,7 +4,10 @@ import { api } from "@/api";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 let token = JSON.parse(window.localStorage.getItem('token'))
-let authorization_token = token.token_type + ' ' + token.access_token
+let authorization_token = ''
+if(token) {
+    authorization_token = token.token_type + ' ' + token.access_token //fix
+}
 
 
 let spotifyApiMixin = {

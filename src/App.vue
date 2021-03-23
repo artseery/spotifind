@@ -20,6 +20,9 @@ export default {
   name: 'App',
   created() {
     this.getAvailableGenres()
+    if (!window.localStorage.token) {
+      this.getToken()
+    }
   }
 }
 </script>
