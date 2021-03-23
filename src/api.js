@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "@/store/store";
-import { recommendationsKeeper } from '@/pageStateKeeper'
+import {recommendationsKeeper} from '@/pageStateKeeper'
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 
@@ -9,18 +9,19 @@ let api = axios.create({
     timeout: 1000
 })
 
-function setupInterceptors(vm) {
+function setupInterceptors() {
+    console.log('Interceptors set')
     api.interceptors.response.use((response) => {
         console.log('api:', response)
         return response
     }, (error) => {
         if (error.response.status === 401) {
-            if(vm.$route.name === 'recommendations') {
-                recommendationsKeeper(vm.$store)
-            }
+            recommendationsKeeper(store)
             store.dispatch('spotifyAuth/redirectToSpotifyAuth') // не 401 ошибка, а именно no token
         }
+    }, () => {
+        console.log('always happen')
     })
 }
 
-export { api, setupInterceptors, spotifyUrl }
+export {api, setupInterceptors, spotifyUrl}

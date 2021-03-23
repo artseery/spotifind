@@ -25,13 +25,6 @@ const spotifyAuth = {
                 }
             }).then(response => {
                     state.user_data = response.data
-                }, error => { //Пока добавлено как костыль, требует исправления
-                    if (error.response.status === 401) {
-                        if (this.$route.name === 'recommendations') {
-                            recommendationsKeeper(this.$store)
-                        }
-                        store.dispatch('spotifyAuth/redirectToSpotifyAuth') // не 401 ошибка, а именно no token
-                    }
                 }
             )
         }
