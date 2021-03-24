@@ -71,6 +71,7 @@ export default {
 <style lang="sass" scoped>
 @import "../variables"
 @import "~vue-multiselect/dist/vue-multiselect.min.css"
+
 .filters-wrapper
   height: auto
   max-width: 300px
