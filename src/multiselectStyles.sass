@@ -80,20 +80,23 @@ fieldset[disabled] .multiselect
 
 .multiselect--active
   z-index: 50
+  .multiselect__tags
+    border: 2px solid $spotify-color
+    background: $background-color-dark
 
 
-.multiselect--active:not(.multiselect--above) .multiselect__current, .multiselect--active:not(.multiselect--above) .multiselect__input, .multiselect--active:not(.multiselect--above) .multiselect__tags
-  border-bottom-left-radius: 0
-  border-bottom-right-radius: 0
+//.multiselect--active:not(.multiselect--above) .multiselect__current, .multiselect--active:not(.multiselect--above) .multiselect__input, .multiselect--active:not(.multiselect--above) .multiselect__tags
+//  border-bottom-left-radius: 0
+//  border-bottom-right-radius: 0
 
 
 .multiselect--active .multiselect__select
   transform: rotate(180deg)
 
 
-.multiselect--above.multiselect--active .multiselect__current, .multiselect--above.multiselect--active .multiselect__input, .multiselect--above.multiselect--active .multiselect__tags
-  border-top-left-radius: 0
-  border-top-right-radius: 0
+//.multiselect--above.multiselect--active .multiselect__current, .multiselect--above.multiselect--active .multiselect__input, .multiselect--above.multiselect--active .multiselect__tags
+//  border-top-left-radius: 0
+//  border-top-right-radius: 0
 
 
 .multiselect__input, .multiselect__single
@@ -151,8 +154,9 @@ fieldset[disabled] .multiselect
   display: block
   padding: 8px 40px 0 14px
   //border-radius: 30px
-  border: 2px solid $spotify-color
-  background: $background-color-dark
+  background: $background-color-accessory
+  border: 2px solid $background-color-accessory
+  border-radius: 30px
   font-weight: 600
   font-family: inherit
   font-size: 0.8em
@@ -261,7 +265,8 @@ fieldset[disabled] .multiselect
   position: absolute
   display: block
   background: $background-color-dark
-  width: 100%
+  width: calc(100% - 40px)
+  left: 20px
   max-height: 240px
   overflow: auto
   z-index: 50
