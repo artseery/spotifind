@@ -22,8 +22,14 @@
           </div>
         </template>
       </div>
-      <multiselect placeholder="Pick genres" :value="$store.state.selected_genres" :options="$store.state.genres" @input="selectGenres" :max="3" :multiple="true" :taggable="true">
-      </multiselect>
+      <div class="multiselect-wrapper">
+        <multiselect placeholder="Pick genres" :value="$store.state.selected_genres" :options="$store.state.genres"
+                     @input="selectGenres" :max="3" :multiple="true" :taggable="true" :tagPlaceholder="'Not found'"
+                     :selectLabel="'Select'" :deselectLabel="'Remove'" :tagPosition="'bottom'"
+        >
+          <span slot="maxElements">Max genres selected</span>
+        </multiselect>
+      </div>
       <div v-if="$store.state.spotifyAuth.access_data.access_token"
            class="button_add_playlist-wrapper">
         <button class="button_add_playlist" @click="createRecsPlaylist">Add playlist</button>
@@ -68,9 +74,9 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
+@import "../multiselectStyles.sass"
 @import "../variables"
-@import "~vue-multiselect/dist/vue-multiselect.min.css"
 
 .filters-wrapper
   height: auto
@@ -80,7 +86,7 @@ export default {
   .filters
     font-weight: 600
     background: $background-color-dark
-    padding: 16px
+    padding: 14px
     font-size: 0.8em
     color: $font-color-accessory
 
@@ -134,6 +140,7 @@ export default {
       font-family: inherit
       font-weight: 600
       transition: all .2s ease
+
       &.disabled
         background-color: $background-color-main
         color: $font-color-accessory
@@ -142,6 +149,7 @@ export default {
       &.disabled
         &::-webkit-slider-runnable-track, &::-moz-range-track
           background: $background-color-main
+
         &::-webkit-slider-thumb, &::-moz-range-thumb
           background: $background-color-accessory
 
@@ -180,6 +188,7 @@ export default {
     background: $spotify-color
     border-radius: 2px
     border: none
+
     &.disabled
       background: black
 
@@ -216,5 +225,7 @@ export default {
   input[type=range]:active::-moz-range-thumb
     background: white
 
+  .multiselect-wrapper
+    margin-top: 10px
 
 </style>
