@@ -175,6 +175,9 @@ export default {
       &:hover
         background-color: $spotify-color-light
 
+  .multiselect-wrapper
+    margin-top: 10px
+
   input[type=range]
     background: transparent
     width: 120px
@@ -224,8 +227,5 @@ export default {
 
   input[type=range]:active::-moz-range-thumb
     background: white
-
-  .multiselect-wrapper
-    margin-top: 10px
 
 </style>
