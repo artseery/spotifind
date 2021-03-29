@@ -19,10 +19,12 @@ export default {
   mixins: [spotifyApiMixin],
   name: 'App',
   created() {
-    this.getAvailableGenres()
     if (!window.localStorage.token) {
       this.getToken()
     }
+  },
+  mounted() {
+    this.getAvailableGenres()
   }
 }
 </script>
