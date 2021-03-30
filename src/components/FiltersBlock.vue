@@ -27,6 +27,7 @@
                      @input="selectGenres" :max="3" :multiple="true" :taggable="true" :tagPlaceholder="'Not found'"
                      :selectLabel="'Select'" :deselectLabel="'Remove'" :tagPosition="'bottom'"
         >
+
           <span slot="maxElements">Max genres selected</span>
         </multiselect>
       </div>
