@@ -53,7 +53,6 @@ export default {
     track_id: String,
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
     filterValueChange: async function (key, value, event) {
       await this.$store.dispatch('setFilterValuesByKey', [key, event.target.value])
       await this.updateRecommendations()
