@@ -4,11 +4,6 @@ import { api } from "@/api";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 let token = JSON.parse(window.localStorage.getItem('token'))
-let authorization_token = ''
-if(token) {
-    authorization_token = token.token_type + ' ' + token.access_token //fix
-}
-
 
 let spotifyApiMixin = {
     data() {
@@ -175,7 +170,7 @@ let spotifyApiMixin = {
                 method: 'GET',
                 url: spotifyUrl + `recommendations/available-genre-seeds`,
                 headers: {
-                    'Authorization': authorization_token
+                    'Authorization': token.token_type + ' ' + token.access_token
                 }
             }).then(response => {
                 this.$store.dispatch('setGenres', response.data.genres)
@@ -184,7 +179,7 @@ let spotifyApiMixin = {
                 if (error.response.status === 401) {
                     window.localStorage.removeItem('token')
                     await this.getToken()
-                    this.getAvailableGenres()
+                    await this.getAvailableGenres()
                 }
             })
         }
