@@ -14,12 +14,10 @@ let spotifyApiMixin = {
     },
     computed: {
       authorization_token: async function () {
-          if (token) {
-              return token.token_type + ' ' + token.access_token
-          }
-          else {
+          if (!token) {
               await this.getToken()
           }
+          return token.token_type + ' ' + token.access_token
       }
     },
     methods: {
