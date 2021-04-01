@@ -12,15 +12,13 @@ let spotifyApiMixin = {
             access_data: this.$store.state.spotifyAuth.access_data
         }
     },
-    computed: {
-      authorization_token: async function () {
-          if (!token) {
-              await this.getToken()
-          }
-          return token.token_type + ' ' + token.access_token
-      }
-    },
     methods: {
+        authorization_token: async function () {
+            if (!token) {
+                await this.getToken()
+            }
+            return token.token_type + ' ' + token.access_token
+        },
         getToken: async function () {
             await axios({
                 method: 'POST',
@@ -50,7 +48,7 @@ let spotifyApiMixin = {
                     type: type
                 },
                 headers: {
-                    'Authorization': await this.authorization_token
+                    'Authorization': await this.authorization_token()
                 }
             }).then(response => {
                     this.writeSearchResultToStorage(response.data)
@@ -88,7 +86,7 @@ let spotifyApiMixin = {
                 method: 'GET',
                 url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl +'&limit=50' + genres_url,
                 headers: {
-                    'Authorization': await this.authorization_token
+                    'Authorization': await this.authorization_token()
                 }
             }).then(response => {
                     console.log(response)
@@ -114,7 +112,7 @@ let spotifyApiMixin = {
                 method: 'GET',
                 url: spotifyUrl + 'audio-features/' + seed_tracks,
                 headers: {
-                    'Authorization': await this.authorization_token
+                    'Authorization': await this.authorization_token()
                 }
             }).then(response => {
                     features = response.data
@@ -179,7 +177,7 @@ let spotifyApiMixin = {
                 method: 'GET',
                 url: spotifyUrl + `recommendations/available-genre-seeds`,
                 headers: {
-                    'Authorization': await this.authorization_token
+                    'Authorization': await this.authorization_token()
                 }
             }).then(response => {
                 this.$store.dispatch('setGenres', response.data.genres)

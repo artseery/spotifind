@@ -23,8 +23,12 @@ const spotifyAuth = {
                 headers: {
                     'Authorization': state.access_data.token_type + ' ' + state.access_data.access_token
                 }
-            }).then(response => {
+            }).then(
+                response => {
                     state.user_data = response.data
+                },
+                error => {
+                    console.log(error)
                 }
             )
         }
