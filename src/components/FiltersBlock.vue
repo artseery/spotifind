@@ -17,7 +17,7 @@
             </div>
             <input class="filter input" :value="Number(parseFloat(item.value).toFixed(2))"
                    @change="filterValueChange(key, item.value, $event)" :disabled="!item.enabled"
-                   :class="{ 'disabled': !item.enabled }"
+                   :class="{ 'disabled': !item.enabled, 'tempo': key==='tempo' }"
             >
           </div>
         </template>
@@ -44,6 +44,7 @@
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
 import TrackCard from "@/components/TrackCard";
 import Multiselect from 'vue-multiselect'
+import Inputmask from "inputmask"
 
 export default {
   name: "FiltersBlock",
@@ -51,6 +52,16 @@ export default {
   mixins: [spotifyApiMixin],
   props: {
     track_id: String,
+  },
+  data() {
+    return {
+      im: new Inputmask("(0.[9[9]])|(1)"),
+      imTempo: new Inputmask("[1-2]99|(300)|(99)")
+    }
+  },
+  mounted() {
+    this.im.mask(document.getElementsByClassName('input'))
+    this.imTempo.mask(document.getElementsByClassName('tempo'))
   },
   methods: {
     filterValueChange: async function (key, value, event) {

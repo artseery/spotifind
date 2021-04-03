@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "inputmask": "^5.0.5",
     "sass": "^1.32.0",
     "sass-loader": "^10.1.0",
     "vue": "^2.6.11",
