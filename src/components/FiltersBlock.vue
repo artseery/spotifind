@@ -10,14 +10,14 @@
           </span>
           <div class="filters-inputs" :key="key">
             <div>
-              <input class="filter range" id="size" type="range" min="0.0" :max="key==='tempo' ? 300 : 1.0"
-                     step="0.01" :value="item.value"
+              <input class="filter range" id="size" type="range" min="0" :max="key==='tempo' ? 300 : 1.0"
+                     :step="key==='tempo'? 1 : 0.01" :value="item.value"
                      @change="filterValueChange(key, item.value, $event)"
                      :class="{ 'disabled': !item.enabled }" :disabled="!item.enabled"/>
             </div>
-            <input class="filter input" :value="Number(parseFloat(item.value).toFixed(2))"
+            <input class="filter input" :value="key==='tempo' ? Math.floor(Number(parseFloat(item.value))) : Number(parseFloat(item.value).toFixed(2))"
                    @change="filterValueChange(key, item.value, $event)" :disabled="!item.enabled"
-                   :class="{ 'disabled': !item.enabled, 'tempo': key==='tempo' }"
+                   :class="{ 'disabled': !item.enabled, 'tempo': key==='tempo', 'maxOne': key !=='tempo' }"
             >
           </div>
         </template>
@@ -56,11 +56,11 @@ export default {
   data() {
     return {
       im: new Inputmask("(0.[9[9]])|(1)"),
-      imTempo: new Inputmask("[1-2]99|(300)|(99)")
+      imTempo: new Inputmask('integer', { rightAlign: false, min: 0, max: 300 })
     }
   },
   mounted() {
-    this.im.mask(document.getElementsByClassName('input'))
+    this.im.mask(document.getElementsByClassName("input maxOne"))
     this.imTempo.mask(document.getElementsByClassName('tempo'))
   },
   methods: {
