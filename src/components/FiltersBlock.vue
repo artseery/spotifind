@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      im: new Inputmask("(0.[9[9]])|(1)"),
+      im: new Inputmask('decimal', {rightAlign: false, min: 0, max: 1}),
       imTempo: new Inputmask('integer', {rightAlign: false, min: 0, max: 300}),
       message: '',
       loading: false
