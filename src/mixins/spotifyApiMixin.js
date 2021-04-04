@@ -1,6 +1,6 @@
 import axios from "axios";
-import { client_secret } from "@/authorizationToken";
-import { api } from "@/api";
+import {client_secret} from "@/authorizationToken";
+import {api} from "@/api";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 let token = JSON.parse(window.localStorage.getItem('token'))
@@ -72,7 +72,7 @@ let spotifyApiMixin = {
             let recommendations
             let filtersUrl = ''
             for (const [key, item] of Object.entries(newFilters)) {
-                if(item.enabled)
+                if (item.enabled)
                     filtersUrl += '&target_' + key + '=' + item.value
             }
             let genres = this.$store.state.selected_genres
@@ -80,11 +80,11 @@ let spotifyApiMixin = {
             if (genres) {
                 genres_url = `&seed_genres=${genres.join(',')}`
             }
-            this.$store.dispatch('changeLoadingState', { component: 'recs', isLoading: true})
+            this.$store.dispatch('changeLoadingState', {component: 'recs', isLoading: true})
             await this.writeToken()
             await axios({
                 method: 'GET',
-                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl +'&limit=50' + genres_url,
+                url: spotifyUrl + 'recommendations?seed_tracks=' + seed_tracks + filtersUrl + '&limit=50' + genres_url,
                 headers: {
                     'Authorization': await this.authorization_token()
                 }
@@ -100,7 +100,7 @@ let spotifyApiMixin = {
                     await this.getRecommendationsData(seed_tracks)
                 }
             }).then(() => {
-                this.$store.dispatch('changeLoadingState', { component: 'recs', isLoading: false })
+                this.$store.dispatch('changeLoadingState', {component: 'recs', isLoading: false})
             })
             return recommendations
         },
@@ -130,7 +130,7 @@ let spotifyApiMixin = {
         getCurrentPlayback: function () {
             api({
                 method: 'GET',
-                url: spotifyUrl +'me/player/',
+                url: spotifyUrl + 'me/player/',
                 headers: {
                     'Authorization': this.access_data.token_type + ' ' + this.access_data.access_token
                 }
@@ -156,7 +156,7 @@ let spotifyApiMixin = {
             let uris = this.$store.state.recommendations.tracks.map(item => {
                 return item.uri
             })
-            api({
+            return api({
                 method: 'POST',
                 url: spotifyUrl + `playlists/${playlist_id}/tracks`,
                 headers: {
@@ -169,8 +169,15 @@ let spotifyApiMixin = {
             })
         },
         createRecsPlaylist: async function () {
-            let newPlaylistData = await this.createNewPlaylist()
-            await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
+            if (!this.loading) {
+                this.loading = true
+                let newPlaylistData = await this.createNewPlaylist()
+                let result = await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
+                if (result.status === 201) {
+                    this.message = 'Плейлист добавлен в медиатеку'
+                }
+                this.loading = false
+            }
         },
         getAvailableGenres: async function () {
             axios({

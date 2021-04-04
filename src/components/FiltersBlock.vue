@@ -15,7 +15,8 @@
                      @change="filterValueChange(key, item.value, $event)"
                      :class="{ 'disabled': !item.enabled }" :disabled="!item.enabled"/>
             </div>
-            <input class="filter input" :value="key==='tempo' ? Math.floor(Number(parseFloat(item.value))) : Number(parseFloat(item.value).toFixed(2))"
+            <input class="filter input"
+                   :value="key==='tempo' ? Math.floor(Number(parseFloat(item.value))) : Number(parseFloat(item.value).toFixed(2))"
                    @change="filterValueChange(key, item.value, $event)" :disabled="!item.enabled"
                    :class="{ 'disabled': !item.enabled, 'tempo': key==='tempo', 'maxOne': key !=='tempo' }"
             >
@@ -33,10 +34,14 @@
       </div>
       <div v-if="$store.state.spotifyAuth.access_data.access_token"
            class="button_add_playlist-wrapper">
-        <button class="button_add_playlist" @click="createRecsPlaylist">Add playlist</button>
+        <button class="button_add_playlist" @click="createRecsPlaylist" :disabled="loading" :class="{ 'loading': loading }">
+          <loading-component :size="20" :thickness="2" :color-main="'#6bbeec'" :color-part="'#2b74d2'" v-if="loading"/>
+          <span v-else>Add playlist</span>
+        </button>
         <!--Переписать кнопку в отдельный компонент-->
       </div>
     </div>
+    <message-modal :message="message" :timeout="2000" @clearMessage="message = null"></message-modal>
   </div>
 </template>
 
@@ -45,10 +50,12 @@ import spotifyApiMixin from "@/mixins/spotifyApiMixin";
 import TrackCard from "@/components/TrackCard";
 import Multiselect from 'vue-multiselect'
 import Inputmask from "inputmask"
+import MessageModal from "@/components/MessageModal";
+import LoadingComponent from "@/components/LoadingComponent";
 
 export default {
   name: "FiltersBlock",
-  components: {TrackCard, Multiselect},
+  components: {LoadingComponent, MessageModal, TrackCard, Multiselect},
   mixins: [spotifyApiMixin],
   props: {
     track_id: String,
@@ -56,7 +63,9 @@ export default {
   data() {
     return {
       im: new Inputmask("(0.[9[9]])|(1)"),
-      imTempo: new Inputmask('integer', { rightAlign: false, min: 0, max: 300 })
+      imTempo: new Inputmask('integer', {rightAlign: false, min: 0, max: 300}),
+      message: '',
+      loading: false
     }
   },
   mounted() {
@@ -172,6 +181,7 @@ export default {
     margin-top: 20px
 
     .button_add_playlist
+      position: relative
       background-color: $spotify-color
       font-weight: 600
       color: $font-color-main
@@ -182,7 +192,9 @@ export default {
       height: 40px
       width: 100%
       transition: background-color .2s ease
-
+      &.loading
+        &:hover
+          background-color: $spotify-color
       &:hover
         background-color: $spotify-color-light
 
