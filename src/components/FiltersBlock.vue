@@ -214,7 +214,7 @@ export default {
   input[type=range]::-webkit-slider-runnable-track
     transition: all .2s ease
     width: 100%
-    height: 4px
+    height: 3px
     cursor: pointer
     background: $spotify-color
     border-radius: 2px
@@ -238,7 +238,7 @@ export default {
   input[type=range]::-moz-range-track
     transition: all .2s ease
     width: 100%
-    height: 4px
+    height: 3px
     cursor: pointer
     background: $spotify-color
     border-radius: 2px
