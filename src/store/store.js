@@ -130,7 +130,7 @@ const store = new Vuex.Store({
             commit('setFilterValues', data.filters)
             commit('chooseActiveTrack', data.active_track)
             commit('updateRecommendations', data.recommendations)
-            commit('selectGenres', data.selected_genres)
+            commit('selectGenres', data.genres)
         },
         setGenres({ commit }, genres) {
             commit('setGenres', genres)
