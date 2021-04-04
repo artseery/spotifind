@@ -126,15 +126,20 @@ export default {
     align-items: center
     background-color: $spotify-color
     transition: all .2s ease
-    color: white
+    color: $font-color-accessory
     border-radius: 30px
     padding: 0 10px
-    border: 2px solid $spotify-color
+    border: 1px solid $spotify-color
     cursor: pointer
 
     &.disabled
+      border-color: $font-color-accessory-dark
       background-color: transparent
-      color: $font-color-accessory
+      color: $font-color-accessory-dark
+
+      &:hover
+        border-color: $font-color-accessory
+        color: $font-color-accessory
 
   .filters-inputs
     display: flex
