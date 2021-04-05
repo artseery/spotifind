@@ -229,6 +229,8 @@ export default {
 
       .track-artist-wrapper
         margin-bottom: 4px
+        font-weight: 400
+        font-size: 1em
 
         .track-artist
           color: $font-color-accessory
