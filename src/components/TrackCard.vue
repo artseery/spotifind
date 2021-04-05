@@ -150,13 +150,14 @@ export default {
 
           .track-name-wrapper
             display: flex
+            flex-direction: row
+            align-items: flex-end
             grid-column-start: 1
             grid-column-end: 2
             grid-row-start: 1
             grid-row-end: 2
 
             .track-name
-              align-self: end
               font-weight: 800
               font-size: 1em
               color: $font-color-main
