@@ -126,7 +126,7 @@ export default {
     align-items: center
     background-color: $spotify-color
     transition: all .2s ease
-    color: $font-color-accessory
+    color: white
     border-radius: 30px
     padding: 0 10px
     border: 1px solid $spotify-color
