@@ -128,7 +128,7 @@ export default {
     transition: all .2s ease
     color: white
     border-radius: 30px
-    padding: 0 10px
+    padding: 0 6px
     border: 1px solid $spotify-color
     cursor: pointer
 
