@@ -38,6 +38,7 @@ export default {
   .recommendations-list-wrapper
     .recommendations-list
       grid-template-columns: repeat(auto-fill, 100px)
+      grid-gap: 10px
 
 
 </style>

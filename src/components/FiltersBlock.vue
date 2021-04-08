@@ -115,7 +115,7 @@ export default {
     align-items: center
     grid-template-columns: min-content min-content
     grid-column-gap: 10px
-    grid-row-gap: 10px
+    grid-row-gap: 2px
 
   .filter-name
     user-select: none
@@ -163,14 +163,19 @@ export default {
       &.disabled
         background-color: $background-color-main
         color: $font-color-accessory
-
     &.range
       &.disabled
-        &::-webkit-slider-runnable-track, &::-moz-range-track
+        &::-webkit-slider-runnable-track
+          background: $background-color-main
+        &::-moz-range-track
           background: $background-color-main
 
-        &::-webkit-slider-thumb, &::-moz-range-thumb
+        &::-webkit-slider-thumb
           background: $background-color-accessory
+        &::-moz-range-thumb
+          background: $background-color-accessory
+  .range-wrapper
+    height: 24px
 
 
     &:focus
@@ -204,7 +209,6 @@ export default {
   input[type=range]
     background: transparent
     width: 120px
-    height: 10px
 
   input[type=range]::-webkit-slider-runnable-track
     transition: all .2s ease
@@ -217,9 +221,7 @@ export default {
 
     &.disabled
       background: black
-
   input[type=range]::-webkit-slider-thumb
-    -webkit-appearance: none
     border: none
     height: 12px
     width: 12px
@@ -228,7 +230,7 @@ export default {
     cursor: pointer
     transition: all .2s ease
     margin-top: -7px
-
+    -webkit-appearance: none
 
   input[type=range]::-moz-range-track
     transition: all .2s ease
