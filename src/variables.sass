@@ -15,3 +15,19 @@ $padding-page-default: 10px
 $track-card-height: 80px
 $content-width: 1200px
 $nav-panel-height: 80px
+
+$mobile: 568px
+$tablet: 768px
+$desktop: 1024px
+
+=desktop
+  @media screen and (min-width: $desktop)
+    @content
+
+=tablet
+  @media screen and (max-width: $tablet)
+    @content
+
+=mobile
+  @media screen and (max-width: $tablet - 1px)
+    @content

@@ -7,7 +7,9 @@
       <div class="track-card-inner">
         <div class="track-image-wrapper">
           <img v-if="form === 'rec'" class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
-          <card-hover v-if="form === 'sqr'" :image-src="track.album.images[1].url" />
+          <div class="card-hover-wrapper">
+            <card-hover v-if="form === 'sqr'" :image-src="track.album.images[1].url"/>
+          </div>
         </div>
         <div class="track-info">
           <div class="track-name-wrapper">
@@ -91,119 +93,123 @@ export default {
   border-bottom: 1px solid $background-color-accessory
   user-select: none
   width: 100%
+
   &:last-child
     border-bottom: none
     height: $track-card-height
+
   &:hover
     background-color: $background-color-accessory
 
-  &>.track-card
+  & > .track-card
+    height: 100%
+    display: flex
+    flex-direction: row
+    align-items: center
+    background-color: inherit
+
+    //Мб лого споти добавить анимацию
+
+    &.active
+      background-color: $spotify-color
+      transition: background-color .2s ease
+
+    & a
+      text-decoration: none
+
+    .track-card-inner
+      width: 100%
       height: 100%
+      align-items: center
       display: flex
       flex-direction: row
-      align-items: center
-      background-color: inherit
 
-      //Мб лого споти добавить анимацию
-
-      &.active
-        background-color: $spotify-color
-        transition: background-color .2s ease
-
-      & a
-        text-decoration: none
-
-      .track-card-inner
-        width: 100%
+      .track-image-wrapper
         height: 100%
-        align-items: center
+        width: $track-card-height
         display: flex
         flex-direction: row
+        align-items: center
+        justify-content: center
+        flex-shrink: 0
 
-        .track-image-wrapper
-          height: 100%
-          width: $track-card-height
+        .track-image
+          height: $track-card-height / 1.2
+          width: auto
+          border-radius: 100%
+
+      .track-artist-wrapper, .track-name-wrapper
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
+      .track-info
+        display: grid
+        width: 100%
+        height: 100%
+        grid-template-columns: 1fr $track-card-spotify-logo-size
+        grid-auto-rows: 50% 50%
+        grid-column-gap: 50px
+        padding: 0 20px
+
+        .track-name-wrapper
           display: flex
           flex-direction: row
-          align-items: center
-          justify-content: center
-          flex-shrink: 0
+          align-items: flex-end
+          grid-column-start: 1
+          grid-column-end: 2
+          grid-row-start: 1
+          grid-row-end: 2
 
-          .track-image
-            height: $track-card-height / 1.2
-            width: auto
-            border-radius: 100%
+          .track-name
+            font-weight: 800
+            font-size: 1em
+            color: $font-color-main
+            text-overflow: ellipsis
+            white-space: nowrap
+            overflow: hidden
 
-        .track-artist-wrapper, .track-name-wrapper
-          white-space: nowrap
-          overflow: hidden
-          text-overflow: ellipsis
+        .track-artist-wrapper
+          grid-column-start: 1
+          grid-column-end: 2
+          grid-row-start: 2
+          grid-row-end: 3
 
-        .track-info
-          display: grid
-          width: 100%
-          height: 100%
-          grid-template-columns: 1fr $track-card-spotify-logo-size
-          grid-auto-rows: 50% 50%
-          grid-column-gap: 50px
-          padding: 0 20px
+          .track-artist
+            font-size: 0.9em
+            color: $font-color-accessory
 
-          .track-name-wrapper
-            display: flex
-            flex-direction: row
-            align-items: flex-end
-            grid-column-start: 1
-            grid-column-end: 2
-            grid-row-start: 1
-            grid-row-end: 2
+        .track-uri-wrapper
+          margin: auto
+          grid-column-start: 2
+          grid-column-end: 3
+          grid-row-start: 1
+          grid-row-end: 3
 
-            .track-name
-              font-weight: 800
-              font-size: 1em
-              color: $font-color-main
-              text-overflow: ellipsis
-              white-space: nowrap
-              overflow: hidden
+          .track-uri
+            .spotify-logo
+              height: $track-card-spotify-logo-size
+              width: $track-card-spotify-logo-size
 
-          .track-artist-wrapper
-            grid-column-start: 1
-            grid-column-end: 2
-            grid-row-start: 2
-            grid-row-end: 3
-
-            .track-artist
-              font-size: 0.9em
-              color: $font-color-accessory
-
-          .track-uri-wrapper
-            margin: auto
-            grid-column-start: 2
-            grid-column-end: 3
-            grid-row-start: 1
-            grid-row-end: 3
-
-            .track-uri
-              .spotify-logo
-                height: $track-card-spotify-logo-size
-                width: $track-card-spotify-logo-size
-
-      .track-image
-        width: 100%
+    .track-image
+      width: 100%
 
 
 //квадрат
 .sqr
-  width: 200px
+  width: 100%
 
   & a
     text-decoration: none
 
   .track-card-inner
-
     .track-image-wrapper
-      width: 200px
-      height: 200px
+      width: 100%
+      height: 100%
       flex-shrink: 0
+      .card-hover-wrapper
+        width: 200px
+        height: 200px
 
       .track-image
         height: 100%
@@ -245,17 +251,30 @@ export default {
 
   .track-image
     width: 100%
++tablet
+  .sqr
+    .track-card-inner
+      .track-image-wrapper
+        .card-hover-wrapper
+          width: 100px
+          height: 100px
+      .track-info
+        font-size: 0.8em
 
 .filter_panel
   background-color: $background-color-dark
   border-bottom: 2px solid $spotify-color
+
   &:hover
     background-color: $background-color-dark
+
   .track-info
     padding: 0 10px 0 0 !important
     grid-column-gap: 10px !important
+
     .track-name
       font-size: 0.9em !important
+
     .track-artist
       font-size: 0.8em !important
 </style>

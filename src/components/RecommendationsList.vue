@@ -34,5 +34,10 @@ export default {
     justify-content: center
     padding-top: $padding-page-default
 
++tablet
+  .recommendations-list-wrapper
+    .recommendations-list
+      grid-template-columns: repeat(auto-fill, 100px)
+
 
 </style>

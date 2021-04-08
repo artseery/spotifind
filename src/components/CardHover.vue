@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-lift" :style="cardSize(width, height)">
+  <div class="tw-lift">
     <div class="tw-lift__card" :style="backgroundStyle(cardColor)">
       <img v-if="imageSrc" :src="imageSrc" class="tw-lift__card__image"/>
     </div>
@@ -15,8 +15,6 @@ export default {
   props: {
     'substrateColor': {type: String, default: '#1db954'},
     'cardColor': {type: String, default: '#1db954'},
-    'width': {type: Number, default: 200},
-    'height': {type: Number, default: 200},
     'imageSrc': {type: String, default: null}
   },
   methods: {
@@ -25,9 +23,6 @@ export default {
     },
     cornerStyle: function (color, side) {
       return `border-${side}-color: ${color}`
-    },
-    cardSize: function (width, height) {
-      return `width: ${width}px; height: ${height}px`
     }
   }
 }
@@ -42,6 +37,8 @@ $cardWidth: 200px
 $cardHeight: 300px
 .tw-lift
   position: relative
+  height: 100%
+  width: 100%
   &:hover
     .tw-lift__card
       transform: translate($lift, -$lift)

@@ -55,6 +55,12 @@ export default {
   .search-box
     width: 800px
 
++tablet
+  .recommendations-wrapper
+    flex-direction: column
+    align-items: center
+    width: 100%
+
 .fade-slide-enter-active, .fade-slide-leave-active
   transition: all .2s ease
 

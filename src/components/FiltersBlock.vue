@@ -9,7 +9,7 @@
             {{ key }}
           </span>
           <div class="filters-inputs" :key="key">
-            <div>
+            <div class="range-wrapper">
               <input class="filter range" id="size" type="range" min="0" :max="key==='tempo' ? 300 : 1.0"
                      :step="key==='tempo'? 1 : 0.01" :value="item.value"
                      @change="filterValueChange(key, item.value, $event)"
@@ -146,12 +146,6 @@ export default {
     flex-direction: column
     align-items: center
 
-  .range-wrapper
-    display: flex
-    flex-direction: row
-    justify-content: flex-start
-    align-items: flex-start
-
   .filter
     border: none
 
@@ -184,6 +178,7 @@ export default {
 
   .button_add_playlist-wrapper
     margin-top: 20px
+    width: 100%
 
     .button_add_playlist
       position: relative
@@ -255,5 +250,24 @@ export default {
 
   input[type=range]:active::-moz-range-thumb
     background: white
+
++tablet
+  .filters-wrapper
+    max-width: 100%
+    width: 100%
+    padding: 6px 0
+    .filters
+      display: flex
+      flex-direction: column
+      align-items: center
+      .filters-grid
+        width: 100%
+        grid-template-columns: min-content 1fr
+      .multiselect-wrapper
+        width: 100%
+      .range-wrapper
+        width: 100%
+        input[type=range]
+          width: 100%
 
 </style>

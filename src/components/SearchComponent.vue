@@ -21,8 +21,6 @@ export default {
 @import "../variables"
 
 .search-wrapper
-  flex-shrink: 0
-  width: 500px
   max-height: 100vh
 
   .search-box
@@ -40,4 +38,9 @@ export default {
     overflow: auto
     -ms-overflow-style: none
     scrollbar-width: none
++tablet
+  .search-wrapper
+    .search-track-list
+      width: calc(100% - 20px)
+      margin-left: 10px
 </style>
