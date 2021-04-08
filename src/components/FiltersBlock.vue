@@ -209,6 +209,7 @@ export default {
   input[type=range]
     background: transparent
     width: 120px
+    -webkit-appearance: none
 
   input[type=range]::-webkit-slider-runnable-track
     transition: all .2s ease
@@ -229,7 +230,7 @@ export default {
     background: white
     cursor: pointer
     transition: all .2s ease
-    margin-top: -7px
+    margin-top: -5px
     -webkit-appearance: none
 
   input[type=range]::-moz-range-track
