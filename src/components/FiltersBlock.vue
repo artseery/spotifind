@@ -34,7 +34,8 @@
       </div>
       <div v-if="$store.state.spotifyAuth.access_data.access_token"
            class="button_add_playlist-wrapper">
-        <button class="button_add_playlist" @click="createRecsPlaylist" :disabled="loading" :class="{ 'loading': loading }">
+        <button class="button_add_playlist" @click="createRecsPlaylist" :disabled="loading"
+                :class="{ 'loading': loading }">
           <loading-component :size="20" :thickness="2" :color-main="'#6bbeec'" :color-part="'#2b74d2'" v-if="loading"/>
           <span v-else>Add playlist</span>
         </button>
@@ -163,17 +164,21 @@ export default {
       &.disabled
         background-color: $background-color-main
         color: $font-color-accessory
+
     &.range
       &.disabled
         &::-webkit-slider-runnable-track
           background: $background-color-main
+
         &::-moz-range-track
           background: $background-color-main
 
         &::-webkit-slider-thumb
           background: $background-color-accessory
+
         &::-moz-range-thumb
           background: $background-color-accessory
+
   .range-wrapper
     height: 24px
 
@@ -197,9 +202,11 @@ export default {
       height: 40px
       width: 100%
       transition: background-color .2s ease
+
       &.loading
         &:hover
           background-color: $spotify-color
+
       &:hover
         background-color: $spotify-color-light
 
@@ -222,6 +229,7 @@ export default {
 
     &.disabled
       background: black
+
   input[type=range]::-webkit-slider-thumb
     border: none
     height: 12px
@@ -259,17 +267,22 @@ export default {
     max-width: 100%
     width: 100%
     padding: 6px 0
+
     .filters
       display: flex
       flex-direction: column
       align-items: center
+
       .filters-grid
         width: 100%
         grid-template-columns: min-content 1fr
+
       .multiselect-wrapper
         width: 100%
+
       .range-wrapper
         width: 100%
+
         input[type=range]
           width: 100%
 
