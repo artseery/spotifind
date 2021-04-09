@@ -98,6 +98,12 @@ const store = new Vuex.Store({
         },
         selectGenres(state, genres) {
             state.selected_genres = genres
+        },
+        disableFilters(state) {
+            // eslint-disable-next-line no-unused-vars
+            for (let [key, filter] of Object.entries(state.filters)) {
+                filter.enabled = false
+            }
         }
     },
     actions: {
@@ -115,6 +121,8 @@ const store = new Vuex.Store({
             commit('changeFilterState', [key, value])
         },
         chooseActiveTrack({commit}, track) {
+            commit('disableFilters')
+            commit('selectGenres', null)
             commit('chooseActiveTrack', track)
         },
         changeLoadingState({commit}, payload) {
