@@ -14,11 +14,10 @@
 </template>
 
 <script>
-import spotifyApiMixin from "@/mixins/spotifyApiMixin";
-import RecommendationList from "@/components/RecommendationsList";
-import LoadingComponent from "@/components/LoadingComponent";
-import FiltersBlock from "@/components/FiltersBlock";
-// import FiltersBlock from "@/components/FiltersBlock";
+import spotifyApiMixin from "@/mixins/spotifyApiMixin"
+import RecommendationList from "@/components/RecommendationsList"
+import LoadingComponent from "@/components/LoadingComponent"
+import FiltersBlock from "@/components/FiltersBlock"
 
 export default {
   name: "RecommendationsComponent",
