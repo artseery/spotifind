@@ -41,7 +41,6 @@ const spotifyAuth = {
         redirectToSpotifyAuth() {
             let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private'
             let encodedScopes = encodeURIComponent(scopes)
-            // Добавить If для случая пересылки именно с компонента рекомендаций
             recommendationsKeeper(store)
             window.location = spotify_accounts_url +
                 `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=${window.location.protocol}//${window.location.host}`
