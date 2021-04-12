@@ -1,5 +1,5 @@
 import {client_id} from "@/authorizationToken";
-import {api} from "../api";
+import {api} from "@/api";
 import {spotifyUrl} from "@/api";
 import store from "@/store/store";
 import {recommendationsKeeper} from "@/pageStateKeeper";

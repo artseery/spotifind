@@ -10,55 +10,54 @@ const store = new Vuex.Store({
     },
     state: {
         foundResults: null,
-        filters: {
-            acousticness: {
-                value: null,
-                enabled: false
-            }, // Акустическая ли композиция (от 0.0 до 1.0)
-            danceability: {
-                value: null,
-                enabled: false
-            }, // Танцевальная ли композиция (от 0.0 до 1.0)
-            // duration_ms: null, // Продолжительность (миллисекунды)
-            energy: {
-                value: null,
-                enabled: false
-            }, // Энергичность трека (от 0.0 до 1.0)
-            instrumentalness: {
-                value: null,
-                enabled: false
-            }, // Инструментальная ли музыка (от 0.0 до 1.0 (0.5 и выше точно инструменталы))
-            liveness: {
-                value: null,
-                enabled: false
-            }, // Является ли запись "лайвом" (от 0.0 до 1.0 (0.8 и выше значит, что это лайв))
-            speechiness: {
-                value: null,
-                enabled: false
-            }, // Как много речи в композациях (от 0.0 до 1.0 (менее 0.33 - композиция без слов, от 0.33 до 0.66 - и речетатив и музыка, 0.66 и более - речетатив))
-            tempo: {
-                value: null,
-                enabled: false
-            }, // Темп копозиции (BPM)
-            valence: {
-                value: null,
-                enabled: false
-            }, // Валентность трека (от 0.0 до 1.0 (Означает "музыкальный позитивизм" композиции, чем выше, тем композиция более позитивная))
-             // popularity: {
-             //    value: null,
-             //     enabled: false
-             // }, // Популярность трека (от 0 до 100 (100 - наиболее популярный))
-
-            // No access by user
-            // key: null, // Ноты, используемые в композиции (таблицу смотреть)
-            // time_signature: null, // Количество битов в каждом такте (любое целое)
-            // mode: null, // Мажорность/минорность (1 - мажор, 2 - минор)
-            // loudness: null, // Громкость композиции (в децибеллах от -60 до 0)
-
-            // Добавить target на return-е
-        },
-        activeTrack: {
-        },
+        // filters: {
+        //     acousticness: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Акустическая ли композиция (от 0.0 до 1.0)
+        //     danceability: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Танцевальная ли композиция (от 0.0 до 1.0)
+        //     // duration_ms: null, // Продолжительность (миллисекунды)
+        //     energy: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Энергичность трека (от 0.0 до 1.0)
+        //     instrumentalness: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Инструментальная ли музыка (от 0.0 до 1.0 (0.5 и выше точно инструменталы))
+        //     liveness: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Является ли запись "лайвом" (от 0.0 до 1.0 (0.8 и выше значит, что это лайв))
+        //     speechiness: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Как много речи в композациях (от 0.0 до 1.0 (менее 0.33 - композиция без слов, от 0.33 до 0.66 - и речетатив и музыка, 0.66 и более - речетатив))
+        //     tempo: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Темп копозиции (BPM)
+        //     valence: {
+        //         value: null,
+        //         enabled: false
+        //     }, // Валентность трека (от 0.0 до 1.0 (Означает "музыкальный позитивизм" композиции, чем выше, тем композиция более позитивная))
+        //     // popularity: {
+        //     //    value: null,
+        //     //     enabled: false
+        //     // }, // Популярность трека (от 0 до 100 (100 - наиболее популярный))
+        //
+        //     // No access by user
+        //     // key: null, // Ноты, используемые в композиции (таблицу смотреть)
+        //     // time_signature: null, // Количество битов в каждом такте (любое целое)
+        //     // mode: null, // Мажорность/минорность (1 - мажор, 2 - минор)
+        //     // loudness: null, // Громкость композиции (в децибеллах от -60 до 0)
+        //
+        //     // Добавить target на return-е
+        // },
+        activeTrack: {},
         loading: {
             search: false,
             recs: false
@@ -66,7 +65,8 @@ const store = new Vuex.Store({
         recommendations: null,
         searchInputFocused: false,
         genres: [],
-        selected_genres: null
+        selected_genres: null,
+        filters: {}
     },
     mutations: {
         updateResults(state, data) {
@@ -104,6 +104,22 @@ const store = new Vuex.Store({
             for (let [key, filter] of Object.entries(state.filters)) {
                 filter.enabled = false
             }
+        },
+        initFilters(state) {
+            const filters = {}
+            const filtersArray =
+                [
+                    'acousticness', 'danceability', 'energy',
+                    'instrumentalness', 'liveness', 'speechiness',
+                    'tempo', 'valence'
+                ]
+            for (const key of filtersArray) {
+                filters[key] = {
+                    value: null,
+                    enabled: false
+                }
+            }
+            state.filters = filters
         }
     },
     actions: {
@@ -117,7 +133,7 @@ const store = new Vuex.Store({
         setFilterValuesByKey({commit}, [key, value]) {
             commit('setFilterValuesByKey', {key, value})
         },
-        changeFilterState({ commit }, [key, value]) {
+        changeFilterState({commit}, [key, value]) {
             commit('changeFilterState', [key, value])
         },
         chooseActiveTrack({commit}, track) {
@@ -134,17 +150,20 @@ const store = new Vuex.Store({
         searchInputFocus({commit}, condition) {
             commit('searchInputFocus', condition)
         },
-        setRecommendationsDataFromStore({ commit }, data) {
+        setRecommendationsDataFromStore({commit}, data) {
             commit('setFilterValues', data.filters)
             commit('chooseActiveTrack', data.active_track)
             commit('updateRecommendations', data.recommendations)
             commit('selectGenres', data.genres)
         },
-        setGenres({ commit }, genres) {
+        setGenres({commit}, genres) {
             commit('setGenres', genres)
         },
-        selectGenres({ commit }, genres) {
+        selectGenres({commit}, genres) {
             commit('selectGenres', genres)
+        },
+        initFilters({commit}) { //init on APP create
+            commit('initFilters')
         }
     }
 })

@@ -19,6 +19,7 @@ export default {
   mixins: [spotifyApiMixin],
   name: 'App',
   created() {
+    this.$store.dispatch('initFilters')
     if (!window.localStorage.token) {
       this.getToken()
     }
