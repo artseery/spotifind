@@ -8,12 +8,10 @@ let token = JSON.parse(window.localStorage.getItem('token'))
 
 
 let spotifyApiMixin = {
-    data() {
-        return {
-            access_data: this.$store.state.spotifyAuth.access_data
-        }
-    },
     methods: {
+        access_data: function () {
+            return JSON.parse(window.localStorage.access_data)
+        },
         authorization_token: async function () {
             if (!token) {
                 await this.getToken()
@@ -140,11 +138,12 @@ let spotifyApiMixin = {
             )
         },
         createNewPlaylist: function () {
+            let user_data = JSON.parse(window.localStorage.user_data)
             return api({
                 method: 'POST',
-                url: spotifyUrl + `users/${this.$store.state.spotifyAuth.user_data.id}/playlists`,
+                url: spotifyUrl + `users/${user_data.id}/playlists`,
                 headers: {
-                    'Authorization': this.access_data.token_type + ' ' + this.access_data.access_token,
+                    'Authorization': this.access_data().token_type + ' ' + this.access_data().access_token,
                     'Content-Type': 'application/json'
                 },
                 data: {
@@ -161,7 +160,7 @@ let spotifyApiMixin = {
                 method: 'POST',
                 url: spotifyUrl + `playlists/${playlist_id}/tracks`,
                 headers: {
-                    'Authorization': this.access_data.token_type + ' ' + this.access_data.access_token,
+                    'Authorization': this.access_data().token_type + ' ' + this.access_data().access_token,
                     'Content-Type': 'application/json'
                 },
                 data: {

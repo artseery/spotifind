@@ -19,16 +19,17 @@ export default {
   mixins: [spotifyApiMixin],
   name: 'App',
   created() {
-    this.$store.dispatch('initFilters')
     if (!window.localStorage.token) {
       this.getToken()
     }
+    console.log('lastDirective:', window.localStorage.lastDirective)
     if(window.localStorage.lastDirective === 'createRecsPlaylist') {
       this.createRecsPlaylist()
     }
   },
   mounted() {
     this.getAvailableGenres()
+    this.$store.dispatch('initFilters')
   }
 }
 </script>

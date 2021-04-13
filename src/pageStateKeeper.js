@@ -8,6 +8,7 @@ function recommendationsKeeper(store) {
 }
 function lastDirectiveKeeper(directive) {
     window.localStorage.setItem('lastDirective', directive)
+    console.log(`lastDirective set to ${directive}`)
 }
 
 export { recommendationsKeeper, lastDirectiveKeeper }

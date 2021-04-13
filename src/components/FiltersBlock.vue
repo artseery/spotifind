@@ -32,7 +32,7 @@
           <span slot="maxElements">Max genres selected</span>
         </multiselect>
       </div>
-      <div v-if="$store.state.spotifyAuth.access_data.access_token"
+      <div v-if="accessData"
            class="button_add_playlist-wrapper">
         <button class="button_add_playlist" @click="createRecsPlaylist" :disabled="loading"
                 :class="{ 'loading': loading }">
@@ -91,6 +91,10 @@ export default {
       this.$store.dispatch('selectGenres', genres)
       this.updateRecommendations()
     },
+    accessData: function () {
+      let access_data = JSON.parse(window.localStorage.access_data)
+      return access_data
+    }
   }
 }
 </script>
