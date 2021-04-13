@@ -43,10 +43,6 @@ export default {
     })
   },
   methods: {
-    // imageUrl: function () {
-    //   let user_data = JSON.parse(window.localStorage.user_data)
-    //   return(user_data?.images[0]?.url)
-    // },
     accessData: function () {
       console.log(window.localStorage.access_data)
       return window.localStorage.access_data
