@@ -7,7 +7,7 @@ const router = new VueRouter({
     mode: 'history'
 })
 
-router.beforeEach((to, from, next) => { // TODO Всё это переписать
+router.beforeEach((to, from, next) => {
     let access_data = {}
     if (to.hash) {
         let splitHash = to.hash.split(/[# & =]/gm).slice(1)

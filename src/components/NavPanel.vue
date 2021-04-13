@@ -12,8 +12,8 @@
             <img class="auth-nologon icon" src="../assets/login-icon.png"/>
           </div>
           <div v-else class="auth-logon">
-            <img class="auth-logon icon" v-if="imageUrl()"
-                 :src="imageUrl()"/>
+            <img class="auth-logon icon" v-if="user_data && user_data.images[0]"
+                 :src="user_data.images[0].url"/>
           </div>
         </div>
       </div>
@@ -28,11 +28,25 @@ import { redirectToSpotifyAuth } from "@/utils";
 export default {
   name: "NavPanel",
   components: {SearchComponent},
+  data() {
+    return {
+      user_data: null
+    }
+  },
+  created() {
+    if(window.localStorage.user_data) {
+      this.user_data = JSON.parse(window.localStorage.user_data)
+    }
+    window.addEventListener('setUserData', () => {
+      console.log('user_data:', this.user_data)
+      this.user_data = JSON.parse(window.localStorage.user_data)
+    })
+  },
   methods: {
-    imageUrl: function () {
-      let user_data = JSON.parse(window.localStorage.user_data)
-      return(user_data?.images[0]?.url)
-    },
+    // imageUrl: function () {
+    //   let user_data = JSON.parse(window.localStorage.user_data)
+    //   return(user_data?.images[0]?.url)
+    // },
     accessData: function () {
       console.log(window.localStorage.access_data)
       return window.localStorage.access_data

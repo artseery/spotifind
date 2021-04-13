@@ -4,6 +4,7 @@ import {client_id} from "@/authorizationToken";
 import {api, spotifyUrl} from "@/api";
 
 let spotify_accounts_url = 'https://accounts.spotify.com/'
+let setUserDataEvent = new Event('setUserData')
 
 function redirectToSpotifyAuth() {
     let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private'
@@ -25,6 +26,7 @@ function setUserData() {
         response => {
             let user_data = JSON.stringify(response.data)
             window.localStorage.setItem('user_data', user_data)
+            window.dispatchEvent(setUserDataEvent)
         },
         error => {
             console.log(error)
