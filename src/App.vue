@@ -23,6 +23,9 @@ export default {
     if (!window.localStorage.token) {
       this.getToken()
     }
+    if(window.localStorage.lastDirective === 'createRecsPlaylist') {
+      this.createRecsPlaylist()
+    }
   },
   mounted() {
     this.getAvailableGenres()

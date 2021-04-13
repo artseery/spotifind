@@ -1,6 +1,7 @@
 import axios from "axios";
 import {client_secret} from "@/authorizationToken";
 import {api} from "@/api";
+import {lastDirectiveKeeper} from "@/pageStateKeeper";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 let token = JSON.parse(window.localStorage.getItem('token'))
@@ -170,11 +171,13 @@ let spotifyApiMixin = {
         },
         createRecsPlaylist: async function () {
             if (!this.loading) {
+                lastDirectiveKeeper('createRecsPlaylist')
                 this.loading = true
                 let newPlaylistData = await this.createNewPlaylist()
                 let result = await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
                 if (result.status === 201) {
                     this.message = 'Плейлист добавлен в медиатеку'
+                    lastDirectiveKeeper(null)
                 }
                 this.loading = false
             }

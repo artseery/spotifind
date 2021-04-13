@@ -3,8 +3,11 @@ function recommendationsKeeper(store) {
         'filters': store.state.filters,
         'recommendations': store.state.recommendations,
         'active_track': store.state.activeTrack,
-        'genres': store.state.selected_genres
+        'genres': store.state.selected_genres,
     }))
 }
+function lastDirectiveKeeper(directive) {
+    window.localStorage.setItem('lastDirective', directive)
+}
 
-export { recommendationsKeeper }
+export { recommendationsKeeper, lastDirectiveKeeper }
