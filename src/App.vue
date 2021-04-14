@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     console.log('lastDirective:', window.localStorage.lastDirective)
-    if(window.localStorage.lastDirective === 'createRecsPlaylist') {
+    if (window.localStorage.lastDirective === 'createRecsPlaylist') {
       this.createRecsPlaylist()
     }
     this.getAvailableGenres()
@@ -66,6 +66,7 @@ button:focus
 
   .page-wrapper
     height: 100%
+
     .content-wrapper
       position: relative
       display: flex
