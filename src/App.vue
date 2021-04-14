@@ -22,12 +22,12 @@ export default {
     if (!window.localStorage.token) {
       this.getToken()
     }
+  },
+  mounted() {
     console.log('lastDirective:', window.localStorage.lastDirective)
     if(window.localStorage.lastDirective === 'createRecsPlaylist') {
       this.createRecsPlaylist()
     }
-  },
-  mounted() {
     this.getAvailableGenres()
     this.$store.dispatch('initFilters')
   }
