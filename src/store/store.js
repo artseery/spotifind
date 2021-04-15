@@ -15,7 +15,7 @@ const store = new Vuex.Store({
         searchInputFocused: false,
         genres: [],
         selected_genres: null,
-        filters: {}
+        filters: null
     },
     mutations: {
         updateResults(state, data) {

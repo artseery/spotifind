@@ -30,7 +30,7 @@ export default {
        let data = JSON.parse(window.localStorage.getItem('recommendations_data'))
        vm.$store.dispatch('setRecommendationsDataFromStore', data).then(() => {
          window.localStorage.removeItem('recommendations_data')
-         console.log('cleared')
+         console.log('Recs data cleared from storage')
        })
      }
     })

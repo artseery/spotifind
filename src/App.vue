@@ -24,7 +24,9 @@ export default {
     }
   },
   mounted() {
-    this.getAvailableGenres()
+    if (!this.$store.state.filters) {
+      this.getAvailableGenres()
+    }
     this.$store.dispatch('initFilters')
   }
 }
