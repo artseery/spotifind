@@ -24,10 +24,6 @@ export default {
     }
   },
   mounted() {
-    console.log('lastDirective:', window.localStorage.lastDirective)
-    if (window.localStorage.lastDirective === 'createRecsPlaylist') {
-      this.createRecsPlaylist()
-    }
     this.getAvailableGenres()
     this.$store.dispatch('initFilters')
   }

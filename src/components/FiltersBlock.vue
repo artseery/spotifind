@@ -70,6 +70,10 @@ export default {
     }
   },
   mounted() {
+    console.log('lastDirective:', window.localStorage.lastDirective)
+    if (window.localStorage.lastDirective === 'createRecsPlaylist') {
+      this.createRecsPlaylist()
+    }
     this.im.mask(document.getElementsByClassName("input maxOne"))
     this.imTempo.mask(document.getElementsByClassName('tempo'))
   },
