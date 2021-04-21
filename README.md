@@ -1,4 +1,4 @@
-# (WIP) SpotiFind
+# (WIP) Spotifind
 
 ## Web app for flexible search for similar songs and filtering
 
