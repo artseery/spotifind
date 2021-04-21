@@ -24,16 +24,15 @@ export default {
   components: {FiltersBlock, LoadingComponent, RecommendationList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-     if (window.localStorage.recommendations_data) {
-       let data = JSON.parse(window.localStorage.getItem('recommendations_data'))
-       vm.$store.dispatch('setRecommendationsDataFromStore', data).then(() => {
-         window.localStorage.removeItem('recommendations_data')
-         console.log('Recs data cleared from storage')
-       })
-     }
-    })
+
+  mounted() {
+    if (window.localStorage.recommendations_data) {
+      let data = JSON.parse(window.localStorage.getItem('recommendations_data'))
+      this.$store.dispatch('setRecommendationsDataFromStore', data).then(() => {
+        window.localStorage.removeItem('recommendations_data')
+        console.log('Recs data cleared from storage')
+      })
+    }
   }
 }
 </script>
