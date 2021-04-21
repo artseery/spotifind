@@ -45,7 +45,6 @@ export default {
   position: fixed
   left: calc(50% - 150px)
   bottom: 10px
-  width: 300px
   height: 50px
   z-index: 100
 
@@ -58,7 +57,7 @@ export default {
     flex-direction: row
     justify-content: center
     align-items: center
-    padding: 0 20px
+    padding: 0 50px
 
     .message-box__text
       font-family: inherit
