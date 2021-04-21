@@ -1,6 +1,6 @@
 # (WIP) SpotiFind
 
-## Web app for flexible search of similar music compositions and filter it
+## Web app for flexible search for similar songs and filtering
 
 ### Placed on https://ranetkagod.github.io/spotifind/
 
