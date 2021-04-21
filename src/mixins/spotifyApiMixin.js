@@ -175,7 +175,7 @@ let spotifyApiMixin = {
                 let newPlaylistData = await this.createNewPlaylist()
                 let result = await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
                 if (result.status === 201) {
-                    this.message = 'Плейлист добавлен в медиатеку'
+                    this.message = 'Saved to Your library'
                     lastDirectiveKeeper(null)
                 }
                 this.loading = false
