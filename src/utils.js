@@ -11,7 +11,7 @@ function redirectToSpotifyAuth() {
     let encodedScopes = encodeURIComponent(scopes)
     recommendationsKeeper(store)
     window.location = spotify_accounts_url +
-        `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=${window.location.protocol}//${window.location.host}`
+        `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=${window.location.protocol}//${window.location.host}${require('../vue.config.js').publicPath}`
 }
 
 function setUserData() {

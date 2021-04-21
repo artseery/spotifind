@@ -278,7 +278,7 @@ export default {
   .filters-wrapper
     max-width: 100%
     width: 100%
-    padding: 6px 0
+    padding: 10px 10px
 
     .filters
       display: flex

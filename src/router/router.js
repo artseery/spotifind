@@ -4,7 +4,8 @@ import { setUserData } from "@/utils";
 
 const router = new VueRouter({
     routes,
-    mode: 'history'
+    mode: 'history',
+    base: require('../../vue.config.js').publicPath
 })
 
 router.beforeEach((to, from, next) => {
