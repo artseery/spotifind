@@ -26,8 +26,8 @@ export default {
   mounted() {
     if (!this.$store.state.filters) {
       this.getAvailableGenres()
+      this.$store.dispatch('initFilters')
     }
-    this.$store.dispatch('initFilters')
   }
 }
 </script>
