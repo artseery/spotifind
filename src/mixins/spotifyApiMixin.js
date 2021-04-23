@@ -38,7 +38,6 @@ let spotifyApiMixin = {
             }
         },
         getSearchData: async function (query, type) {
-            await this.writeToken()
             axios({
                 method: 'GET',
                 url: spotifyUrl + 'search',

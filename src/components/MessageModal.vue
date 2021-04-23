@@ -43,7 +43,8 @@ export default {
 @import "../variables"
 .message-box-wrapper
   position: fixed
-  left: calc(50% - 150px)
+  left: 50%
+  transform: translateX(-50%)
   bottom: 10px
   height: 50px
   z-index: 100
@@ -61,6 +62,7 @@ export default {
 
     .message-box__text
       font-family: inherit
+      white-space: nowrap
       font-weight: 600
       font-size: 0.9em
 
