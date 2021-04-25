@@ -1,27 +1,15 @@
 import routes from '@/router/routes'
 import VueRouter from 'vue-router'
-import { setUserData } from "@/utils";
+import {getTokenFromUrl} from "@/utils";
 
 const router = new VueRouter({
     routes,
-    mode: 'history',
+    mode: 'hash',
     base: require('../../vue.config.js').publicPath
 })
 
-router.beforeEach((to, from, next) => {
-    let access_data = {}
-    if (to.hash) {
-        let splitHash = to.hash.split(/[# & =]/gm).slice(1)
-        splitHash.forEach((item, key) => {
-            if (key < 5 && !(key % 2)) {
-                access_data[item] = splitHash[key + 1]
-            }
-        })
-        window.localStorage.setItem('access_data', JSON.stringify(access_data))
-    }
-    if(!(window.localStorage.user_data) && window.localStorage.access_data ) {
-        setUserData()
-    }
+router.beforeEach(async (to, from, next) => {
+    await getTokenFromUrl(to)
     next()
 })
 

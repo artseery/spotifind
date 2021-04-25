@@ -32,7 +32,7 @@
           <span slot="maxElements">Max genres selected</span>
         </multiselect>
       </div>
-      <div v-if="accessData()"
+      <div v-if="$store.state.logged"
            class="button_add_playlist-wrapper">
         <button class="button_add_playlist" @click="createRecsPlaylist" :disabled="loading"
                 :class="{ 'loading': loading }">
@@ -95,14 +95,6 @@ export default {
       this.$store.dispatch('selectGenres', genres)
       this.updateRecommendations()
     },
-    accessData: function () {
-      let parsed_access_data = null
-      let access_data = window.localStorage.access_data
-      if(access_data) {
-        parsed_access_data = JSON.parse(access_data)
-      }
-      return parsed_access_data
-    }
   }
 }
 </script>

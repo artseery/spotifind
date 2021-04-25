@@ -38,6 +38,7 @@ export default {
     overflow: auto
     -ms-overflow-style: none
     scrollbar-width: none
+
 +tablet
   .search-wrapper
     .search-track-list

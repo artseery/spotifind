@@ -7,7 +7,7 @@
       <div class="nav-content">
         <search-component class="item search-wrapper"></search-component>
         <div class="auth item">
-          <div v-if="!accessData()"
+          <div v-if="!this.$store.state.logged"
                @click="redirectToAuth" class="auth-nologon">
             <img class="auth-nologon icon" src="../assets/login-icon.png"/>
           </div>
@@ -30,23 +30,31 @@ export default {
   components: {SearchComponent},
   data() {
     return {
-      user_data: null
+      user_data: null,
     }
   },
   created() {
     if(window.localStorage.user_data) {
       this.user_data = JSON.parse(window.localStorage.user_data)
     }
+    if(window.localStorage.access_data) {
+      this.$store.dispatch('setLoggedState', true)
+    }
     window.addEventListener('setUserData', () => {
       console.log('user_data:', this.user_data)
       this.user_data = JSON.parse(window.localStorage.user_data)
     })
+    window.addEventListener('storage', e => {
+      if (e.key === 'access_data') {
+        this.$store.dispatch('setLoggedState', true)
+      }
+      if(e.key === 'user_data') {
+        this.user_data = JSON.parse(window.localStorage.user_data)
+        console.log(window.localStorage.user_data)
+      }
+    })
   },
   methods: {
-    accessData: function () {
-      console.log(window.localStorage.access_data)
-      return window.localStorage.access_data
-    },
     redirectToAuth: function () {
       redirectToSpotifyAuth()
     }

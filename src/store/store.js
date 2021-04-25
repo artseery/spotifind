@@ -16,7 +16,8 @@ const store = new Vuex.Store({
         searchInputFocused: false,
         genres: [],
         selected_genres: null,
-        filters: null
+        filters: null,
+        logged: false
     },
     mutations: {
         updateResults(state, data) {
@@ -70,6 +71,9 @@ const store = new Vuex.Store({
                 }
             }
             state.filters = filters
+        },
+        setLoggedState(state, payload) {
+            state.logged = payload
         }
     },
     actions: {
@@ -114,6 +118,9 @@ const store = new Vuex.Store({
         },
         initFilters({commit}) { //init on APP create
             commit('initFilters')
+        },
+        setLoggedState({commit}, payload) {
+            commit('setLoggedState', payload)
         }
     }
 })
