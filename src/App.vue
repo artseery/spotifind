@@ -3,7 +3,7 @@
     <div class="page-wrapper">
       <nav-panel></nav-panel>
       <div class="content-wrapper">
-        <router-view/>
+        <recommendations-component/>
       </div>
     </div>
   </div>
@@ -13,9 +13,10 @@
 
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
 import NavPanel from "@/components/NavPanel";
+import RecommendationsComponent from "@/components/RecommendationComponent";
 
 export default {
-  components: {NavPanel},
+  components: {RecommendationsComponent, NavPanel},
   mixins: [spotifyApiMixin],
   name: 'App',
   created() {

@@ -2,7 +2,7 @@
   <div class="search-input-wrapper">
     <input @focus="$store.dispatch('searchInputFocus', true)"
            @blur="$store.dispatch('searchInputFocus', false)"
-           placeholder="Search" class="search-input" v-model="fieldData"/>
+           placeholder="Search" class="search-input" @input="fieldData = $event.target.value" :value="fieldData"/>
   </div>
 </template>
 
