@@ -156,10 +156,10 @@ let spotifyApiMixin = {
                     }
                 }).then(response => {
                         playlistData = response
-                    }, error => {
-                        if (error.response?.status === 401) {
+                    }, (error) => {
+                        if (error.response.status === 401) {
                             redirectToSpotifyAuth().then(() => {
-                                window.addEventListener('store', e => {
+                                window.addEventListener('storage', e => {
                                     if (e.key === 'access_data' && firstCalled) {
                                         apiCall()
                                         firstCalled = false
