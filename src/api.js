@@ -15,10 +15,11 @@ function setupInterceptors() {
     api.interceptors.response.use((response) => {
         console.log('api:', response)
         return response
-    }, (error) => {
+    }, async (error) => {
         if (error.response.status === 401) {
             recommendationsKeeper(store)
-            redirectToSpotifyAuth()
+            await redirectToSpotifyAuth()
+
         }
     }, () => {
         console.log('always happen')

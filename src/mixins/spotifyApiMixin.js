@@ -1,7 +1,7 @@
 import axios from "axios";
 import {client_secret} from "@/authorizationToken";
 import {api} from "@/api";
-import {lastDirectiveKeeper} from "@/pageStateKeeper";
+import {redirectToSpotifyAuth} from "@/utils";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
 let token = JSON.parse(window.localStorage.getItem('token'))
@@ -136,20 +136,41 @@ let spotifyApiMixin = {
                 response => console.log(response)
             )
         },
-        createNewPlaylist: function () {
+        createNewPlaylist: async function () {
             let user_data = JSON.parse(window.localStorage.user_data)
-            return api({
-                method: 'POST',
-                url: spotifyUrl + `users/${user_data.id}/playlists`,
-                headers: {
-                    'Authorization': this.access_data().token_type + ' ' + this.access_data().access_token,
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    name: `${this.$store.state.activeTrack.name} playlist by Spotifind`,
-                    public: true
-                }
-            })
+            let firstCalled = true
+            let vm = this
+            let playlistData = null
+            await apiCall()
+            async function apiCall() {
+                await axios({
+                    method: 'POST',
+                    url: spotifyUrl + `users/${user_data.id}/playlists`,
+                    headers: {
+                        'Authorization': vm.access_data().token_type + ' ' + vm.access_data().access_token,
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        name: `${vm.$store.state.activeTrack.name} playlist by Spotifind`,
+                        public: true
+                    }
+                }).then(response => {
+                        playlistData = response
+                    }, error => {
+                        if (error.response?.status === 401) {
+                            redirectToSpotifyAuth().then(() => {
+                                window.addEventListener('store', e => {
+                                    if (e.key === 'access_data' && firstCalled) {
+                                        apiCall()
+                                        firstCalled = false
+                                    }
+                                })
+                            })
+                        }
+                    }
+                )
+            }
+            return playlistData
         },
         addRecommendedTracksToPlaylist: function (playlist_id) {
             let uris = this.$store.state.recommendations.tracks.map(item => {
@@ -169,13 +190,11 @@ let spotifyApiMixin = {
         },
         createRecsPlaylist: async function () {
             if (!this.loading) {
-                lastDirectiveKeeper('createRecsPlaylist')
                 this.loading = true
                 let newPlaylistData = await this.createNewPlaylist()
                 let result = await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
                 if (result.status === 201) {
                     this.message = 'Saved to Your library'
-                    lastDirectiveKeeper(null)
                 }
                 this.loading = false
             }

@@ -6,9 +6,5 @@ function recommendationsKeeper(store) {
         'genres': store.state.selected_genres,
     }))
 }
-function lastDirectiveKeeper(directive) {
-    window.localStorage.setItem('lastDirective', directive)
-    console.log(`lastDirective set to ${directive}`)
-}
 
-export { recommendationsKeeper, lastDirectiveKeeper }
+export { recommendationsKeeper}
