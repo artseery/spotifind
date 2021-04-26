@@ -138,7 +138,6 @@ let spotifyApiMixin = {
         },
         createNewPlaylist: async function () {
             let user_data = JSON.parse(window.localStorage.user_data)
-            let firstCalled = true
             let vm = this
             let playlistData = null
             await apiCall()
@@ -160,11 +159,10 @@ let spotifyApiMixin = {
                         if (error.response.status === 401) {
                             redirectToSpotifyAuth().then(() => {
                                 window.addEventListener('storage', e => {
-                                    if (e.key === 'access_data' && firstCalled) {
+                                    if (e.key === 'access_data') {
                                         apiCall()
-                                        firstCalled = false
                                     }
-                                })
+                                }, { once: true })
                             })
                         }
                     }
