@@ -140,34 +140,24 @@ let spotifyApiMixin = {
             let user_data = JSON.parse(window.localStorage.user_data)
             let vm = this
             let playlistData = null
-            await apiCall()
-            async function apiCall() {
-                await axios({
-                    method: 'POST',
-                    url: spotifyUrl + `users/${user_data.id}/playlists`,
-                    headers: {
-                        'Authorization': vm.access_data().token_type + ' ' + vm.access_data().access_token,
-                        'Content-Type': 'application/json'
-                    },
-                    data: {
-                        name: `${vm.$store.state.activeTrack.name} playlist by Spotifind`,
-                        public: true
-                    }
-                }).then(response => {
-                        playlistData = response
-                    }, (error) => {
-                        if (error.response.status === 401) {
-                            redirectToSpotifyAuth().then(() => {
-                                window.addEventListener('storage', e => {
-                                    if (e.key === 'access_data') {
-                                        apiCall()
-                                    }
-                                }, { once: true })
-                            })
-                        }
-                    }
-                )
-            }
+            await axios({
+                method: 'POST',
+                url: spotifyUrl + `users/${user_data.id}/playlists`,
+                headers: {
+                    'Authorization': vm.access_data().token_type + ' ' + vm.access_data().access_token,
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    name: `${vm.$store.state.activeTrack.name} playlist by Spotifind`,
+                    public: true
+                }
+            }).then(response => {
+                playlistData = response
+            }, (error) => {
+                if (error.response.status === 401) {
+                    redirectToSpotifyAuth()
+                }
+            })
             return playlistData
         },
         addRecommendedTracksToPlaylist: function (playlist_id) {
@@ -187,9 +177,15 @@ let spotifyApiMixin = {
             })
         },
         createRecsPlaylist: async function () {
-            if (!this.loading) {
-                this.loading = true
-                let newPlaylistData = await this.createNewPlaylist()
+            this.loading = true
+            let newPlaylistData = await this.createNewPlaylist()
+            if (!newPlaylistData) {
+                window.addEventListener('storage', e => {
+                    if (e.key === 'access_data') {
+                        this.createRecsPlaylist()
+                    }
+                }, {once: true})
+            } else {
                 let result = await this.addRecommendedTracksToPlaylist(newPlaylistData.data.id)
                 if (result.status === 201) {
                     this.message = 'Saved to Your library'
