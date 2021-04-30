@@ -1,5 +1,5 @@
 <template>
-  <div class="main-page-wrapper" :class="{ 'invisible-mobile': $store.state.searchInputFocused }">
+  <div class="main-page-wrapper" :class="{ 'invisible-mobile': $store.state.searchInputFocused || Object.keys($store.state.activeTrack).length !== 0 }">
     <div class="spotifind-logo__big-wrapper">
       <img class="spotify-logo__big" src="../assets/SpotifindLogoV3White.png">
     </div>
@@ -19,6 +19,9 @@ import TrackList from "@/components/TrackList";
 export default {
   name: "SearchMainPage",
   components: {TrackList, SearchBox},
+  created() {
+    this.$store.dispatch('chooseActiveTrack', {})
+  }
 }
 </script>
 
