@@ -42,6 +42,7 @@ import spotify_logo_default from '../assets/spotify.png'
 import spotify_logo_black from '../assets/spotify_black.png'
 import spotify_logo_white from '../assets/spotify_white.png'
 import CardHover from "@/components/CardHover";
+import router from "@/router/router";
 
 export default {
   name: "TrackCard",
@@ -77,7 +78,9 @@ export default {
     },
     chooseActiveTrack: function (track) {
       this.$store.dispatch('chooseActiveTrack', track)
+      this.$store.dispatch('searchInputFocus', false)
       this.getRecommendations()
+      router.push('recommendations')
     }
   }
 }

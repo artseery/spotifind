@@ -28,7 +28,6 @@ export default {
 
 .track-list-wrapper
   min-height: 140px
-  box-shadow: 0 0 4px 0 $spotify-color
 
   .track-list
     display: block

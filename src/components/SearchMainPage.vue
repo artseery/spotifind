@@ -1,0 +1,87 @@
+<template>
+  <div class="main-page-wrapper" :class="{ 'invisible-mobile': $store.state.searchInputFocused }">
+    <div class="spotifind-logo__big-wrapper">
+      <img class="spotify-logo__big" src="../assets/SpotifindLogoV3White.png">
+    </div>
+    <div class="search-wrapper">
+      <search-box class="search-box"/>
+      <track-list class="search-track-list" v-if="$store.state.foundResults && $store.state.searchInputFocused"
+                  :tracks="$store.state.foundResults.tracks.items"/>
+    </div>
+  </div>
+</template>
+
+<script>
+
+import SearchBox from "@/components/SearchBox";
+import TrackList from "@/components/TrackList";
+
+export default {
+  name: "SearchMainPage",
+  components: {TrackList, SearchBox},
+}
+</script>
+
+<style lang="sass" scoped>
+@import "../variables"
+
+.main-page-wrapper
+  position: absolute
+  left: 0
+  top: 0
+  height: 100%
+  width: 100%
+  display: grid
+  justify-items: center
+  grid-template-rows: 1fr 1fr
+
+  .spotifind-logo__big-wrapper
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: flex-end
+    padding: 30px
+
+    .spotify-logo__big
+      width: 400px
+
+  .search-wrapper
+    width: 670px
+    position: relative
+    .search-box
+      width: 100%
+
+    .search-track-list
+      z-index: 100
+      position: absolute
+      width: 630px
+      max-height: 404px
+      height: 100%
+      min-height: 0
+      background: black
+      overflow: auto
+      -ms-overflow-style: none
+      scrollbar-width: none
+      left: 50%
+      transform: translateX(-50%)
+      margin-top: 0
+
++tablet
+  .main-page-wrapper
+    .search-wrapper
+      width: 100%
+      padding: 0 4px
+      .search-track-list
+        width: calc(100% - 40px)
+        max-height: 400px
+    .spotifind-logo__big-wrapper
+      .spotify-logo__big
+        width: 300px
+    &.invisible-mobile
+      grid-template-rows: 1fr
+      .spotifind-logo__big-wrapper
+        display: none
+      .search-wrapper
+        margin-top: 10px
+
+</style>

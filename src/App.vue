@@ -1,9 +1,13 @@
 <template>
   <div id="app">
     <div class="page-wrapper">
-      <nav-panel></nav-panel>
+      <transition name="fade" mode="out-in">
+        <router-view name="navPanel"/>
+      </transition>
       <div class="content-wrapper">
-        <router-view/>
+        <transition name="fade" mode="out-in">
+          <router-view/>
+        </transition>
       </div>
     </div>
   </div>
@@ -12,10 +16,8 @@
 <script>
 
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
-import NavPanel from "@/components/NavPanel";
 
 export default {
-  components: {NavPanel},
   mixins: [spotifyApiMixin],
   name: 'App',
   created() {
@@ -64,9 +66,9 @@ button:focus
 
   .page-wrapper
     height: 100%
+    position: relative
 
     .content-wrapper
-      position: relative
       display: flex
       flex-direction: row
       justify-content: center
@@ -78,5 +80,11 @@ button:focus
 
 input
   font-family: inherit
+
+.fade-enter-active, .fade-leave-active
+  transition: .2s all ease
+
+.fade-enter, .fade-leave-to
+  opacity: 0
 
 </style>
