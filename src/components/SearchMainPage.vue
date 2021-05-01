@@ -12,6 +12,7 @@
 </template>
 
 <script>
+// TODO Добавить иконку авторизации на главную
 
 import SearchBox from "@/components/SearchBox";
 import TrackList from "@/components/TrackList";
@@ -81,6 +82,7 @@ export default {
       .spotify-logo__big
         width: 300px
     &.invisible-mobile
+      background: $background-color-main
       grid-template-rows: 1fr
       .spotifind-logo__big-wrapper
         display: none

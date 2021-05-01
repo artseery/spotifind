@@ -8,8 +8,14 @@ const routes = [
         path: '/',
         components: {
             default: SearchMainPage,
+            navPanel: NavPanel
         },
-        name: 'main'
+        name: 'main',
+        meta: {
+            backgroundColor: 'transparent',
+            logoIcon: false,
+            searchElem: false
+        }
     },
     {
         path: '/recommendations',

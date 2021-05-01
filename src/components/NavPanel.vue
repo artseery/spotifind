@@ -1,11 +1,11 @@
 <template>
-  <div class="nav-wrapper">
+  <div class="nav-wrapper" :style="{ backgroundColor: backgroundColor }">
     <div class="nav">
       <div class="nav-logo">
-        <img class="spotifind-logo" src="../assets/SpotifindLogoV3White.png"/>
+        <img class="spotifind-logo" src="../assets/SpotifindLogoV3White.png" v-if="logoIcon"/>
       </div>
       <div class="nav-content">
-        <search-component class="item search-wrapper"></search-component>
+        <search-component class="item search-wrapper" v-if="searchElem"></search-component>
         <div class="auth item">
           <div v-if="!this.$store.state.logged"
                @click="redirectToAuth" class="auth-nologon">
@@ -31,9 +31,17 @@ export default {
   data() {
     return {
       user_data: null,
+      backgroundColor: null,
+      logoIcon: true,
+      searchElem: true
     }
   },
   created() {
+    if(this.$route.meta) {
+      this.backgroundColor = this.$route.meta.backgroundColor
+      this.logoIcon = this.$route.meta.logoIcon
+      this.searchElem = this.$route.meta.searchElem
+    }
     if(window.localStorage.user_data) {
       this.user_data = JSON.parse(window.localStorage.user_data)
     }
@@ -58,6 +66,17 @@ export default {
     redirectToAuth: function () {
       redirectToSpotifyAuth()
     }
+  },
+  watch: {
+    '$route.meta': {
+      handler: function () {
+        this.backgroundColor = this.$route.meta.backgroundColor
+        this.logoIcon = this.$route.meta.logoIcon ?? true
+        this.searchElem = this.$route.meta.searchElem ?? true
+        console.log(this.$route.meta)
+      },
+      deep: true
+    }
   }
 }
 </script>
@@ -72,6 +91,7 @@ export default {
   display: flex
   flex-direction: row
   justify-content: center
+  transition: all .4s ease
 
   .nav
     max-width: $content-width
@@ -120,15 +140,12 @@ export default {
       .nav-content
         width: 100%
         margin: 0 10px
-
-        .item
-          position: relative
-
+        justify-content: flex-end
         .search-wrapper
-          width: 100%
-
+            width: 100%
     .nav-logo
-      display: none
+      img
+        display: none
 
 
 </style>
