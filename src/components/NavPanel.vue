@@ -2,7 +2,7 @@
   <div class="nav-wrapper" :style="{ backgroundColor: backgroundColor }">
     <div class="nav">
       <div class="nav-logo">
-        <img class="spotifind-logo" src="../assets/SpotifindLogoV3White.png" v-if="logoIcon"/>
+        <img class="spotifind-logo" src="../assets/SpotifindLogoV3White500.png" v-if="logoIcon"/>
       </div>
       <div class="nav-content">
         <search-component class="item search-wrapper" v-if="searchElem"></search-component>
