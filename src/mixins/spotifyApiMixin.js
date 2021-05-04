@@ -164,6 +164,7 @@ let spotifyApiMixin = {
             let uris = this.$store.state.recommendations.tracks.map(item => {
                 return item.uri
             })
+            uris.unshift(this.$store.state.activeTrack.uri)
             return api({
                 method: 'POST',
                 url: spotifyUrl + `playlists/${playlist_id}/tracks`,
