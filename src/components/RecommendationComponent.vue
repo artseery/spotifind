@@ -24,7 +24,11 @@ export default {
   components: {FiltersBlock, LoadingComponent, RecommendationList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
-
+  created() {
+    if (Object.keys(this.$store.state.activeTrack).length === 0) {
+      this.$router.push({name: 'main'})
+    }
+  },
   mounted() {
     if (window.localStorage.recommendations_data) {
       let data = JSON.parse(window.localStorage.getItem('recommendations_data'))

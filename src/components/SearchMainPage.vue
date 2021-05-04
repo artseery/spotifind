@@ -1,7 +1,7 @@
 <template>
   <div class="main-page-wrapper" :class="{ 'invisible-mobile': $store.state.searchInputFocused || Object.keys($store.state.activeTrack).length !== 0 }">
     <div class="spotifind-logo__big-wrapper">
-      <img class="spotify-logo__big" src="../assets/SpotifindLogoV3White.png">
+      <img class="spotifind-logo__big" src="../assets/SpotifindLogoV3White500.png">
     </div>
     <div class="search-wrapper">
       <search-box class="search-box"/>
@@ -46,7 +46,7 @@ export default {
     align-items: flex-end
     padding: 30px
 
-    .spotify-logo__big
+    .spotifind-logo__big
       width: 400px
 
   .search-wrapper
