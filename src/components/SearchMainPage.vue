@@ -79,7 +79,7 @@ export default {
         width: calc(100% - 40px)
         max-height: 400px
     .spotifind-logo__big-wrapper
-      .spotify-logo__big
+      .spotifind-logo__big
         width: 300px
     &.invisible-mobile
       background: $background-color-main
