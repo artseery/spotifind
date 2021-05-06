@@ -38,6 +38,9 @@
 
 <script>
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
+import spotify_logo_default from '../assets/spotify.png'
+import spotify_logo_black from '../assets/spotify_black.png'
+import spotify_logo_white from '../assets/spotify_white.png'
 import CardHover from "@/components/CardHover";
 import router from "@/router/router";
 
@@ -49,6 +52,13 @@ export default {
     track: Object,
     form: String,
     filter_panel: Boolean
+  },
+  data() {
+    return {
+      spotify_logo_black,
+      spotify_logo_white,
+      spotify_logo_default
+    }
   },
   methods: {
     openInSpotify: function (event, uri) {
