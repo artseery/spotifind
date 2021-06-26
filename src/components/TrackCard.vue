@@ -90,6 +90,9 @@ export default {
 <style lang="sass" scoped>
 @import "../variables"
 
+.track-card-wrapper
+  cursor: pointer
+
 .rec
   height: calc(#{$track-card-height} + 1px)
   transition: background-color .2s ease
