@@ -31,6 +31,7 @@ export default {
 
 .main-page-wrapper
   position: absolute
+  pointer-events: none
   left: 0
   top: 0
   height: 100%
@@ -52,6 +53,7 @@ export default {
   .search-wrapper
     width: 670px
     position: relative
+    pointer-events: auto
     .search-box
       width: 100%
 

@@ -7,7 +7,7 @@ let spotify_accounts_url = 'https://accounts.spotify.com/'
 let setUserDataEvent = new Event('setUserData')
 
 async function redirectToSpotifyAuth() {
-    let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private'
+    let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private streaming user-read-email user-read-private'
     let encodedScopes = encodeURIComponent(scopes)
     await recommendationsKeeper(store)
     window.open(spotify_accounts_url +

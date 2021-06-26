@@ -119,6 +119,7 @@ export default {
       .search-wrapper
         width: 500px
 
+
       .auth
         width: 40px
         height: 100%
