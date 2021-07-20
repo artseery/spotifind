@@ -18,7 +18,7 @@ const routes = [
         }
     },
     {
-        path: '/recommendations',
+        path: '/recommendations/:trackId',
         components: {
             default: RecommendationsComponent,
             navPanel: NavPanel

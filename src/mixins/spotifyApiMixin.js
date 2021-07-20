@@ -194,6 +194,16 @@ let spotifyApiMixin = {
                 this.loading = false
             }
         },
+        getTrackById: async function (trackId) {
+            return await api({
+                method: 'GET',
+                url: spotifyUrl + `tracks/${trackId}`,
+            }).then(response => {
+                return response
+            }).catch(error => {
+                console.error(error)
+            })
+        },
         getAvailableGenres: async function () {
             axios({
                 method: 'GET',

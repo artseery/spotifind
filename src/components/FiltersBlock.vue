@@ -1,6 +1,6 @@
 <template>
   <div class="filters-wrapper">
-    <track-card class="filter-active-card" :filter_panel="true" :form="'rec'" :track="$store.state.activeTrack"/>
+    <track-card v-if="track.album" class="filter-active-card" :filter_panel="true" :form="'rec'" :track="track"/>
     <div class="filters">
       <div class="filters-grid">
         <template v-for="(item, key) in $store.state.filters">
@@ -66,8 +66,14 @@ export default {
       im: new Inputmask('decimal', {rightAlign: false, min: 0, max: 1}),
       imTempo: new Inputmask('integer', {rightAlign: false, min: 0, max: 300}),
       message: '',
-      loading: false
+      loading: false,
+      track: {}
     }
+  },
+  created() {
+     this.getTrackById(this.$route.params.trackId).then(response => {
+       this.track = response.data
+    })
   },
   mounted() {
     this.im.mask(document.getElementsByClassName("input maxOne"))

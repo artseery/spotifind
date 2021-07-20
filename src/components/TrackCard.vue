@@ -1,6 +1,5 @@
 <template>
   <div class="track-card-wrapper"
-       @mousedown="(form === 'rec')&&!filter_panel ? chooseActiveTrack(track) : openInApp(track.uri)"
        :class="{ sqr: form === 'sqr', rec: form === 'rec', filter_panel: filter_panel }"
   > <!--Дать уже норм названия классам-->
     <div class="track-card" :class="{ active: ($store.state.activeTrack.id === track.id && !filter_panel)}">
@@ -42,7 +41,6 @@ import spotify_logo_default from '../assets/spotify.png'
 import spotify_logo_black from '../assets/spotify_black.png'
 import spotify_logo_white from '../assets/spotify_white.png'
 import CardHover from "@/components/CardHover";
-import router from "@/router/router";
 
 export default {
   name: "TrackCard",
@@ -68,20 +66,6 @@ export default {
     openInApp: function (track_uri) {
       location.href = track_uri
     },
-    getRecommendations: async function () {
-      let features = await this.getAudioFeatures(this.$store.state.activeTrack.id)
-      // eslint-disable-next-line no-unused-vars
-      for (const [key, value] of Object.entries(this.$store.state.filters)) {
-        await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
-      }
-      await this.$store.dispatch('updateRecommendations', await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters))
-    },
-    chooseActiveTrack: function (track) {
-      this.$store.dispatch('chooseActiveTrack', track)
-      this.$store.dispatch('searchInputFocus', false)
-      this.getRecommendations()
-      router.push('recommendations')
-    }
   }
 }
 // TODO Переписать этот компонент с нормальными входными параметрами или разделить

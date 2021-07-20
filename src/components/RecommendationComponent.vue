@@ -4,10 +4,10 @@
     <div class="recommendations-list-wrapper">
       <transition name="fade-slide" mode="out-in">
         <recommendation-list :tracks="$store.state.recommendations.tracks"
-                             v-if="$store.state.recommendations  && !$store.state.loading.recs"/>
+                             v-if="$store.state.recommendations"/>
       </transition>
       <transition name="fade" mode="out-in">
-        <loading-component v-if="$store.state.loading.recs"/>
+        <loading-component v-if="isLoading"/>
       </transition>
     </div>
   </div>
@@ -24,10 +24,15 @@ export default {
   components: {FiltersBlock, LoadingComponent, RecommendationList},
   props: ['trackId', 'popularity'],
   mixins: [spotifyApiMixin],
-  created() {
-    if (Object.keys(this.$store.state.activeTrack).length === 0) {
-      this.$router.push({name: 'main'})
+  data() {
+    return {
+      isLoading: true
     }
+  },
+  created() {
+    this.getRecommendations().then(() => {
+      this.isLoading = false
+    })
   },
   mounted() {
     if (window.localStorage.recommendations_data) {
@@ -36,6 +41,16 @@ export default {
         window.localStorage.removeItem('recommendations_data')
         console.log('Recs data cleared from storage')
       })
+    }
+  },
+  methods: {
+    getRecommendations: async function () {
+      let features = await this.getAudioFeatures(this.$route.params.trackId)
+      // eslint-disable-next-line no-unused-vars
+      for (const [key, value] of Object.entries(this.$store.state.filters)) {
+        await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
+      }
+      await this.$store.dispatch('updateRecommendations', await this.getRecommendationsData(this.$route.params.trackId, this.$store.state.filters))
     }
   }
 }

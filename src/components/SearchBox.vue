@@ -3,16 +3,21 @@
     <input @focus="$store.dispatch('searchInputFocus', true)"
            @blur="$store.dispatch('searchInputFocus', false)"
            placeholder="Search" class="search-input" @input="fieldData = $event.target.value" :value="fieldData"/>
+    <track-list class="search-track-list" v-if="$store.state.foundResults"
+                :tracks="$store.state.foundResults.tracks.items"/>
   </div>
 </template>
 
 <script>
 
 import spotifyApiMixin from "@/mixins/spotifyApiMixin";
+import TrackList from "@/components/TrackList";
 
 export default {
   mixins: [spotifyApiMixin],
-
+  components: {
+    TrackList
+  },
   name: "SearchBox",
   data() {
     return {

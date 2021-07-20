@@ -5,8 +5,6 @@
     </div>
     <div class="search-wrapper">
       <search-box class="search-box"/>
-      <track-list class="search-track-list" v-if="$store.state.foundResults && $store.state.searchInputFocused"
-                  :tracks="$store.state.foundResults.tracks.items"/>
     </div>
   </div>
 </template>
@@ -15,11 +13,10 @@
 // TODO Добавить иконку авторизации на главную
 
 import SearchBox from "@/components/SearchBox";
-import TrackList from "@/components/TrackList";
 
 export default {
   name: "SearchMainPage",
-  components: {TrackList, SearchBox},
+  components: {SearchBox},
   created() {
     this.$store.dispatch('chooseActiveTrack', {})
   }

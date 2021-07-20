@@ -10,7 +10,6 @@ const store = new Vuex.Store({
         activeTrack: {},
         loading: {
             search: false,
-            recs: false
         },
         recommendations: null,
         searchInputFocused: false,
