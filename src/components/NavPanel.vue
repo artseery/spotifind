@@ -5,7 +5,7 @@
         <img class="spotifind-logo" src="../assets/SpotifindLogoV3White500.png" v-if="logoIcon"/>
       </div>
       <div class="nav-content">
-        <search-component class="item search-wrapper" v-if="searchElem"></search-component>
+        <search-box class="item search-wrapper" v-if="searchElem"></search-box>
         <div class="auth item">
           <div v-if="!this.$store.state.logged"
                @click="redirectToAuth" class="auth-nologon">
@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import SearchComponent from "@/components/SearchComponent"
 import { redirectToSpotifyAuth } from "@/utils";
+import SearchBox from "@/components/SearchBox";
 
 export default {
   name: "NavPanel",
-  components: {SearchComponent},
+  components: {SearchBox},
   data() {
     return {
       user_data: null,
@@ -81,7 +81,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass"  >
 @import "../variables"
 
 .nav-wrapper
@@ -118,6 +118,8 @@ export default {
 
       .search-wrapper
         width: 500px
+        .track-list-wrapper
+          background: #0c0c0c
 
 
       .auth

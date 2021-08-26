@@ -4,7 +4,7 @@
     <div class="recommendations-list-wrapper">
       <transition name="fade-slide" mode="out-in">
         <recommendation-list :tracks="$store.state.recommendations.tracks"
-                             v-if="$store.state.recommendations"/>
+                             v-if="$store.state.recommendations && !isLoading"/>
       </transition>
       <transition name="fade" mode="out-in">
         <loading-component v-if="isLoading"/>
@@ -51,6 +51,14 @@ export default {
         await this.$store.dispatch('setFilterValuesByKey', [key, features[key]])
       }
       await this.$store.dispatch('updateRecommendations', await this.getRecommendationsData(this.$route.params.trackId, this.$store.state.filters))
+    }
+  },
+  watch: {
+    '$route.params.trackId': function() {
+      this.isLoading = true
+      this.getRecommendations().then(() => {
+        this.isLoading = false
+      })
     }
   }
 }

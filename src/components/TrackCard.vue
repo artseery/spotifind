@@ -1,6 +1,7 @@
 <template>
   <div class="track-card-wrapper"
        :class="{ sqr: form === 'sqr', rec: form === 'rec', filter_panel: filter_panel }"
+       @mousedown="openInSpotify($event, track.uri)"
   > <!--Дать уже норм названия классам-->
     <div class="track-card" :class="{ active: ($store.state.activeTrack.id === track.id && !filter_panel)}">
       <div class="track-card-inner">
@@ -22,11 +23,9 @@
           </div>
           <div class="track-uri-wrapper" v-if="form === 'rec'">
             <div class="track-uri">
-              <a @mousedown="openInSpotify($event, track.uri)">
                 <img class="spotify-logo"
                      :src="(($store.state.activeTrack.id === track.id) && !filter_panel) ? spotify_logo_white : spotify_logo_default"
                      alt="Open in app"/>
-              </a>
             </div>
           </div>
         </div>
@@ -79,8 +78,10 @@ export default {
 
 .rec
   height: calc(#{$track-card-height} + 1px)
-  transition: background-color .2s ease
+  transition: background-color .1s ease
+  border-radius: 0
   border-bottom: 1px solid $background-color-accessory
+  background-color: #0c0c0c
   user-select: none
   width: 100%
 
@@ -92,6 +93,7 @@ export default {
     background-color: $background-color-accessory
 
   & > .track-card
+    border-radius: 0
     height: 100%
     display: flex
     flex-direction: row
@@ -126,7 +128,7 @@ export default {
         .track-image
           height: $track-card-height / 1.2
           width: auto
-          border-radius: 100%
+          border-radius: 0
 
       .track-artist-wrapper, .track-name-wrapper
         white-space: nowrap

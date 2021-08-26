@@ -1,9 +1,9 @@
 <template>
   <div class="search-input-wrapper">
     <input @focus="$store.dispatch('searchInputFocus', true)"
-           @blur="$store.dispatch('searchInputFocus', false)"
-           placeholder="Search" class="search-input" @input="fieldData = $event.target.value" :value="fieldData"/>
-    <track-list class="search-track-list" v-if="$store.state.foundResults"
+           @click="onClick"
+           placeholder="Search" class="search-input" @input="onInput" :value="fieldData"/>
+    <track-list class="search-track-list" v-if="$store.state.foundResults && $store.state.searchInputFocused"
                 :tracks="$store.state.foundResults.tracks.items"/>
   </div>
 </template>
@@ -30,6 +30,11 @@ export default {
       this.search(value)
     }
   },
+  mounted() {
+    document.getElementById('app').addEventListener('click', () => {
+      this.$store.dispatch('searchInputFocus', false)
+    })
+  },
   methods: {
     search: function (value) {
       if (value) {
@@ -38,8 +43,16 @@ export default {
       } else {
         this.$store.dispatch('updateResults', null)
       }
+    },
+    onInput: function (event) {
+      this.$store.dispatch('searchInputFocus', true)
+      this.fieldData = event.target.value
+    },
+    onClick: function (event) {
+      this.$store.dispatch('searchInputFocus', true)
+      event.stopPropagation()
     }
-  },
+  }
 }
 </script>
 
@@ -48,6 +61,7 @@ export default {
 
 .search-input-wrapper
   width: 100%
+  position: relative
 
   .search-input
     height: 40px
@@ -63,5 +77,5 @@ export default {
 
     &:focus
       border-color: $spotify-color
-      background-color: $background-color-main
+      background-color: #0c0c0c
 </style>

@@ -73,6 +73,7 @@ export default {
   created() {
      this.getTrackById(this.$route.params.trackId).then(response => {
        this.track = response.data
+       this.$store.dispatch('chooseActiveTrack', this.track)
     })
   },
   mounted() {
@@ -97,6 +98,13 @@ export default {
       this.$store.dispatch('selectGenres', genres)
       this.updateRecommendations()
     },
+  },
+  watch: {
+    '$route.params.trackId': function () {
+      this.getTrackById(this.$route.params.trackId).then(response => {
+        this.track = response.data
+      })
+    }
   }
 }
 </script>
@@ -198,6 +206,7 @@ export default {
 
     .button_add_playlist
       position: relative
+      cursor: pointer
       background-color: $spotify-color
       font-weight: 600
       color: $font-color-main

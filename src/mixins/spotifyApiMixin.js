@@ -198,6 +198,9 @@ let spotifyApiMixin = {
             return await api({
                 method: 'GET',
                 url: spotifyUrl + `tracks/${trackId}`,
+                headers: {
+                    'Authorization': await this.authorization_token()
+                }
             }).then(response => {
                 return response
             }).catch(error => {

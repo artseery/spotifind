@@ -5,9 +5,7 @@
         <router-view name="navPanel"/>
       </transition>
       <div class="content-wrapper">
-        <transition name="fade" mode="out-in">
           <router-view/>
-        </transition>
       </div>
     </div>
   </div>
@@ -30,7 +28,7 @@ export default {
       this.getAvailableGenres()
       this.$store.dispatch('initFilters')
     }
-  }
+  },
 }
 </script>
 
