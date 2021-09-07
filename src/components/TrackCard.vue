@@ -1,7 +1,7 @@
 <template>
   <div class="track-card-wrapper"
        :class="{ sqr: form === 'sqr', rec: form === 'rec', filter_panel: filter_panel }"
-       @mousedown="openInSpotify($event, track.uri)"
+       @mousedown="form === 'sqr' ? openInSpotify($event, track.uri) : ''"
   > <!--Дать уже норм названия классам-->
     <div class="track-card" :class="{ active: ($store.state.activeTrack.id === track.id && !filter_panel)}">
       <div class="track-card-inner">

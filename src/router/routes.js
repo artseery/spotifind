@@ -23,7 +23,12 @@ const routes = [
             default: RecommendationsComponent,
             navPanel: NavPanel
         },
-        name: 'recommendations'
+        name: 'recommendations',
+        meta: {
+            backgroundColor: 'black',
+            logoIcon: true,
+            searchElem: true
+        }
     }
 ]
 

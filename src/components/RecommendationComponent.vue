@@ -4,10 +4,10 @@
     <div class="recommendations-list-wrapper">
       <transition name="fade-slide" mode="out-in">
         <recommendation-list :tracks="$store.state.recommendations.tracks"
-                             v-if="$store.state.recommendations && !isLoading"/>
+                             v-if="$store.state.recommendations && !isLoading && !$store.state.loading.recs"/>
       </transition>
       <transition name="fade" mode="out-in">
-        <loading-component v-if="isLoading"/>
+        <loading-component v-if="isLoading || $store.state.loading.recs"/>
       </transition>
     </div>
   </div>

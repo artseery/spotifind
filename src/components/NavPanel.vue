@@ -1,7 +1,7 @@
 <template>
   <div class="nav-wrapper" :style="{ backgroundColor: backgroundColor }">
     <div class="nav">
-      <div class="nav-logo">
+      <div class="nav-logo" @click="$router.push('/')">
         <img class="spotifind-logo" src="../assets/SpotifindLogoV3White500.png" v-if="logoIcon"/>
       </div>
       <div class="nav-content">
@@ -73,7 +73,7 @@ export default {
         this.backgroundColor = this.$route.meta.backgroundColor
         this.logoIcon = this.$route.meta.logoIcon ?? true
         this.searchElem = this.$route.meta.searchElem ?? true
-        console.log(this.$route.meta)
+        console.log('meta:', this.$route.meta)
       },
       deep: true
     }
@@ -105,6 +105,7 @@ export default {
 
     .nav-logo
       height: 40px
+      cursor: pointer
 
       .spotifind-logo
         height: 100%
