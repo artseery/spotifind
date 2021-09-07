@@ -91,7 +91,7 @@ export default {
       this.updateRecommendations()
     },
     updateRecommendations: async function () {
-      let recommendations = await this.getRecommendationsData(this.$store.state.activeTrack.id, this.$store.state.filters)
+      let recommendations = await this.getRecommendationsData(this.$route.params.trackId, this.$store.state.filters)
       this.$store.dispatch('updateRecommendations', recommendations)
     },
     selectGenres: function (genres) {
@@ -103,6 +103,7 @@ export default {
     '$route.params.trackId': function () {
       this.getTrackById(this.$route.params.trackId).then(response => {
         this.track = response.data
+        this.$store.commit('initFilters')
       })
     }
   }

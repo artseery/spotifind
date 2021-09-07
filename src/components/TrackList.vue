@@ -5,7 +5,7 @@
         <router-link v-for="track in tracks"
                      :key="track.id" :to="{ name: 'recommendations', params: { trackId: track.id } }"
                      class="track-card__link">
-          <track-card class="track-list-card" :class="{ active: $store.state.activeTrack === track.id }" :track="track"
+          <track-card class="track-list-card" :class="{ active: $route.params.trackId === track.id }" :track="track"
                       :form="'rec'"/>
         </router-link>
       </vue-custom-scrollbar>

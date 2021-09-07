@@ -3,8 +3,9 @@
     <input @focus="$store.dispatch('searchInputFocus', true)"
            @click="onClick"
            placeholder="Search" class="search-input" @input="onInput" :value="fieldData"/>
-    <track-list class="search-track-list" v-if="$store.state.foundResults && $store.state.searchInputFocused"
+    <track-list class="search-track-list" v-if="$store.state.foundResults && $store.state.searchInputFocused && $store.state.foundResults.tracks.items.length !== 0"
                 :tracks="$store.state.foundResults.tracks.items"/>
+
   </div>
 </template>
 
@@ -37,6 +38,7 @@ export default {
   },
   methods: {
     search: function (value) {
+      console.log('res:', this.$store.state.foundResults)
       if (value) {
         this.getSearchData(value, this.type)
         //Тип задаем сами в будущем

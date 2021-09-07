@@ -3,7 +3,7 @@
        :class="{ sqr: form === 'sqr', rec: form === 'rec', filter_panel: filter_panel }"
        @mousedown="form === 'sqr' ? openInSpotify($event, track.uri) : ''"
   > <!--Дать уже норм названия классам-->
-    <div class="track-card" :class="{ active: ($store.state.activeTrack.id === track.id && !filter_panel)}">
+    <div class="track-card" :class="{ active: ($route.params.trackId=== track.id && !filter_panel)}">
       <div class="track-card-inner">
         <div class="track-image-wrapper">
           <img v-if="form === 'rec'" class="track-image" :src="track.album.images[1].url" alt="Обложка композиции"/>
