@@ -1,6 +1,4 @@
 import axios from "axios";
-import store from "@/store/store";
-import {recommendationsKeeper} from '@/pageStateKeeper'
 import { redirectToSpotifyAuth } from "@/utils";
 
 let spotifyUrl = 'https://api.spotify.com/v1/'
@@ -17,7 +15,6 @@ function setupInterceptors() {
         return response
     }, async (error) => {
         if (error.response.status === 401) {
-            recommendationsKeeper(store)
             await redirectToSpotifyAuth()
 
         }

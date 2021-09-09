@@ -161,7 +161,7 @@ let spotifyApiMixin = {
             return playlistData
         },
         getUserPlaylists: async function () {
-            return api({
+            return axios({
                 method: 'GET',
                 url: spotifyUrl + 'me/playlists',
                 headers: {
@@ -197,7 +197,14 @@ let spotifyApiMixin = {
             let vm = this
             let playlistData = null
             let defaultPlaylist
-            let userPlaylists = await this.getUserPlaylists()
+            let userPlaylists
+            try {
+                userPlaylists = await this.getUserPlaylists()
+            } catch (error) {
+                if (error.response.status === 401) {
+                    await redirectToSpotifyAuth()
+                }
+            }
             defaultPlaylist = userPlaylists.data.items.filter(obj => {
                 return obj.name === 'Playlist by Spotifind'
             })
@@ -210,8 +217,7 @@ let spotifyApiMixin = {
                 console.log(proceedTracks)
                 await this.deleteTracksFromPlaylist(defaultPlaylist[0].id, proceedTracks)
                 return {data: defaultPlaylist[0]}
-            }
-            else {
+            } else {
                 await axios({
                     method: 'POST',
                     url: spotifyUrl + `users/${user_data.id}/playlists`,
@@ -256,8 +262,7 @@ let spotifyApiMixin = {
             let newPlaylistData
             if (this.$store.state.isDefaultPlaylist) {
                 newPlaylistData = await this.createDefaultPlaylist()
-            }
-            else {
+            } else {
                 newPlaylistData = await this.createNewPlaylist()
             }
             if (!newPlaylistData) {
