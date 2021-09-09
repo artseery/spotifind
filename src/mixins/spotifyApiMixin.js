@@ -203,6 +203,8 @@ let spotifyApiMixin = {
             } catch (error) {
                 if (error.response.status === 401) {
                     await redirectToSpotifyAuth()
+                    console.log('error logon on create default playlist')
+                    return
                 }
             }
             defaultPlaylist = userPlaylists.data.items.filter(obj => {
