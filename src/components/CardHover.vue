@@ -39,13 +39,14 @@ $cardHeight: 300px
   position: relative
   height: 100%
   width: 100%
-  &:hover
-    .tw-lift__card
-      transform: translate($lift, -$lift)
-    .tw-lift__corner--top-left
-      transform: translateY(-$lift*2) scale(1)
-    .tw-lift__corner--bottom-right
-      transform: translateX($lift*2) scale(1)
+  @media(hover: hover)
+    &:hover
+      .tw-lift__card
+        transform: translate($lift, -$lift)
+      .tw-lift__corner--top-left
+        transform: translateY(-$lift*2) scale(1)
+      .tw-lift__corner--bottom-right
+        transform: translateX($lift*2) scale(1)
   &__card
     width: 100%
     height: 100%
