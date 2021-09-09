@@ -32,7 +32,7 @@
           <span slot="maxElements">Max genres selected</span>
         </multiselect>
       </div>
-      <div @click="toggleDefaultPlaylist" class="save-in-same-playlist" :class="{'enabled': $store.state.isDefaultPlaylist}">
+      <div v-if="$store.state.logged" @click="toggleDefaultPlaylist" class="save-in-same-playlist" :class="{'enabled': $store.state.isDefaultPlaylist}">
         <span>Save to default playlist</span>
       </div>
       <div v-if="$store.state.logged"
