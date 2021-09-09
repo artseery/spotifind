@@ -17,7 +17,8 @@ const store = new Vuex.Store({
         genres: [],
         selected_genres: null,
         filters: null,
-        logged: false
+        logged: false,
+        isDefaultPlaylist: false
     },
     mutations: {
         updateResults(state, data) {
@@ -74,6 +75,9 @@ const store = new Vuex.Store({
         },
         setLoggedState(state, payload) {
             state.logged = payload
+        },
+        toggleDefaultPlaylist(state) {
+            state.isDefaultPlaylist = !state.isDefaultPlaylist
         }
     },
     actions: {
@@ -121,6 +125,9 @@ const store = new Vuex.Store({
         },
         setLoggedState({commit}, payload) {
             commit('setLoggedState', payload)
+        },
+        toggleDefaultPlaylist({commit}) {
+            commit('toggleDefaultPlaylist')
         }
     }
 })

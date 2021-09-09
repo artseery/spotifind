@@ -32,12 +32,15 @@
           <span slot="maxElements">Max genres selected</span>
         </multiselect>
       </div>
+      <div @click="toggleDefaultPlaylist" class="save-in-same-playlist" :class="{'enabled': $store.state.isDefaultPlaylist}">
+        <span>Save to default playlist</span>
+      </div>
       <div v-if="$store.state.logged"
            class="button_add_playlist-wrapper">
         <button class="button_add_playlist" @click="createRecsPlaylist" :disabled="loading"
                 :class="{ 'loading': loading }">
           <loading-component :size="20" :thickness="2" :color-main="'#6bbeec'" :color-part="'#2b74d2'" v-if="loading"/>
-          <span v-else>Add playlist</span>
+          <span v-else>Save</span>
         </button>
         <!--Переписать кнопку в отдельный компонент-->
       </div>
@@ -85,6 +88,9 @@ export default {
       await this.$store.dispatch('setFilterValuesByKey', [key, event.target.value])
       await this.updateRecommendations()
     },
+    toggleDefaultPlaylist: function () {
+      this.$store.dispatch('toggleDefaultPlaylist')
+    },
     changeFilterState: function (item, key) {
       let newState = !item.enabled
       this.$store.dispatch('changeFilterState', [key, newState])
@@ -105,6 +111,9 @@ export default {
         this.track = response.data
         this.$store.commit('initFilters')
       })
+    },
+    track: function () {
+      this.$store.dispatch('chooseActiveTrack', this.track)
     }
   }
 }
@@ -229,6 +238,24 @@ export default {
   .multiselect-wrapper
     margin-top: 10px
 
+  .save-in-same-playlist
+    width: 100%
+    border-radius: 50px
+    height: 40px
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    margin-top: 10px
+    border: 1px solid $font-color-accessory-dark
+    color: $font-color-accessory-dark
+    cursor: pointer
+    user-select: none
+    transition: all .1s ease-in
+    &.enabled
+      background: $spotify-color
+      color: white
+      border-color: $spotify-color
   input[type=range]
     background: transparent
     width: 120px

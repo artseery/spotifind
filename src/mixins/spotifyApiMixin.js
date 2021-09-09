@@ -160,7 +160,81 @@ let spotifyApiMixin = {
             })
             return playlistData
         },
+        getUserPlaylists: async function () {
+            return api({
+                method: 'GET',
+                url: spotifyUrl + 'me/playlists',
+                headers: {
+                    'Authorization': this.access_data().token_type + ' ' + this.access_data().access_token
+                }
+            })
+        },
+        getTracksFromPlaylist: async function (id) {
+            return api({
+                method: 'GET',
+                url: spotifyUrl + `playlists/${id}/tracks?fields=items(track.uri)`,
+                headers: {
+                    'Authorization': this.access_data().token_type + ' ' + this.access_data().access_token
+                }
+            })
+        },
+        deleteTracksFromPlaylist: async function (id, tracks) {
+            await api({
+                method: 'DELETE',
+                url: spotifyUrl + `playlists/${id}/tracks`,
+                headers: {
+                    'Authorization': this.access_data().token_type + ' ' + this.access_data().access_token,
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    tracks: tracks
+                }
+            })
+            console.log('deleted')
+        },
+        createDefaultPlaylist: async function () {
+            let user_data = JSON.parse(window.localStorage.user_data)
+            let vm = this
+            let playlistData = null
+            let defaultPlaylist
+            let userPlaylists = await this.getUserPlaylists()
+            defaultPlaylist = userPlaylists.data.items.filter(obj => {
+                return obj.name === 'Playlist by Spotifind'
+            })
+            if (defaultPlaylist.length !== 0) {
+                let tracks = await this.getTracksFromPlaylist(defaultPlaylist[0].id)
+                let proceedTracks = []
+                for (let track of tracks.data.items) {
+                    proceedTracks.push(track.track)
+                }
+                console.log(proceedTracks)
+                await this.deleteTracksFromPlaylist(defaultPlaylist[0].id, proceedTracks)
+                return {data: defaultPlaylist[0]}
+            }
+            else {
+                await axios({
+                    method: 'POST',
+                    url: spotifyUrl + `users/${user_data.id}/playlists`,
+                    headers: {
+                        'Authorization': vm.access_data().token_type + ' ' + vm.access_data().access_token,
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        name: `Playlist by Spotifind`,
+                        public: true
+                    }
+                }).then(response => {
+                    playlistData = response
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        redirectToSpotifyAuth()
+                    }
+                })
+                return playlistData
+            }
+        },
         addRecommendedTracksToPlaylist: function (playlist_id) {
+            console.log('adding')
             let uris = this.$store.state.recommendations.tracks.map(item => {
                 return item.uri
             })
@@ -179,7 +253,13 @@ let spotifyApiMixin = {
         },
         createRecsPlaylist: async function () {
             this.loading = true
-            let newPlaylistData = await this.createNewPlaylist()
+            let newPlaylistData
+            if (this.$store.state.isDefaultPlaylist) {
+                newPlaylistData = await this.createDefaultPlaylist()
+            }
+            else {
+                newPlaylistData = await this.createNewPlaylist()
+            }
             if (!newPlaylistData) {
                 window.addEventListener('storage', e => {
                     if (e.key === 'access_data') {
