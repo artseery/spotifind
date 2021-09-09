@@ -211,7 +211,7 @@ export default {
       outline: none
 
   .button_add_playlist-wrapper
-    margin-top: 20px
+    margin-top: 10px
     width: 100%
 
     .button_add_playlist
@@ -246,7 +246,7 @@ export default {
     flex-direction: row
     justify-content: center
     align-items: center
-    margin-top: 10px
+    margin-top: 20px
     border: 1px solid $font-color-accessory-dark
     color: $font-color-accessory-dark
     cursor: pointer
