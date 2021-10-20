@@ -58,7 +58,6 @@ export default {
       }
       if(e.key === 'user_data') {
         this.user_data = JSON.parse(window.localStorage.user_data)
-        console.log(window.localStorage.user_data)
       }
     })
   },
