@@ -1,18 +1,18 @@
 <template>
   <div class="recommendations-list-wrapper">
     <div class="recommendations-list">
-      <track-card v-for="track in tracks" :key="track.id" :track="track" :form="'sqr'"/>
+      <square-card v-for="track in tracks" :key="track.id" :track="track"/>
     </div>
   </div>
 </template>
 
 <script>
-import TrackCard from "@/components/TrackCard";
+import SquareCard from "@/newComponents/SquareCard";
 
 export default {
   props: ['tracks'],
   name: "RecommendationList",
-  components: { TrackCard }
+  components: {SquareCard}
 }
 </script>
 
