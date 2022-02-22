@@ -32,7 +32,7 @@ const routes = [
         }
     },
     {
-        path: '/image',
+        path: '/camera',
         components: {
             default: ARImage
         },
