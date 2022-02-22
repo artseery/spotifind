@@ -6,7 +6,7 @@
     <a-assets>
       <video id="test"
              muted
-             src="../assets/giphy.gif"
+             src="../assets/giphy.mp4"
              autoplay
              loop="true"></video>
     </a-assets>
