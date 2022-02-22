@@ -16,8 +16,8 @@
                muted
                autoplay
                scale="-1"
-               width="5"
-               height="5"
+               width="6"
+               height="6"
                position="0 0 0"/>
     </a-marker>
     <a-entity camera></a-entity>
