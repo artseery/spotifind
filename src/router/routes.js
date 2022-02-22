@@ -1,6 +1,7 @@
 import RecommendationsComponent from "@/components/RecommendationComponent";
 import NavPanel from "@/components/NavPanel";
 import SearchMainPage from "@/components/SearchMainPage";
+import ARImage from "@/components/ARImage";
 
 const routes = [
     { path: '', redirect: { name: 'main' }},
@@ -29,7 +30,15 @@ const routes = [
             logoIcon: true,
             searchElem: true
         }
+    },
+    {
+        path: '/image',
+        components: {
+            default: ARImage
+        },
+        name: 'image',
     }
+
 ]
 
 export default routes
