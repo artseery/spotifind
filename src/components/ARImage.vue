@@ -2,22 +2,26 @@
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <a-scene
-           embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix;'>
+      class="a-scene"
+      vr-mode-ui="enabled: false;"
+>
     <a-assets>
       <img id="test"
            src="../assets/pitsa.png"/>
     </a-assets>
-    <a-marker
-        type="pattern"
-        preset="custom"
-        url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt?123999222"
-    >
+    <a-nft
+        type="nft"
+        url="../assets/descriptors/qr"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance=".01"
+        smoothThreshold="5">
       <a-image src="#test" rotation="90 180 0"
                scale="1"
                width="1"
                height="1"
                position="0 0 0"/>
-    </a-marker>
+    </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
 </template>
