@@ -5,7 +5,7 @@
            embedded arjs='sourceType: webcam;'>
     <a-assets>
       <img id="test"
-           src="../assets/pitsa.png"/>
+           src="https://leonardo.osnova.io/bc463a67-10b0-56ea-bada-ede78ba2d2b4/"/>
     </a-assets>
     <a-marker
         type="pattern"
