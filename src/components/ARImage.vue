@@ -10,7 +10,7 @@
     <a-marker
         type="pattern"
         preset="custom"
-        url="https://cdn.discordapp.com/attachments/610130797814611970/949018395402195004/pattern.patt"
+        url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt?123"
     >
       <a-image src="#test" rotation="90 180 0"
                scale="1"
