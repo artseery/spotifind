@@ -10,7 +10,7 @@
     <a-marker
         type="pattern"
         preset="custom"
-        url="../assets/pattern.patt"
+        url="https://cdn.discordapp.com/attachments/610130797814611970/949018395402195004/pattern.patt"
     >
       <a-image src="#test" rotation="90 180 0"
                scale="1"
