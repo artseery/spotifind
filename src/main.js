@@ -18,7 +18,8 @@ Vue.config.ignoredElements = [
     'a-asset-item',
     'a-entity',
     'a-marker',
-    'a-video'
+    'a-video',
+    'a-nft'
 ]
 
 setupInterceptors()

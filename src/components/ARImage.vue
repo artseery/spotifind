@@ -1,21 +1,19 @@
 <template>
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-  <a-scene embedded
-           arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+  <a-scene
+           embedded arjs='sourceType: webcam;'>
     <a-assets>
-      <video id="test"
-             muted
-             src="../assets/giphy.mp4"
-             autoplay
-             loop="true"></video>
+      <img id="test"
+           src="../assets/pitsa.png"/>
     </a-assets>
-    <a-marker type='barcode' value='7'>
-      <a-video src="#test" rotation="90 180 0"
-               play="true"
-               muted
-               autoplay
-               scale="-1"
+    <a-marker
+        type="pattern"
+        preset="custom"
+        url="../assets/pattern.patt"
+    >
+      <a-image src="#test" rotation="90 180 0"
+               scale="1"
                width="6"
                height="6"
                position="0 0 0"/>
@@ -30,11 +28,7 @@ export default {
   mounted() {
     document.querySelector('a-scene').addEventListener('markerFound', () => {
       console.log('Marker found')
-      let v = document.querySelector('#test');
-      v.play();
-      console.log(v)
     })
-
   }
 }
 </script>
