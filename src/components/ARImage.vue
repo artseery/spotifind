@@ -1,7 +1,7 @@
 <template>
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-  <a-scene embedded arjs>
+  <a-scene class="a-scene" embedded arjs>
     <a-assets>
       <img id="test"
            src="../assets/pitsa.png"/>
