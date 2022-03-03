@@ -1,7 +1,8 @@
 <template>
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-  <a-scene class="a-scene" embedded arjs>
+  <a-scene
+           embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix;'>
     <a-assets>
       <img id="test"
            src="../assets/pitsa.png"/>
@@ -9,7 +10,7 @@
     <a-marker
         type="pattern"
         preset="custom"
-        url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt?12399922"
+        url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt?123999222"
     >
       <a-image src="#test" rotation="90 180 0"
                scale="1"
