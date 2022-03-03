@@ -4,7 +4,10 @@
   <a-scene
       class="a-scene"
       vr-mode-ui="enabled: false;"
->
+      renderer="logarithmicDepthBuffer: true;"
+      embedded
+      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
     <a-assets>
       <img id="test"
            src="../assets/pitsa.png"/>
