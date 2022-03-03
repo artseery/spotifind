@@ -10,7 +10,7 @@
     <a-marker
         type="pattern"
         preset="custom"
-        url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt?1230"
+        url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt?12399"
     >
       <a-image src="#test" rotation="90 180 0"
                scale="1"
