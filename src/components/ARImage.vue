@@ -2,10 +2,10 @@
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <a-scene
-           embedded arjs='sourceType: webcam;'>
+           embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix;'>
     <a-assets>
       <img id="test"
-           src="https://leonardo.osnova.io/bc463a67-10b0-56ea-bada-ede78ba2d2b4/"/>
+           src="../assets/pitsa.png"/>
     </a-assets>
     <a-marker
         type="pattern"
