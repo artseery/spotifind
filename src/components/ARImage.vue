@@ -14,8 +14,8 @@
     >
       <a-image src="#test" rotation="90 180 0"
                scale="1"
-               width="6"
-               height="6"
+               width="1"
+               height="1"
                position="0 0 0"/>
     </a-marker>
     <a-entity camera></a-entity>
