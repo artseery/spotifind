@@ -8,14 +8,13 @@
            src="../assets/pitsa.png"/>
     </a-assets>
     <a-marker
-        type="pattern"
-        preset="custom"
-        url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt?123999222"
+        type="barcode"
+        value="7"
     >
       <a-image src="#test" rotation="90 180 0"
-               scale="1"
-               width="1"
-               height="1"
+               scale="-1"
+               width="3"
+               height="3"
                position="0 0 0"/>
     </a-marker>
     <a-entity camera></a-entity>
