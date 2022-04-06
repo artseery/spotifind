@@ -20,21 +20,19 @@
       <!-- a-nft is the anchor that defines an Image Tracking entity -->
       <!-- on 'url' use the path to the Image Descriptors created before. -->
       <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
-      <a-nft
-          type="nft"
-          url="../spotifind/card"
+      <a-marker
+          type="pattern"
+          url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt"
           smooth="true"
           smoothCount="10"
           smoothTolerance=".01"
           smoothThreshold="5"
       >
         <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-        <a-image src="#test" rotation="90 180 0"
-                 scale="1"
-                 width="1"
-                 height="1"
-                 position="0 0 0"/>
-      </a-nft>
+        <a-entity
+            gltf-model=""
+        />
+      </a-marker>
       <!-- static camera that moves according to the device movemenents -->
       <a-entity camera></a-entity>
     </a-scene>

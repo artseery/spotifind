@@ -1,5 +1,5 @@
 import axios from "axios";
-import {client_secret} from "@/authorizationToken";
+//import {client_secret} from "@/authorizationToken";
 import {api} from "@/api";
 import {redirectToSpotifyAuth} from "@/utils";
 
@@ -23,7 +23,7 @@ let spotifyApiMixin = {
                 method: 'POST',
                 url: 'https://accounts.spotify.com/api/token',
                 headers: {
-                    'Authorization': client_secret,
+                    //'Authorization': client_secret,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 data: 'grant_type=client_credentials'

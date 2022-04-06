@@ -1,17 +1,17 @@
 import {recommendationsKeeper} from "@/pageStateKeeper";
 import store from "@/store/store";
-import {client_id} from "@/authorizationToken";
+//import {client_id} from "@/authorizationToken";
 import {api, spotifyUrl} from "@/api";
 
-let spotify_accounts_url = 'https://accounts.spotify.com/'
+//let spotify_accounts_url = 'https://accounts.spotify.com/'
 let setUserDataEvent = new Event('setUserData')
 
 async function redirectToSpotifyAuth() {
-    let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private streaming user-read-email user-read-private'
-    let encodedScopes = encodeURIComponent(scopes)
+    //let scopes = 'user-read-currently-playing user-read-playback-state playlist-modify-public playlist-modify-private streaming user-read-email user-read-private'
+    //let encodedScopes = encodeURIComponent(scopes)
     await recommendationsKeeper(store)
-    window.open(spotify_accounts_url +
-        `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=${window.location.protocol}//${window.location.host}${require('../vue.config.js').publicPath}`, 'spoty_auth', 'width=600,height=400')
+    //window.open(spotify_accounts_url +
+        //  `authorize?client_id=${client_id}&response_type=token&scope=${encodedScopes}&redirect_uri=${window.location.protocol}//${window.location.host}${require('../vue.config.js').publicPath}`, 'spoty_auth', 'width=600,height=400')
 }
 
 async function setUserData() {
