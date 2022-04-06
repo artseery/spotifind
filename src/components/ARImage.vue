@@ -30,7 +30,7 @@
       >
         <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
         <a-entity
-            gltf-model=""
+            gltf-model="https://raw.githubusercontent.com/artseery/spotifind/master/public/scene.gltf"
         />
       </a-marker>
       <!-- static camera that moves according to the device movemenents -->
