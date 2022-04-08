@@ -4,7 +4,11 @@
   <a-scene embedded
            renderer="logarithmicDepthBuffer: true;"
            arjs="trackingMethod: best; debugUIEnabled: false; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;">
-    <a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/artseery/spotifind/master/public/pattern.patt'>
+    <a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/artseery/spotifind/master/public/pattern.patt'
+              smooth="true"
+              smoothCount="10"
+              smoothTolerance=".01"
+              smoothThreshold="5">
       <a-entity
           position="0 0 0"
           scale="0.5 0.5 0.5"
