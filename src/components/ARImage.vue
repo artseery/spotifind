@@ -1,41 +1,18 @@
 <template>
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
   <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-  <a-scene
-      vr-mode-ui="enabled: false;"
-      renderer="logarithmicDepthBuffer: true;"
-      embedded
-      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-  >
-    <a-assets>
-      <img id="test" width="984" height="774"
-           src="../assets/pitsa.png"/>
-      <img id="test1" width="106" height="98"
-           src="../assets/heart1.png"/>
-      <img id="test2" width="173" height="161"
-           src="../assets/heart2.png"/>
-      <img id="test3" width="890" height="206"
-           src="../assets/text.png"/>
-    </a-assets>
-      <!-- a-nft is the anchor that defines an Image Tracking entity -->
-      <!-- on 'url' use the path to the Image Descriptors created before. -->
-      <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
-      <a-marker
-          type="pattern"
-          url="https://raw.githubusercontent.com/artseery/spotifind/master/src/assets/pattern.patt"
-          smooth="true"
-          smoothCount="10"
-          smoothTolerance=".01"
-          smoothThreshold="5"
-      >
-        <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-        <a-entity
-            gltf-model="https://raw.githubusercontent.com/artseery/spotifind/master/public/scene.gltf"
-        />
-      </a-marker>
-      <!-- static camera that moves according to the device movemenents -->
-      <a-entity camera></a-entity>
-    </a-scene>
+  <a-scene embedded
+           renderer="logarithmicDepthBuffer: true;"
+           arjs="trackingMethod: best; debugUIEnabled: false; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;">
+    <a-marker preset="hiro">
+      <a-entity
+          position="0 0 0"
+          scale="0.5 0.5 0.5"
+          gltf-model="https://raw.githubusercontent.com/artseery/spotifind/master/public/scene/scene.gltf"
+      ></a-entity>
+    </a-marker>
+    <a-entity camera></a-entity>
+  </a-scene>
 </template>
 
 <script>
@@ -44,6 +21,9 @@ export default {
   mounted() {
     document.querySelector('a-scene').addEventListener('markerFound', () => {
       console.log('Marker found')
+    })
+    document.querySelector('a-scene').addEventListener('model-loaded', () => {
+      console.log('Model loaded')
     })
   }
 }
